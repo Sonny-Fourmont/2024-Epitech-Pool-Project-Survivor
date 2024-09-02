@@ -1,0 +1,13 @@
+{
+    "include": [
+        "src/**/*.ts"
+    ],
+    "compilerOptions": {
+        "module": "CommonJS",
+        "outDir": "./dist",
+        "target": "ES2020",
+        "noEmitOnError": true,
+        "strict": true,
+        "esModuleInterop": true
+    }
+}
