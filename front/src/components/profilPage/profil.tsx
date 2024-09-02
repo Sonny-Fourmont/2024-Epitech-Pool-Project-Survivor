@@ -7,22 +7,25 @@
 
 import React, { useState } from "react";
 
-const EditableParagraph: React.FC<{ isEditing: boolean; text: string; onTextChange: (text: string) => void }> = ({ isEditing, text, onTextChange }) => {
+const EditableField: React.FC<{label: string; value: string; isEditing: boolean; onValueChange: (newValue: string) => void;}> = ({ label, value, isEditing, onValueChange }) => {
   return (
-    <td>
-      {isEditing ? (<textarea value={text} onChange={(e) => onTextChange(e.target.value)}/>) : (text)}
-    </td>
+    <tr>
+      <td>{label}</td>
+      <td>
+        {isEditing ? (<textarea value={value} onChange={(e) => onValueChange(e.target.value)}/>) : (value)}
+      </td>
+    </tr>
   );
 };
 
 const Profil: React.FC = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [text, setText] = useState<string>("Add a short description here");
+  const [fields, setFields] = useState({ address: "Rue champs elysee", description: "Add a short description here", name: "Maria Anders"});
   const handleEditClick = () => {
-    setIsEditing(!isEditing);
+    setIsEditing((prevState) => !prevState);
   };
-  const handleTextChange = (newText: string) => {
-    setText(newText);
+  const handleFieldChange = (field: keyof typeof fields, newValue: string) => {
+    setFields((prevFields) => ({ ...prevFields, [field]: newValue }));
   };
 
   return (
@@ -30,30 +33,18 @@ const Profil: React.FC = () => {
       <h1>PROFIL</h1>
       <table>
         <tbody>
-          <tr>
-            <td>Name:</td>
-            <td>Maria Anders</td>
-          </tr>
+          <EditableField label="Name:" value={fields.name} isEditing={isEditing} onValueChange={(newValue) => handleFieldChange('name', newValue)}/>
           <tr>
             <td></td>
             <td><img src="../../../assets/survivor.jpg" alt="YouSuck" /></td>
           </tr>
-          <tr>
-            <td>Address:</td>
-            <td>somewhere</td>
-          </tr>
-          <tr>
-            <td>Phone number:</td>
-            <td>maybe</td>
-          </tr>
-          <tr>
-            <td>Description:</td>
-            <EditableParagraph isEditing={isEditing} text={text} onTextChange={handleTextChange}/>
-          </tr>
+          <EditableField label="Address:" value={fields.address} isEditing={isEditing} onValueChange={(newValue) => handleFieldChange('address', newValue)}/>
+          <EditableField label="Description:" value={fields.description} isEditing={isEditing} onValueChange={(newValue) => handleFieldChange('description', newValue)}/>
         </tbody>
       </table>
-      <button onClick={handleEditClick}>{isEditing ? 'Enregistrer' : 'Modifier'}</button>
-      <p>This is the about page of our application.</p>
+      <button onClick={handleEditClick}>
+        {isEditing ? 'Enregistrer' : 'Modifier'}
+      </button>
     </div>
   );
 };
