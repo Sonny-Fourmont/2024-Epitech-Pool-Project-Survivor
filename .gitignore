@@ -1,6 +1,10 @@
 # Dependencies
 front/node_modules
 
+# Back
+back/node_modules
+back/package-lock.json
+
 # Build
 /build
 
