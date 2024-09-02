@@ -1,15 +1,24 @@
-import React from 'react';
+/*
+** EPITECH PROJECT, 2024
+** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
+** File description:
+** App
+*/
 
-function App() {
+import React from 'react';
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
+
+import Login from './components/loginPage';
+
+const App: React.FC = () => {
   return (
-    <div className="app">
-      <header className="App-header">
-        <p>
-          Yo lékip
-        </p>
-      </header>
+    <div>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+		<Route path="*" element={<Navigate to={"/"} />}/>
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
