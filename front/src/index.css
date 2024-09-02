@@ -1,121 +1,155 @@
 /* -------------- General items --------------*/
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  background-image: url('../public/assets/login-background.jpg');
-}
-
 body {
-  margin: 0;
   font-family: 'Outfit', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #f6f7fb 0%, #f1cff0 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-p {
-  padding-top: 15rem;
+h1, h3 {
   text-align: center;
-  font-size: 1.6rem;
+  color: #222;
+  margin-bottom: 20px;
+  letter-spacing: 1.5px;
 }
 
-h1 {
-  padding-top: 5rem;
-  text-align: center;
-  font-size: 6rem;
+.container, .login {
+  max-width: 800px;
+  width: 100%;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.5s ease-in-out;
+  margin: 20px;
 }
-
-/* -------------- Login items --------------*/
-
-.background {
-  width: 430px;
-  height: 520px;
-  position: absolute;
-  transform: translate(-50%,-50%);
-  left: 50%;
-  top: 50%;
-}
-
-.background .shape{
-  height: 200px;
-  width: 200px;
-  position: absolute;
+.profilPicture {
+  display: block;
+  margin: auto;
+  padding: 1vw;
+  align-self: center;
+  height: 10vw;
+  width: 10vw;
   border-radius: 50%;
+  position: relative;
 }
 
-form{
-  height: 520px;
-  width: 400px;
-  background-color: rgba(255,255,255,0.13);
-  position: absolute;
-  transform: translate(-50%,-50%);
-  top: 50%;
-  left: 50%;
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0 40px rgba(8,7,16,0.6);
-  padding: 50px 35px;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-form *{
-  font-family: 'Poppins',sans-serif;
-  color: #ffffff;
-  letter-spacing: 0.5px;
-  outline: none;
-  border: none;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
-form h3{
-  font-size: 32px;
-  font-weight: 500;
-  line-height: 42px;
-  text-align: center;
-  background: none;
-  background-color: transparent;
-  border: none;
-}
-
-form label {
-  background: none;
-  background-color: transparent;
-  border: none;
-}
-
-label{
-  display: block;
-  margin-top: 30px;
+td {
+  padding: 15px;
+  vertical-align: middle;
+  border-bottom: 1px solid #eee;
   font-size: 16px;
-  font-weight: 500;
-  background-color: none;
 }
 
-input{
-  display: block;
-  height: 50px;
-  width: 100%;
-  background-color: rgba(255,255,255,0.07);
-  border-radius: 3px;
-  padding: 0 10px;
-  margin-top: 8px;
-  font-size: 14px;
-  font-weight: 300;
-}
-
-::placeholder{
-  color: #e5e5e5;
-}
-
-button{
-  margin-top: 50px;
-  width: 100%;
-  background-color: #ffffff;
-  color: #ffffff;
-  padding: 15px 0;
-  font-size: 18px;
+td:first-child {
   font-weight: 600;
-  border-radius: 5px;
+  color: #555;
+  width: 30%;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-top: 15px;
+}
+
+textarea {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+textarea:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+  outline: none;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, #6e8efb 0%, #a777e3 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #5a7cfb 0%, #9967e3 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.login form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login form label {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #555;
+}
+
+.login form input {
+  width: 90%;
+  padding: 15px;
+  margin-top: 5px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login form input:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+  outline: none;
+}
+
+.login form button {
+  background: linear-gradient(135deg, #6e8efb 0%, #a777e3 100%);
+  margin-top: 30px;
 }
