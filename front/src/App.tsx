@@ -6,14 +6,16 @@
 */
 
 import React from 'react';
-import { Routes, Route, Link, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
+import Home from './components/homePage';
 import Login from './components/loginPage';
 
 const App: React.FC = () => {
   return (
     <div>
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
 		<Route path="*" element={<Navigate to={"/"} />}/>
       </Routes>
