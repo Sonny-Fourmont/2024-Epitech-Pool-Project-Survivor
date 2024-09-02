@@ -8,9 +8,19 @@ import React from 'react';
 
 const Login: React.FC = () => {
   return (
-    <div>
-      <h1>Welcome to the Login page!</h1>
-    </div>
+    <section className='login'>
+      <form>
+        <h3>Login Here</h3>
+
+        <label>Username</label>
+        <input type="text" className="login-box" name="email" placeholder="Email"/>
+        <label>Password</label>
+        <input type="text" className="login-box" name="password" placeholder="Password"/>
+
+        <button>Log In</button>
+
+      </form>
+    </section>
   );
 };
 
