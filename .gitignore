@@ -1,0 +1,9 @@
+# Dependencies
+front/node_modules
+
+# Build
+/build
+
+# Miscellaneous
+.DS_Store
+.env
