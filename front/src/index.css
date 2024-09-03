@@ -201,6 +201,7 @@ input[type="file"] {
 
 .nav-right {
   float: right;
+  display: flex;
 }
 
 .icon {
