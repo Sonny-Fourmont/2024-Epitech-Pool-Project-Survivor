@@ -7,65 +7,119 @@
 
 import React, { useState } from "react";
 import NavBar from "../navbar/Navbar";
-
-const EditableImage: React.FC<{ isEditing: boolean; imageSrc: string; onImageChange: (newImage: string) => void; }> = ({ isEditing, imageSrc, onImageChange }) => {
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (e.target?.result) {
-          onImageChange(e.target.result as string);
-        }
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  };
-  return(
-    <div className="image-container">
-      {isEditing ? (<input type="file" accept="image/png, image/jpeg" onChange={handleImageChange} />) : (<img src={imageSrc} alt="Profil" className="profilPicture"/>)}
-    </div>
-  );
-};
-
-const EditableField: React.FC<{label: string; value: string; isEditing: boolean; onValueChange: (newValue: string) => void;}> = ({ label, value, isEditing, onValueChange }) => {
-  return (
-    <tr>
-      <td>{label}</td>
-      <td>
-        {isEditing ? (<textarea value={value} onChange={(e) => onValueChange(e.target.value)}/>) : (value)}
-      </td>
-    </tr>
-  );
-};
+import StarRating from "../starRating/starRating"
+import "../../CSSProfile.css"
 
 const Profile: React.FC = () => {
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [fields, setFields] = useState({ address: "Rue champs elysee", description: "Add a short description here", name: "Maria Anders", imageSrc: "../../../assets/survivor.jpg"});
+  const [fields] = useState({
+    name: "Jeanne Martin",
+    address: "Rue champs elysee",
+    email: "jeanne.martin@soul-connection.fr"});
 
-  const handleEditClick = () => {
-    setIsEditing((prevState) => !prevState);
-  };
-
-  const handleFieldChange = (field: keyof typeof fields, newValue: string) => {
-    setFields((prevFields) => ({ ...prevFields, [field]: newValue }));
+  const handleRatingChange = (newRating: number) => {
+    console.log(`New rating is: ${newRating}`);
   };
 
   return (
     <>
       <NavBar/>
-      <div className="container">
-        <h1>PROFILE</h1>
-        <EditableImage isEditing={isEditing} imageSrc={fields.imageSrc} onImageChange={(newImage) => handleFieldChange("imageSrc", newImage)}/>
-        <table>
-          <tbody>
-            <EditableField label="Name:" value={fields.name} isEditing={isEditing} onValueChange={(newValue) => handleFieldChange('name', newValue)}/>
-            <EditableField label="Address:" value={fields.address} isEditing={isEditing} onValueChange={(newValue) => handleFieldChange('address', newValue)}/>
-            <EditableField label="Description:" value={fields.description} isEditing={isEditing} onValueChange={(newValue) => handleFieldChange('description', newValue)}/>
-          </tbody>
-        </table>
-        <button onClick={handleEditClick}>
-          {isEditing ? 'Enregistrer' : 'Modifier'}
-        </button>
+      <div className="client-size">
+        <h2 className="titleClient">Customer Details</h2>
+        <div className="container">
+          <table className="left">
+            <thead>
+              <tr>
+              <th colSpan={3} className="profil-header">
+                <img src="../../../assets/survivor.jpg" alt="Profil" className="profilPicture" />
+                <p className="name-container">{fields.name}</p>
+              </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="text-Flex">
+                <td className="statistic-customers">23</td>
+                <td className="statistic-customers">20</td>
+                <td className="statistic-customers">3</td>
+              </tr>
+              <tr className="text-Flex">
+                <td className="statistic-customers">Total<br/>Encounters</td>
+                <td className="statistic-customers">Progress</td>
+                <td className="statistic-customers">Positives</td>
+              </tr>
+              <tr className="interSpace">
+                <p>User ID:</p>
+                <p>A Number</p>
+              </tr>
+              <tr className="interSpace">
+                <p>Email:</p>
+                <p>{fields.email}</p>
+              </tr>
+              <tr className="interSpace">
+                <p>Address:</p>
+                <p>{fields.address}</p>
+              </tr>
+              <tr className="interSpace">
+                <p>Last Activity:</p>
+                <p>One day</p>
+              </tr>
+              <tr className="interSpace">
+                <p>Coach:</p>
+                <p>Someone</p>
+              </tr>
+            </tbody>
+          </table>
+
+          <table className="right">
+          <h5>Recent Meeting</h5>
+          <table className="clientsTable">
+            <tbody>
+              <tr>
+                <th>Date</th>
+                <th>Rating</th>
+                <th>Report</th>
+                <th>Source</th>
+              </tr>
+              <tr>
+                <td>23 Jul 2024</td>
+                <td>
+                  <StarRating maxStars={5} initialRating={3} onRatingChange={handleRatingChange} />
+                </td>
+                <td>A very good moment !</td>
+                <td>Dating app</td>
+              </tr>
+            </tbody>
+          </table>
+          <h5>Payment History</h5>
+          <table className="clientsTable">
+            <tbody>
+              <tr>
+                <th>Date</th>
+                <th>Payment Methode</th>
+                <th>Amount</th>
+                <th>Comment</th>
+              </tr>
+              <tr> {/*for exemple*/}
+                <td>20 Jul 2024</td>
+                <td>Visa</td>
+                <td>-$45.00</td>
+                <td>Monthly Subscription</td>
+              </tr>
+              <tr>
+                <td>20 Jul 2024</td>
+                <td>Visa</td>
+                <td>-$45.00</td>
+                <td>Monthly Subscription</td>
+              </tr>
+              <tr>
+                <td>20 Jul 2024</td>
+                <td>Visa</td>
+                <td>-$45.00</td>
+                <td>Monthly Subscription</td>
+              </tr> {/*for exemple end*/}
+            </tbody>
+          </table>
+          </table>
+        </div>
       </div>
     </>
   );
