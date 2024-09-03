@@ -16,12 +16,14 @@ const PORT: number = parseInt(`${process.env.NODE_PORT}`);
 
 // Features
 import {initDb} from './config/dbConfig';
+import router from './routes/router';
+
 initDb();
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use('/');
+app.use('/', router);
 
 // Routes
 app.get('/', (req: Request, res: Response) => {
