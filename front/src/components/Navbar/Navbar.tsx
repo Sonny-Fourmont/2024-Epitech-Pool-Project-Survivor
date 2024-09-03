@@ -6,36 +6,103 @@
 */
 
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const NavBar: React.FC = () => {
   return (
     <>
-      <nav className="navbar">
+      <nav className="navbar" id="topnav">
         <div className="navbar-wrapper">
-          <div className="nav-items">
-            <a href="/">
-              <p className="icon">Home</p>
-            </a>
-            <a href="/account">
-              <p className="icon">Account</p>
-            </a>
-            <a href="/profil">
-              <p className="icon">Profile</p>
-            </a>
-            <a href="/stats">
-              <p className="icon">Stats</p>
-            </a>
-            <a href="/advices">
-              <p className="icon">Advices</p>
-            </a>
-            <a href="/events">
+          <h2>Soul connection</h2>
+          <div className="nav-center">
+            <NavLink to="/" style={({ isActive }) => {
+              return {
+                height: "65%",
+                cursor: "pointer",
+                margin: "0 10px",
+                display: "inline-block",
+                borderBottom: isActive ? "solid" : "hidden",
+                fontWeight: isActive ? "bold" : "",
+                color: isActive ? "blue" : "black",
+              };
+            }}>
+              <p className="icon">Dashboard</p>
+            </NavLink>
+            <NavLink to="/coaches" style={({ isActive }) => {
+              return {
+                height: "65%",
+                cursor: "pointer",
+                margin: "0 10px",
+                display: "inline-block",
+                borderBottom: isActive ? "solid" : "hidden",
+                fontWeight: isActive ? "bold" : "",
+                color: isActive ? "blue" : "black",
+              };
+            }}>
+              <p className="icon">Coaches</p>
+            </NavLink>
+            <NavLink to="/customers" style={({ isActive }) => {
+              return {
+                height: "65%",
+                cursor: "pointer",
+                margin: "0 10px",
+                display: "inline-block",
+                borderBottom: isActive ? "solid" : "hidden",
+                fontWeight: isActive ? "bold" : "",
+                color: isActive ? "blue" : "black",
+              };
+            }}>
+              <p className="icon">Customers</p>
+            </NavLink>
+            <NavLink to="/tips" style={({ isActive }) => {
+              return {
+                height: "65%",
+                cursor: "pointer",
+                margin: "0 10px",
+                display: "inline-block",
+                borderBottom: isActive ? "solid" : "hidden",
+                fontWeight: isActive ? "bold" : "",
+                color: isActive ? "blue" : "black",
+              };
+            }}>
+              <p className="icon">Tips</p>
+            </NavLink>
+            <NavLink to="/events" style={({ isActive }) => {
+              return {
+                height: "65%",
+                cursor: "pointer",
+                margin: "0 10px",
+                display: "inline-block",
+                borderBottom: isActive ? "solid" : "hidden",
+                fontWeight: isActive ? "bold" : "",
+                color: isActive ? "blue" : "black",
+              };
+            }}>
               <p className="icon">Events</p>
-            </a>
-            <a href="/login">
-              <p className="icon">Login</p>
-            </a>
+            </NavLink>
+            <NavLink to="/account" style={({ isActive }) => {
+              return {
+                height: "65%",
+                cursor: "pointer",
+                margin: "0 10px",
+                display: "inline-block",
+                borderBottom: isActive ? "solid" : "hidden",
+                fontWeight: isActive ? "bold" : "",
+                color: isActive ? "blue" : "black",
+              };
+            }}>
+              <p className="icon">Account</p>
+            </NavLink>
+          </div>
+          <div className="nav-right">
+            <img src="../../../assets/message.png" alt="" className="nav-icon"/>
+            <img src="../../../assets/united-states-of-america.png" alt="" className="nav-icon"/>
+            <NavLink to="/login">
+              <img src="../../../assets/user.png" alt="" className="nav-icon"/>
+            </NavLink>
           </div>
         </div>
+
       </nav>
     </>
   );
