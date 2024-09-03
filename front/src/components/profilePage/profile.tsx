@@ -6,6 +6,7 @@
 */
 
 import React, { useState } from "react";
+import NavBar from "../navbar/Navbar";
 
 const EditableImage: React.FC<{ isEditing: boolean; imageSrc: string; onImageChange: (newImage: string) => void; }> = ({ isEditing, imageSrc, onImageChange }) => {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,20 +51,23 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <div className="container">
-      <h1>PROFILE</h1>
-      <EditableImage isEditing={isEditing} imageSrc={fields.imageSrc} onImageChange={(newImage) => handleFieldChange("imageSrc", newImage)}/>
-      <table>
-        <tbody>
-          <EditableField label="Name:" value={fields.name} isEditing={isEditing} onValueChange={(newValue) => handleFieldChange('name', newValue)}/>
-          <EditableField label="Address:" value={fields.address} isEditing={isEditing} onValueChange={(newValue) => handleFieldChange('address', newValue)}/>
-          <EditableField label="Description:" value={fields.description} isEditing={isEditing} onValueChange={(newValue) => handleFieldChange('description', newValue)}/>
-        </tbody>
-      </table>
-      <button onClick={handleEditClick}>
-        {isEditing ? 'Enregistrer' : 'Modifier'}
-      </button>
-    </div>
+    <>
+      <NavBar/>
+      <div className="container">
+        <h1>PROFILE</h1>
+        <EditableImage isEditing={isEditing} imageSrc={fields.imageSrc} onImageChange={(newImage) => handleFieldChange("imageSrc", newImage)}/>
+        <table>
+          <tbody>
+            <EditableField label="Name:" value={fields.name} isEditing={isEditing} onValueChange={(newValue) => handleFieldChange('name', newValue)}/>
+            <EditableField label="Address:" value={fields.address} isEditing={isEditing} onValueChange={(newValue) => handleFieldChange('address', newValue)}/>
+            <EditableField label="Description:" value={fields.description} isEditing={isEditing} onValueChange={(newValue) => handleFieldChange('description', newValue)}/>
+          </tbody>
+        </table>
+        <button onClick={handleEditClick}>
+          {isEditing ? 'Enregistrer' : 'Modifier'}
+        </button>
+      </div>
+    </>
   );
 };
 

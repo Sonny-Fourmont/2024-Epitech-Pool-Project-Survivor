@@ -8,20 +8,29 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import Home from './components/homePage';
-import Login from './components/loginPage';
+import Dashboard from './components/dashboardPage/dashboardPage';
+import Login from './components/loginPage/loginPage';
 import Profile from './components/profilePage/profile';
-import NavBar from './components/Navbar/Navbar';
+import Coaches from './components/coachesPage/coaches';
+import CustomersList from './components/customers/customersList';
+import Tips from './components/tipsPage/tipsPage';
+import Events from './components/eventsPage/eventsPage';
+import AccountPage from './components/accountPage/accountPage';
 
 const App: React.FC = () => {
   return (
     <div>
-      <NavBar/>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route element={<Navigate to="login" />} path="/" />
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/coaches" element={<Coaches />} />
+        <Route path="/customers" element={<CustomersList />} />
+        <Route path="/tips" element={<Tips />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/account" element={<AccountPage />} />
         <Route path="/profile" element={<Profile />} />
-		    <Route path="*" element={<Navigate to={"/"} />}/>
+		    <Route path="*" element={<Navigate to={"/login"} />}/>
       </Routes>
     </div>
   );

@@ -15,7 +15,7 @@ const NavBar: React.FC = () => {
         <div className="navbar-wrapper">
           <h2>Soul connection</h2>
           <div className="nav-center">
-            <NavLink to="/" style={({ isActive }) => {
+            <NavLink to="/dashboard" style={({ isActive }) => {
               return {
                 height: "65%",
                 cursor: "pointer",
