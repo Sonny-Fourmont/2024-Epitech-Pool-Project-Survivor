@@ -10,7 +10,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Home from './components/homePage';
 import Login from './components/loginPage';
-import Profil from './components/profilPage/profil';
+import Profile from './components/profilePage/profile';
 import NavBar from './components/Navbar/Navbar';
 
 const App: React.FC = () => {
@@ -20,7 +20,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/profil" element={<Profil />} />
+        <Route path="/profile" element={<Profile />} />
 		    <Route path="*" element={<Navigate to={"/"} />}/>
       </Routes>
     </div>
