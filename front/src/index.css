@@ -75,6 +75,8 @@ td:first-child {
 }
 
 img {
+  display: flex;
+  justify-content: center;
   max-width: 100%;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -120,6 +122,18 @@ button:hover {
 button:active {
   transform: translateY(0);
   box-shadow: none;
+}
+
+input[type="file"] {
+  padding: 0.5vw;
+  background: #f7f9fc;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  height: 10vw;
+  width: 10vw;
+  font-size: 1vw;
+  margin-bottom: 1vw;
 }
 
 .login form {
