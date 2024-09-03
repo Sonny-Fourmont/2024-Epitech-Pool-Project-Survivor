@@ -6,6 +6,8 @@
 */
 
 .name-container {
+  padding-bottom: 1vw;
+  border-bottom: 1px solid #ddd;
   margin-top: 1vw;
   margin-bottom: 2vw;
   font-weight: bold;
@@ -20,40 +22,59 @@
   width: 5vw;
   border-radius: 50%;
 }
-/* text-blue-600 */
+
 .container {
   align-items: stretch;
   display: flex;
   color: rgb(61, 101, 124);
 }
 
-.left {
-  border: 3px solid rgb(229, 235, 235);
+.left, .right {
+  border: 1px solid #ddd;
   margin-right: 1vw;
   margin-left: 1vw;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 0.3vw;
+}
+
+.left {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   width: 24%;
   height: 76vh;
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 0.3vw;
 }
 
 .right {
-  border: 3px solid rgb(229, 235, 235);
-  margin-left: 1vw;
   width: 73%;
   height: 0vh;
   max-height: 76vh;
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 0.3vw;
+}
+
+.horizontaleLineUp {
+  padding-top: 1vw;
+  border-top: 1px solid #ddd;
+}
+
+.horizontaleLineDown {
+  padding-bottom: 1vw;
+  border-bottom: 1px solid #ddd;
 }
 
 .clientsTable {
-  border: 3px solid rgb(233, 233, 233);
-  border-radius: 0.3vw;
-  text-align: left;
   width: 100%;
+  border-collapse: collapse;
+}
+
+.clientsTable tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.clientsTable th, .clientsTable td {
+  padding: 10px;
+  text-align: left;
+  border: none;
 }
 
 .client-size {
@@ -67,10 +88,45 @@
   color: rgb(72, 72, 121);
 }
 
-.text-Flex {display: flex;}
-.interSpace {line-height: 0.3vw;}
-.blank {margin-top: 2vw;}
+.text-Flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.interSpace td {
+  padding: 8px 5px;
+}
+
 .statistic-customers {
   text-align: center;
   width: 100%;
+}
+
+.customerTitleDetails {
+  color: #8ba3a7;
+  font-size: 13px;
+}
+
+.customerDetails {
+  color: #4c4c83;
+}
+
+.interLine {
+  line-height: 0.5vh;
+}
+
+.backButton {
+  margin-right: 1vw;
+  font-size: 15px;
+  font-weight: bold;
+  border: 1px solid #ddd;
+  background-color: white;
+  color: rgb(72, 72, 121);
+  border-radius: 0.3vw;
+  width: 6vw;
+  height: 2vw;
+}
+
+.flexBack {
+  align-items: center;
 }

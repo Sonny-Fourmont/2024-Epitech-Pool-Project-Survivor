@@ -24,7 +24,10 @@ const Profile: React.FC = () => {
     <>
       <NavBar/>
       <div className="client-size">
-        <h2 className="titleClient">Customer Details</h2>
+        <div className="text-Flex flexBack">
+          <h2 className="titleClient">Customer Details</h2>
+          <button className="backButton">← Back</button>
+        </div>
         <div className="container">
           <table className="left">
             <thead>
@@ -36,35 +39,37 @@ const Profile: React.FC = () => {
               </tr>
             </thead>
             <tbody>
+              <tr></tr>
               <tr className="text-Flex">
-                <td className="statistic-customers">23</td>
-                <td className="statistic-customers">20</td>
-                <td className="statistic-customers">3</td>
+                <td className="statistic-customers horizontaleLineUp">23</td>
+                <td className="statistic-customers horizontaleLineUp">20</td>
+                <td className="statistic-customers horizontaleLineUp">3</td>
               </tr>
               <tr className="text-Flex">
-                <td className="statistic-customers">Total<br/>Encounters</td>
-                <td className="statistic-customers">Progress</td>
-                <td className="statistic-customers">Positives</td>
+                <td className="statistic-customers horizontaleLineDown">Total<br/>Encounters</td>
+                <td className="statistic-customers horizontaleLineDown">Positives</td>
+                <td className="statistic-customers horizontaleLineDown">In Progress</td>
               </tr>
-              <tr className="interSpace">
-                <p>User ID:</p>
-                <p>A Number</p>
+              <h4>SHORT DETAILS</h4>
+              <tr className="interSpace interLine">
+                <p className="customerTitleDetails">User ID:</p>
+                <p className="customerDetails">A Number</p>
               </tr>
-              <tr className="interSpace">
-                <p>Email:</p>
-                <p>{fields.email}</p>
+              <tr className="interSpace interLine">
+                <p className="customerTitleDetails">Email:</p>
+                <p className="customerDetails">{fields.email}</p>
               </tr>
-              <tr className="interSpace">
-                <p>Address:</p>
-                <p>{fields.address}</p>
+              <tr className="interSpace interLine">
+                <p className="customerTitleDetails">Address:</p>
+                <p className="customerDetails">{fields.address}</p>
               </tr>
-              <tr className="interSpace">
-                <p>Last Activity:</p>
-                <p>One day</p>
+              <tr className="interSpace interLine">
+                <p className="customerTitleDetails">Last Activity:</p>
+                <p className="customerDetails">One day</p>
               </tr>
-              <tr className="interSpace">
-                <p>Coach:</p>
-                <p>Someone</p>
+              <tr className="interSpace interLine">
+                <p className="customerTitleDetails">Coach:</p>
+                <p className="customerDetails">Someone</p>
               </tr>
             </tbody>
           </table>

@@ -26,7 +26,7 @@ h1 {
 
 table {
   width: 100%;
-  border: 3px solid rgb(229, 235, 235);
+  border: 1px solid #ddd;
 }
 
 
@@ -64,7 +64,7 @@ textarea:focus {
   outline: none;
 }
 
-button {
+.login button {
   display: block;
   width: 100%;
   padding: 15px 20px;
@@ -82,6 +82,7 @@ button {
 button:hover {
   background: linear-gradient(135deg, #5a7cfb 0%, #9967e3 100%);
   transform: translateY(-2px);
+  color: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
