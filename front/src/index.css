@@ -15,9 +15,9 @@ body {
 }
 
 h1, h3 {
-  text-align: center;
   color: #222;
-  margin-bottom: 20px;
+  margin-top: 40vh;
+  margin-left: 68vh;
   letter-spacing: 1.5px;
 }
 
