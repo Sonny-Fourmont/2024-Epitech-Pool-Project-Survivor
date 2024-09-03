@@ -19,7 +19,7 @@ const NavBar: React.FC = () => {
             <a href="/account">
               <p className="icon">Account</p>
             </a>
-            <a href="/profil">
+            <a href="/profile">
               <p className="icon">Profile</p>
             </a>
             <a href="/stats">
