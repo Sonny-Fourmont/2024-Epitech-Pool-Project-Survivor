@@ -29,10 +29,10 @@ const Profile: React.FC = () => {
           <table className="left">
             <thead>
               <tr>
-              <th colSpan={3} className="profil-header">
-                <img src="../../../assets/survivor.jpg" alt="Profil" className="profilPicture" />
-                <p className="name-container">{fields.name}</p>
-              </th>
+                <th colSpan={3} className="profil-header">
+                  <img src="../../../assets/survivor.jpg" alt="Profil" className="profilPicture" />
+                  <p className="name-container">{fields.name}</p>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -70,54 +70,54 @@ const Profile: React.FC = () => {
           </table>
 
           <table className="right">
-          <h5>Recent Meeting</h5>
-          <table className="clientsTable">
-            <tbody>
-              <tr>
-                <th>Date</th>
-                <th>Rating</th>
-                <th>Report</th>
-                <th>Source</th>
-              </tr>
-              <tr>
-                <td>23 Jul 2024</td>
-                <td>
-                  <StarRating maxStars={5} initialRating={3} onRatingChange={handleRatingChange} />
-                </td>
-                <td>A very good moment !</td>
-                <td>Dating app</td>
-              </tr>
-            </tbody>
-          </table>
-          <h5>Payment History</h5>
-          <table className="clientsTable">
-            <tbody>
-              <tr>
-                <th>Date</th>
-                <th>Payment Methode</th>
-                <th>Amount</th>
-                <th>Comment</th>
-              </tr>
-              <tr> {/*for exemple*/}
-                <td>20 Jul 2024</td>
-                <td>Visa</td>
-                <td>-$45.00</td>
-                <td>Monthly Subscription</td>
-              </tr>
-              <tr>
-                <td>20 Jul 2024</td>
-                <td>Visa</td>
-                <td>-$45.00</td>
-                <td>Monthly Subscription</td>
-              </tr>
-              <tr>
-                <td>20 Jul 2024</td>
-                <td>Visa</td>
-                <td>-$45.00</td>
-                <td>Monthly Subscription</td>
-              </tr> {/*for exemple end*/}
-            </tbody>
-          </table>
+            <h5>Recent Meeting</h5>
+            <table className="clientsTable">
+              <tbody>
+                <tr>
+                  <th>Date</th>
+                  <th>Rating</th>
+                  <th>Report</th>
+                  <th>Source</th>
+                </tr>
+                <tr>
+                  <td>23 Jul 2024</td>
+                  <td>
+                    <StarRating maxStars={5} initialRating={3} onRatingChange={handleRatingChange} />
+                  </td>
+                  <td>A very good moment !</td>
+                  <td>Dating app</td>
+                </tr>
+              </tbody>
+            </table>
+            <h5>Payment History</h5>
+            <table className="clientsTable">
+              <tbody>
+                <tr>
+                  <th>Date</th>
+                  <th>Payment Methode</th>
+                  <th>Amount</th>
+                  <th>Comment</th>
+                </tr>
+                <tr> {/*for exemple*/}
+                  <td>20 Jul 2024</td>
+                  <td>Visa</td>
+                  <td>-$45.00</td>
+                  <td>Monthly Subscription</td>
+                </tr>
+                <tr>
+                  <td>20 Jul 2024</td>
+                  <td>Visa</td>
+                  <td>-$45.00</td>
+                  <td>Monthly Subscription</td>
+                </tr>
+                <tr>
+                  <td>20 Jul 2024</td>
+                  <td>Visa</td>
+                  <td>-$45.00</td>
+                  <td>Monthly Subscription</td>
+                </tr> {/*for exemple end*/}
+              </tbody>
+            </table>
           </table>
         </div>
       </div>
