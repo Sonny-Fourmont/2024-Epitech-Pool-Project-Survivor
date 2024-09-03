@@ -5,8 +5,12 @@
 ** loginPage
 */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
+
+  const navigate = useNavigate();
+
   return (
     <section className='login'>
       <form>
@@ -17,7 +21,7 @@ const Login: React.FC = () => {
         <label>Password</label>
         <input type="password" className="login-box" name="password" placeholder="Password"/>
 
-        <button>Log In</button>
+        <button onClick={()=>navigate("/dashboard")}>Log In</button>
 
       </form>
     </section>
