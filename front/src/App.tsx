@@ -11,15 +11,17 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './components/homePage';
 import Login from './components/loginPage';
 import Profil from './components/profilPage/profil';
+import NavBar from './components/Navbar/Navbar';
 
 const App: React.FC = () => {
   return (
     <div>
+      <NavBar/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profil" element={<Profil />} />
-		<Route path="*" element={<Navigate to={"/"} />}/>
+		    <Route path="*" element={<Navigate to={"/"} />}/>
       </Routes>
     </div>
   );
