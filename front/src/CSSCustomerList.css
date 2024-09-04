@@ -17,6 +17,7 @@
 }
 
 .clientList {
+  border-radius: 0.3vw;
   background-color: white;
   margin-left: 1vw;
   margin-top: 1vw;
@@ -29,6 +30,7 @@
 }
 
 .buttonAlign {
+  margin-left: 1vw;
   margin-top: 1vh;
   margin-bottom: 1vh;
   display: flex;
@@ -37,7 +39,19 @@
 .clientList th, .clientList td {border-top: 1px solid #ddd;}
 .leftAlign {text-align: left;}
 .interSpace {line-height: 1vh;}
+
 .space {
-  margin-top: 1vw;
-  margin-bottom: 1vw;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.space tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.space th, .space td {
+  padding: 10px;
+  text-align: left;
+  border: none;
 }
