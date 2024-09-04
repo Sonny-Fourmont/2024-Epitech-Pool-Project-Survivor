@@ -41,9 +41,9 @@ const CoachesList: React.FC = () => {
           </div>
         </div>
         <div className="container">
-          <table className="clientList">
+          <table className="clientList space">
             <thead>
-              <div className='buttonAlign space'>
+              <div className='buttonAlign'>
                 <DropdownButton options={options} onSelect={handleSelect}/>
                 <button className='backButton'>Apply</button>
               </div>
