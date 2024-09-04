@@ -12,9 +12,7 @@ const AccountPage: React.FC = () => {
   return (
     <>
       <NavBar/>
-      <div>
-        <h1>Welcome to the AccountPage page!</h1>
-      </div>
+      <h1>Welcome to the AccountPage page!</h1>
     </>
   );
 };

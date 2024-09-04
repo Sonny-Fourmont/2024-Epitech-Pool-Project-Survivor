@@ -11,3 +11,4 @@ back/package-lock.json
 # Miscellaneous
 .DS_Store
 .env
+profileBackup.tsx
