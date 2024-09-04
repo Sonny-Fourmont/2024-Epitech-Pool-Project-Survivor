@@ -41,6 +41,10 @@ table {
   }
 }
 
+p {
+  text-decoration: none;
+}
+
 img {
   display: flex;
   justify-content: center;

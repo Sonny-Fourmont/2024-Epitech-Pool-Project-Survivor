@@ -6,9 +6,10 @@
 */
 
 import React, { useState } from "react";
-import NavBar from "../navbar/Navbar";
-import StarRating from "../starRating/starRating"
-import "../../CSSProfile.css"
+import NavBar from "../../navbar/Navbar";
+import StarRating from "../../starRating/starRating"
+import LinkButton from "../../linkButton/linkButton";
+import "../../../CSSProfile.css"
 
 const Profile: React.FC = () => {
   const [fields] = useState({
@@ -26,7 +27,7 @@ const Profile: React.FC = () => {
       <div className="client-size">
         <div className="text-Flex flexBack">
           <h2 className="titleClient">Customer Details</h2>
-          <button className="backButton">← Back</button>
+          <button className="backButton"><LinkButton link="/customers" name="← Back"/></button>
         </div>
         <div className="container">
           <table className="left">
