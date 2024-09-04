@@ -25,15 +25,13 @@ const Login: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
     setFormData(prevData => ({...prevData, [name]: value}));
-    console.log(value);
   }
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try {
       const res: AxiosResponse = await axios.post('http://localhost:3001/employees/login', formData);
-      console.log("Received: ", res.data.access_token);
-      if (res.data.access_token !== undefined) {
+      if (res.data === "OK") {
         navigate("/dashboard");
       }
     } catch (error) {
