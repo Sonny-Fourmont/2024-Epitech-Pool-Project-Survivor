@@ -15,7 +15,7 @@ const HOST: string = `${process.env.NODE_HOST}`;
 const PORT: number = parseInt(`${process.env.NODE_PORT}`);
 
 // Features
-import { DbClient, Category } from './config/dbClass';
+import { DbClient } from './config/dbClass';
 import router from './routes/router';
 
 export const client: DbClient = new DbClient();
