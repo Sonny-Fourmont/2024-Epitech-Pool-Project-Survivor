@@ -4,26 +4,58 @@
 ** File description:
 ** loginPage
 */
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios, { AxiosResponse, AxiosError } from 'axios';
+
+interface SignUpFormState  {
+  email: string;
+  password: string
+}
 
 const Login: React.FC = () => {
 
   const navigate = useNavigate();
 
+  const [formData, setFormData] = useState<SignUpFormState> ({
+    email: '',
+    password: ''
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = e.target;
+    setFormData(prevData => ({...prevData, [name]: value}));
+    console.log(value);
+  }
+
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
+    try {
+      const res: AxiosResponse = await axios.post('http://localhost:3001/employees/login', formData);
+      console.log("Received: ", res.data.access_token);
+      if (res.data.access_token !== undefined) {
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.error("Cannot post the form");
+      }
+    }
+  }
+
   return (
     <section className='login'>
-      <form>
         <h3>Login Here</h3>
 
-        <label>Username</label>
-        <input type="text" className="login-box" name="email" placeholder="Email"/>
-        <label>Password</label>
-        <input type="password" className="login-box" name="password" placeholder="Password"/>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor='email'>Username</label>
+          <input className="login-box" type="email" name="email" id='email' placeholder="Email" onChange={handleChange}value={formData.email} required maxLength={40}/>
 
-        <button onClick={()=>navigate("/dashboard")}>Log In</button>
+          <label htmlFor='password'>Password</label>
+          <input className="login-box" type="password" name="password" id="pass" placeholder="Password" onChange={handleChange}value={formData.password} required maxLength={40}/>
 
-      </form>
+          <button type='submit'>Log In</button>
+        </form>
     </section>
   );
 };
