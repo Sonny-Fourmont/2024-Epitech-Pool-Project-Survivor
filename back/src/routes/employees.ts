@@ -5,13 +5,18 @@
 ** employees
 */
 
-import express, { Request, Response, Router } from "express";
+import express, { Request, response, Response, Router } from "express";
 const router: Router = express.Router();
 import axios from "axios";
+import { client } from "..";
 
 export var jwToken: string;
 
 router.use(express.json());
+
+router.get('/employees/login', (req: Request, res: Response) => {
+    res.sendFile(__dirname+'/test.html');
+})
 
 router.post('/employees/login', (req: Request, res: Response) => {
     const options = {
@@ -21,7 +26,6 @@ router.post('/employees/login', (req: Request, res: Response) => {
             'X-Group-Authorization': process.env.API_KEY
         },
         data: req.body
-
     }
     try {
         axios.request(options)
@@ -41,8 +45,29 @@ router.post('/employees/login', (req: Request, res: Response) => {
 });
 
 router.get('/employees/me', (req: Request, res: Response) => {
-
+    const options = {
+        method: 'GET',
+        url: 'https://soul-connection.fr/api/employees/me',
+        headers: {
+            'X-Group-Authorization': process.env.API_KEY,
+            'Authorization': `Bearer ${jwToken}`
+        }
+    };
+    console.log(jwToken)
+    try {
+        axios.request(options)
+        .then(response => {
+            console.log(response.data)
+            res.send(response.data)
+        })
+        .catch(error => {
+            console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+            res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+        });
+    } catch (error) {
+        console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+        res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+    }
 });
-
 
 export default router;
