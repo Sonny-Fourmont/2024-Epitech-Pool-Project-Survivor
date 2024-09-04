@@ -10,7 +10,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Dashboard from './components/dashboardPage/dashboardPage';
 import Login from './components/loginPage/loginPage';
-import Profile from './components/profilePage/profile';
+import Profile from './components/customers/profilePage/profile';
 import Coaches from './components/coachesPage/coaches';
 import CustomersList from './components/customers/customersList';
 import Tips from './components/tipsPage/tipsPage';

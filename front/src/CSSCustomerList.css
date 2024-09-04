@@ -37,3 +37,7 @@
 .clientList th, .clientList td {border-top: 1px solid #ddd;}
 .leftAlign {text-align: left;}
 .interSpace {line-height: 1vh;}
+.space {
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+}
