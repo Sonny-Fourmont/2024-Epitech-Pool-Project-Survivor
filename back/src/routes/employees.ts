@@ -9,7 +9,9 @@ import express, { Request, Response, Router } from "express";
 const router: Router = express.Router();
 import axios from "axios";
 
-export var jwToken: string = "";
+export var jwToken: string;
+
+router.use(express.json());
 
 router.post('/employees/login', (req: Request, res: Response) => {
     const options = {
@@ -22,12 +24,11 @@ router.post('/employees/login', (req: Request, res: Response) => {
 
     }
     try {
-        axios
-        .request(options)
+        axios.request(options)
         .then(response => {
             console.log(`[${Date()}] : Logged in user;`);
-            jwToken = response.data;
-            res.send(response.data).redirect(301, "/employees/me")
+            jwToken = response.data.access_token;
+            res.redirect(301, "/employees/me")
         })
         .catch(error => {
             console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
@@ -36,7 +37,7 @@ router.post('/employees/login', (req: Request, res: Response) => {
     } catch (error) {
         console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
         res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-}
+    }
 });
 
 router.get('/employees/me', (req: Request, res: Response) => {
