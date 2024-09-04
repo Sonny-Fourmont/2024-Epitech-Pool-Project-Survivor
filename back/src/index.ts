@@ -15,10 +15,10 @@ const HOST: string = `${process.env.NODE_HOST}`;
 const PORT: number = parseInt(`${process.env.NODE_PORT}`);
 
 // Features
-import {initDb} from './config/dbConfig';
+import { DbClient } from './config/dbClass';
 import router from './routes/router';
 
-initDb();
+export const client: DbClient = new DbClient();
 
 // Middleware
 app.use(cors());
