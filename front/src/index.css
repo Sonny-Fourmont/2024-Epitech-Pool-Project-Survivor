@@ -14,6 +14,17 @@ body {
   align-items: center;
 }
 
+li {
+  margin-left: 2vw;
+
+}
+
+.tipsText {
+  margin-left: 0.5vw;
+  font-weight: 400;
+  font-size: 0.8vw;
+}
+
 h1 {
   color: #222;
   margin-top: 40vh;
@@ -22,7 +33,28 @@ h1 {
   letter-spacing: 1.5px;
 }
 
+details {
+  padding: 2vh;
+  font-size: 1.2em;
+  transition: transform 0.3s ease-in-out;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0.3vw;
+  font-weight: bold;
+}
 
+details > p {
+  margin: 10px 0 0 0;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  background-color:#fff;
+  font-size: 0.8vw;
+  margin-right: 10px;
+  font-weight:400;
+}
+
+details[open] summary::before {
+  transform: rotate(180deg);
+}
 
 table {
   width: 100%;
@@ -39,10 +71,6 @@ table {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-p {
-  text-decoration: none;
 }
 
 img {
