@@ -5,11 +5,11 @@
 ** tipsPage
 */
 
-import React, {useState} from 'react';
+import React from 'react';
 import NavBar from '../navbar/Navbar';
 import "../../CSSCustomerList.css"
 
-const options = ["Edit", "Move To Trash", "Bulk Action"];
+// const options = ["Edit", "Move To Trash", "Bulk Action"];
 
 const Tips: React.FC = () => {
 
