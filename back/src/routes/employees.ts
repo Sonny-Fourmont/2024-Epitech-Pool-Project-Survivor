@@ -28,7 +28,7 @@ router.post('/employees/login', (req: Request, res: Response) => {
         .then(response => {
             console.log(`[${Date()}] : Logged in user;`);
             jwToken = response.data.access_token;
-            res.redirect(301, "/employees/me")
+            res.sendStatus(200);
         })
         .catch(error => {
             console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
