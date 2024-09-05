@@ -10,11 +10,10 @@ const router: Router = express.Router();
 import { jwToken } from "./employees";
 import { client } from "..";
 import axios from "axios";
-
+import { Category } from "../config/dbClass";
 router.use(express.json());
 
 router.get('/customers', (req: Request, res: Response) => {
-    console.log(req.body)
     const options = {
         method: 'GET',
         url: 'https://soul-connection.fr/api/customers',
@@ -24,20 +23,16 @@ router.get('/customers', (req: Request, res: Response) => {
         },
     }
 
-    try {
-        axios.request(options)
-        .then(response => {
-            console.log(`[${Date()}] : user connected for Customer;`);
-            res.send(response.data);
-        })
-        .catch(error => {
-            console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-            res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-        });
-    } catch (error) {
+    axios.request(options)
+    .then(response => {
+        console.log(`[${Date()}] : user connected for Customer;`);
+        client.addManyDocumentInCollection(Category.Customers, response.data)
+        res.status(response.status).send(response.data);
+    })
+    .catch(error => {
         console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-        res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-    }
+        res.status(error.response.status).send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+    });
 });
 
 export default router;
