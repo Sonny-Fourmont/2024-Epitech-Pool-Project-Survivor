@@ -23,11 +23,9 @@ router.get('/events', (req: Request, res: Response) => {
             'Authorization': `Bearer ${jwToken}`
         }
     };
-    console.log(jwToken)
     axios.request(options)
     .then(response => {
         client.addManyDocumentInCollection(Category.Events, response.data);
-        console.log(response.data)
         res.status(response.status).send(response.data)
     })
     .catch(error => {
@@ -45,10 +43,9 @@ router.get('/events/:id', (req: Request, res: Response) => {
             'Authorization': `Bearer ${jwToken}`
         }
     };
-    console.log(jwToken)
     axios.request(options)
     .then(response => {
-        console.log(`[${Date()}] : User connected as customer n°${req.params.id};`);
+        console.log(`[${Date()}] : Get event n°${req.params.id};`);
         client.addDocumentInCollection(Category.Events, response.data);
         res.status(response.status).send(response.data)
     })
