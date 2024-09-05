@@ -30,7 +30,7 @@ const Astrological: React.FC = () => {
 
           <div className="verticalCompatibility">
             <button className="CompatibilityPercentage TRYButton">TRY</button>
-            <div className="heart"></div>
+            <p className="heart">❤️</p>
             <p className="CompatibilityPercentageNumber">{nbr}% of Compatibility</p>
           </div>
 
