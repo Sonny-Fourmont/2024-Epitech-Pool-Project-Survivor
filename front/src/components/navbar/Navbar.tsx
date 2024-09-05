@@ -80,6 +80,19 @@ const NavBar: React.FC = () => {
             }}>
               <p className="icon">Events</p>
             </NavLink>
+            <NavLink to="/Astrological" style={({ isActive }) => {
+              return {
+                height: "65%",
+                cursor: "pointer",
+                margin: "0 10px",
+                display: "inline-block",
+                borderBottom: isActive ? "solid" : "hidden",
+                fontWeight: isActive ? "bold" : "",
+                color: isActive ? "blue" : "black",
+              };
+            }}>
+              <p className="icon">Astrological</p>
+            </NavLink>
             <NavLink to="/account" style={({ isActive }) => {
               return {
                 height: "65%",

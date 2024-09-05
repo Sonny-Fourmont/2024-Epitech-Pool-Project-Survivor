@@ -5,39 +5,26 @@
 ** customersList
 */
 
-import React, {useState} from 'react';
+import React from 'react';
 import NavBar from '../navbar/Navbar';
-import DropdownButton from "../dropDownButton/dropDownButton";
 import LinkButton from "../linkButton/linkButton";
-import Checkbox from "../checkBox/checkBox";
 import "../../CSSCustomerList.css"
-
-const options = ["Edit", "Move To Trash", "Bulk Action"];
 
 const CustomersList: React.FC = () => {
   let fakeCount:number = 932
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-
-  const handleCheckboxChange = (checked: boolean) => {
-    setIsChecked(checked);
-  };
-
-  const handleSelect = (option: string) => {
-    console.log("Bulk Action", option);
-  };
 
   return (
     <>
       <NavBar/>
-      <div className="client-size">
+      <div className="marginTopPage">
         <div className="text-Flex flexBack">
           <div className='interSpace'>
-            <h2 className="titleClient">Customer List</h2>
+            <h2 className="titleTopPage">Customer List</h2>
             <p className='fakeCounter'>You have total {fakeCount} customers</p>
           </div>
           <div>
-            <button className="backButton">☁ Export</button>
-            <button className="backButton">+</button>
+            <button className="prefabButton">☁ Export</button>
+            <button className="prefabButton">+</button>
           </div>
         </div>
 
@@ -45,11 +32,15 @@ const CustomersList: React.FC = () => {
           <table className="clientList space">
             <thead>
               <div className='buttonAlign'>
-                <DropdownButton options={options} onSelect={handleSelect}/>
-                <button className='backButton'>Apply</button>
+                <select className='prefabButton'>
+                  <option>Bulk Action</option>
+                  <option>Edit</option>
+                  <option>Move To Trash</option>
+                </select>
+                <button className='prefabButton'>Apply</button>
               </div>
               <tr className='leftAlign'>
-                <th><Checkbox label="Customer" checked={isChecked} onChange={handleCheckboxChange}/></th>
+                <th><label><input type="checkbox"/>Customers</label></th>
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Payment Methods</th>
@@ -58,14 +49,14 @@ const CustomersList: React.FC = () => {
             </thead>
             <tbody>
               <tr>
-                <td><Checkbox label="Bobby Gilbert" checked={isChecked} onChange={handleCheckboxChange}/></td>
+                <td><label><input type="checkbox"/>Bobby Gilbert</label></td>
                 <td>bobby@softnio.com</td>
                 <td>+342 675-6578</td>
                 <td>visa</td>
                 <td><LinkButton link="/customers/profile" name="..."/></td>
               </tr>
               <tr>
-                <td><Checkbox label="Bobby Gilbert" checked={isChecked} onChange={handleCheckboxChange}/></td>
+                <td><label><input type="checkbox"/>Bobby Gilbert</label></td>
                 <td>bobby@softnio.com</td>
                 <td>+342 675-6578</td>
                 <td>visa</td>

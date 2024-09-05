@@ -16,10 +16,10 @@ const Tips: React.FC = () => {
   return (
     <>
       <NavBar/>
-      <div className="client-size">
+      <div className="marginTopPage">
         <div className="text-Flex flexBack">
           <div className='interSpace'>
-            <h2 className="titleClient">Tips for coaches</h2>
+            <h2 className="titleTopPage">Tips for coaches</h2>
           </div>
         </div>
         <div className="container">

@@ -24,10 +24,10 @@ const Profile: React.FC = () => {
   return (
     <>
       <NavBar/>
-      <div className="client-size">
+      <div className="marginTopPage">
         <div className="text-Flex flexBack">
-          <h2 className="titleClient">Customer Details</h2>
-          <button className="backButton"><LinkButton link="/customers" name="← Back"/></button>
+          <h2 className="titleTopPage">Customer Details</h2>
+          <button className="prefabButton"><LinkButton link="/customers" name="← Back"/></button>
         </div>
         <div className="container">
           <table className="left">

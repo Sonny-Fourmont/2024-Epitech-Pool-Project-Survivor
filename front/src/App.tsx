@@ -15,6 +15,7 @@ import Coaches from './components/coachesPage/coaches';
 import CustomersList from './components/customers/customersList';
 import Tips from './components/tipsPage/tipsPage';
 import Events from './components/eventsPage/eventsPage';
+import Astrological from './components/astrological/astrological';
 import AccountPage from './components/accountPage/accountPage';
 
 const App: React.FC = () => {
@@ -28,6 +29,7 @@ const App: React.FC = () => {
         <Route path="/customers" element={<CustomersList />} />
         <Route path="/tips" element={<Tips />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/astrological" element={<Astrological />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/customers/profile" element={<Profile />} />
 		    <Route path="*" element={<Navigate to={"/login"} />}/>
