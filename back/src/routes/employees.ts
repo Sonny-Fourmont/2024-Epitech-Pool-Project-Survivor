@@ -14,10 +14,6 @@ export var jwToken: string;
 
 router.use(express.json());
 
-router.get('/employees/login', (req: Request, res: Response) => {
-    res.sendFile(__dirname+'/test.html');
-})
-
 router.post('/employees/login', (req: Request, res: Response) => {
     const options = {
         method: 'POST',
