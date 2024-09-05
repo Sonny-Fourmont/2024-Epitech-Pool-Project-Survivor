@@ -18,13 +18,14 @@ const PORT: number = parseInt(`${process.env.NODE_PORT}`);
 import { DbClient } from './config/dbClass';
 import employees from './routes/employees';
 import events from './routes/events';
+import encounters from './routes/encounters'
 
 export const client: DbClient = new DbClient();
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/', employees, events);
+app.use('/', employees, events, encounters);
 
 // Routes
 app.get('/', (req: Request, res: Response) => {
