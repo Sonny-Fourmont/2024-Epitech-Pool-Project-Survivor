@@ -7,6 +7,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios, { AxiosResponse, AxiosError } from 'axios';
+import { setAuthenticated } from '../../auth';
 
 interface SignUpFormState  {
   email: string;
@@ -14,9 +15,7 @@ interface SignUpFormState  {
 }
 
 const Login: React.FC = () => {
-
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState<SignUpFormState> ({
     email: '',
     password: ''
@@ -32,6 +31,7 @@ const Login: React.FC = () => {
     try {
       const res: AxiosResponse = await axios.post('http://localhost:3001/employees/login', formData);
       if (res.data === "OK") {
+        setAuthenticated(true);
         navigate("/dashboard");
       }
     } catch (error) {
@@ -47,10 +47,30 @@ const Login: React.FC = () => {
 
         <form onSubmit={handleSubmit}>
           <label htmlFor='email'>Username</label>
-          <input className="login-box" type="email" name="email" id='email' placeholder="Email" onChange={handleChange}value={formData.email} required maxLength={40}/>
+          <input
+            className="login-box"
+            type="email"
+            name="email"
+            id='email'
+            placeholder="Email"
+            onChange={handleChange}
+            value={formData.email}
+            required
+            maxLength={40}
+          />
 
           <label htmlFor='password'>Password</label>
-          <input className="login-box" type="password" name="password" id="pass" placeholder="Password" onChange={handleChange}value={formData.password} required maxLength={40}/>
+          <input
+            className="login-box"
+            type="password"
+            name="password"
+            id="pass"
+            placeholder="Password"
+            onChange={handleChange}
+            value={formData.password}
+            required
+            maxLength={40}
+          />
 
           <button type='submit'>Log In</button>
         </form>

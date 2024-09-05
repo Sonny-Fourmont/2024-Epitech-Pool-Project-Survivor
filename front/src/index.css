@@ -250,7 +250,7 @@ input[type="file"] {
   border-bottom: 1px solid #dfdfdf;
   display: flex;
   justify-content: center;
-  padding: 5px 0;
+  padding: 0.8vh 0;
 }
 
 .navbar-wrapper {
@@ -291,9 +291,12 @@ input[type="file"] {
 
 /* ---------------------- Dashboard ----------------------- */
 
-.dashboard {
+.dashboard-cards-duo {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 2vw;
+  margin-top: 2vh;
 }
 
 .dashboard-title {
@@ -333,13 +336,17 @@ input[type="file"] {
   margin-right: 3vw;
   align-items: center;
 }
+  
+.card h2 {
+  color: #222;
+  text-align: left;
+}
 
 .card {
   background-color: white;
   margin-left: 1vw;
   padding-left: 1vw;
   width: 50%;
-  height: 20vw;
 }
 
 .card-title {
@@ -373,36 +380,25 @@ input[type="file"] {
 
 .card-values {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
-.card-values-title-group {
-  height: 2vw;
-  display: flex;
-  color: #8d8d8d;
-  font-weight: bold;
+.card-chart {
+  justify-content: center;
 }
 
-.card-values-title {
-  padding-right: 8vw;
+.card-values-first-group {
+  padding-left: 1vw;
+  line-height: 10px;
 }
 
-.card-values-number-group {
-  height: 3vw;
-  display: flex;
+.card-values-second-group {
+  padding-left: 9vw;
+  line-height: 10px;
 }
 
 .card-values-number {
-  padding-right: 11vw;
-  font-size: 1.5vw;
-}
-
-.card-values-percentage-group {
-  display: flex;
-}
-
-.card-values-percentage {
-  padding-right: 9vw;
+  font-size: 3vh;
   font-weight: bold;
 }
 

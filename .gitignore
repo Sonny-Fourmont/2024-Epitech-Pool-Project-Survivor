@@ -1,7 +1,6 @@
 # Dependencies
 front/node_modules
 front/package-lock.json
-front/package.json
 
 # Back
 back/node_modules
