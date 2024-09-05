@@ -31,8 +31,9 @@ router.get('/customers', (req: Request, res: Response) => {
         res.status(response.status).send(response.data);
     })
     .catch(error => {
-        console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-        res.status(error.response.status).send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+        console.log(error.response.data)
+        res.status(error.response.status).send(error.response.data);
     });
 });
 
@@ -54,8 +55,9 @@ router.get('/customers/:id', (req: Request, res: Response) => {
         res.status(response.status).send(response.data);
     })
     .catch(error => {
-        console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-        res.status(error.response.status).send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+        console.log(error.response.data)
+        res.status(error.response.status).send(error.response.data);
     });
 });
 
