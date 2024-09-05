@@ -39,8 +39,15 @@ router.get('/customers', (req: Request, res: Response) => {
                 }
             })
             .then(response => {
+                console.log(`[${Date()}] : Got customer n°${req.params.id} from external API;`);
                 client.addDocumentInCollection(Category.Customers, response.data);
+                res.status(response.status).send(response.data);
             })
+            .catch(error => {
+                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+                console.log(error.response.data)
+                res.status(error.response.status).send(error.response.data);
+            });
         });
 
         res.status(response.status).send(response.data);
@@ -53,25 +60,19 @@ router.get('/customers', (req: Request, res: Response) => {
 });
 
 router.get('/customers/:id', (req: Request, res: Response) => {
-    const options = {
-        method: 'GET',
-        url: `https://soul-connection.fr/api/customers/${req.params.id}`,
-        headers: {
-            'X-Group-Authorization': process.env.API_KEY,
-            'Authorization': `Bearer ${jwToken}`
-        },
-    }
-
-    axios.request(options)
-    .then(response => {
-        console.log(`[${Date()}] : User connected as customer n°${req.params.id};`);
-        res.status(response.status).send(response.data);
-    })
-    .catch(error => {
+    try {
+        console.log(`[${Date()}] : Got customer n°${req.params.id} from Database;`);
+        (async () => {
+            const data: any = await client.getData(
+                Category.Customers,
+                {id: parseInt(req.params.id)})
+                res.status(200).send(data);
+        })();
+    } catch(error) {
         console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
-        console.log(error.response.data)
-        res.status(error.response.status).send(error.response.data);
-    });
+        console.log(error)
+        res.status(404).send(error);
+    }
 });
 
 router.get('/customers/:id/image', (req: Request, res: Response) => {
