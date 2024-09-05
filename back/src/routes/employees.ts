@@ -27,21 +27,16 @@ router.post('/employees/login', (req: Request, res: Response) => {
         },
         data: req.body
     }
-    try {
-        axios.request(options)
-        .then(response => {
-            console.log(`[${Date()}] : Logged in user;`);
-            jwToken = response.data.access_token;
-            res.sendStatus(200);
-        })
-        .catch(error => {
-            console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-            res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-        });
-    } catch (error) {
+    axios.request(options)
+    .then(response => {
+        console.log(`[${Date()}] : Logged in user;`);
+        jwToken = response.data.access_token;
+        res.sendStatus(200);
+    })
+    .catch(error => {
         console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
         res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-    }
+    });
 });
 
 router.get('/employees/me', (req: Request, res: Response) => {
@@ -54,20 +49,15 @@ router.get('/employees/me', (req: Request, res: Response) => {
         }
     };
     console.log(jwToken)
-    try {
-        axios.request(options)
-        .then(response => {
-            console.log(response.data)
-            res.send(response.data)
-        })
-        .catch(error => {
-            console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-            res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-        });
-    } catch (error) {
+    axios.request(options)
+    .then(response => {
+        console.log(response.data)
+        res.send(response.data)
+    })
+    .catch(error => {
         console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
         res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-    }
+    });
 });
 
 export default router;
