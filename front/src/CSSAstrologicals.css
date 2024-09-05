@@ -1,0 +1,112 @@
+/*
+** EPITECH PROJECT, 2024
+** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
+** File description:
+** CSSProfile
+*/
+
+.containerCompatibility {
+  display: flex;
+  justify-content: space-between;
+}
+
+.choseYourCharacter {
+  text-align: center;
+  font-size: 40px;
+  width: 100%;
+  height: 25%;
+}
+
+.CompatibilityPercentageNumber {
+  font-size: 50px;
+  color: red;
+}
+
+.verticalCompatibility {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.leftCompatibility, .rightCompatibility {
+  border: 1px solid #ddd;
+  margin-right: 1vw;
+  margin-left: 1vw;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 0.3vw;
+}
+
+.leftCompatibility {
+  width: 30%;
+  height: 76vh;
+}
+
+.rightCompatibility {
+  width: 30%;
+  height: 76vh;
+}
+
+.CompatibilityPercentage {
+  font-size: 40px;
+}
+
+.TRYButton {
+  margin-right: 1vw;
+  font-size: 80px;
+  font-weight: bold;
+  background-color: rgb(72, 72, 121);
+  color: white;
+  border: 1px solid #ddd;
+  border-radius: 3vw;
+  width: 20vw;
+  height: 10vw;
+}
+
+.TRYButton:active{
+  background-color: white;
+  color: rgb(72, 72, 121);
+}
+
+.heart {
+  position: relative;
+  width: 100px;
+  height: 90px;
+  transform: scale(1);
+  animation: heartbeat 1s infinite;
+}
+
+.heart:before, .heart:after {
+  position: absolute;
+  content: "";
+  left: 50px;
+  top: 0;
+  width: 50px;
+  height: 80px;
+  background: red;
+  border-radius: 50px 50px 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+}

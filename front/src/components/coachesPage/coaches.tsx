@@ -7,12 +7,10 @@
 
 import React, {useState} from 'react';
 import NavBar from '../navbar/Navbar';
-import DropdownButton from "../dropDownButton/dropDownButton";
 import LinkButton from "../linkButton/linkButton";
 import Checkbox from "../checkBox/checkBox";
 import "../../CSSCustomerList.css"
 
-const options = ["Edit", "Move To Trash", "Bulk Action"];
 
 const CoachesList: React.FC = () => {
   let fakeCount:number = 78
@@ -22,30 +20,30 @@ const CoachesList: React.FC = () => {
     setIsChecked(checked);
   };
 
-  const handleSelect = (option: string) => {
-    console.log("Bulk Action", option);
-  };
-
   return (
     <>
       <NavBar/>
-      <div className="client-size">
+      <div className="marginTopPage">
         <div className="text-Flex flexBack">
           <div className='interSpace'>
-            <h2 className="titleClient">Coaches List</h2>
+            <h2 className="titleTopPage">Coaches List</h2>
             <p className='fakeCounter'>You have total {fakeCount} customers</p>
           </div>
           <div>
-            <button className="backButton">☁ Export</button>
-            <button className="backButton">+</button>
+            <button className="prefabButton">☁ Export</button>
+            <button className="prefabButton">+</button>
           </div>
         </div>
         <div className="container">
           <table className="clientList space">
             <thead>
               <div className='buttonAlign'>
-                <DropdownButton options={options} onSelect={handleSelect}/>
-                <button className='backButton'>Apply</button>
+                <select className='prefabButton'>
+                  <option>Bulk Action</option>
+                  <option>Edit</option>
+                  <option>Move To Trash</option>
+                </select>
+                <button className='prefabButton'>Apply</button>
               </div>
               <tr className='leftAlign'>
                 <th><Checkbox label="Coach" checked={isChecked} onChange={handleCheckboxChange}/></th>
