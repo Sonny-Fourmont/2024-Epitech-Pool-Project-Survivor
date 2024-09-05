@@ -28,7 +28,21 @@ router.get('/customers', (req: Request, res: Response) => {
     axios.request(options)
     .then(response => {
         console.log(`[${Date()}] : User connected as customer;`);
-        client.addManyDocumentInCollection(Category.Customers, response.data);
+
+        response.data.forEach((element: any) => {
+            axios.request({
+                method: 'GET',
+                url: `http://localhost:3001/customers/${element.id}`,
+                headers: {
+                    'X-Group-Authorization': process.env.API_KEY,
+                    'Authorization': `Bearer ${jwToken}`
+                }
+            })
+            .then(response => {
+                client.addDocumentInCollection(Category.Customers, response.data);
+            })
+        });
+
         res.status(response.status).send(response.data);
     })
     .catch(error => {
@@ -51,7 +65,6 @@ router.get('/customers/:id', (req: Request, res: Response) => {
     axios.request(options)
     .then(response => {
         console.log(`[${Date()}] : User connected as customer n°${req.params.id};`);
-        client.addDocumentInCollection(Category.Customers, response.data);
         res.status(response.status).send(response.data);
     })
     .catch(error => {
