@@ -26,6 +26,7 @@ router.get('/events', (req: Request, res: Response) => {
     axios.request(options)
     .then(response => {
         client.addManyDocumentInCollection(Category.Events, response.data);
+        console.log("Got the events list!")
         res.status(response.status).send(response.data)
     })
     .catch(error => {
