@@ -30,8 +30,25 @@ export class DbClient {
     };
 
     async addDocumentInCollection(collection: Category, document: any) : Promise<boolean> {
+        const myDoc = await this.db.collection(collection).findOne(document);
+        if (myDoc) {
+            console.log(`[${Date()}] : Document has already been created!;`);
+            return false;
+        }
+
         try {
             await this.db.collection(collection).insertOne(document);
+            console.log(`[${Date()}] : Document has been created!;`);
+            return true;
+        } catch (error) {
+            console.log(`[${Date()}] : A error occured in the Document creation!;\n${error}`);
+            return false;
+        }
+    };
+
+    async addManyDocumentInCollection(collection: Category, document: any) : Promise<boolean> {
+        try {
+            await this.db.collection(collection).insertMany(document);
             console.log(`[${Date()}] : Document has been created!;`);
             return true;
         } catch (error) {
