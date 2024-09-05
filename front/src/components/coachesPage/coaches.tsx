@@ -5,20 +5,14 @@
 ** coaches
 */
 
-import React, {useState} from 'react';
+import React from 'react';
 import NavBar from '../navbar/Navbar';
 import LinkButton from "../linkButton/linkButton";
-import Checkbox from "../checkBox/checkBox";
 import "../../CSSCustomerList.css"
 
 
 const CoachesList: React.FC = () => {
   let fakeCount:number = 78
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-
-  const handleCheckboxChange = (checked: boolean) => {
-    setIsChecked(checked);
-  };
 
   return (
     <>
@@ -46,7 +40,7 @@ const CoachesList: React.FC = () => {
                 <button className='prefabButton'>Apply</button>
               </div>
               <tr className='leftAlign'>
-                <th><Checkbox label="Coach" checked={isChecked} onChange={handleCheckboxChange}/></th>
+                <th><label><input type="checkbox"/>Coach</label></th>
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Number of customers</th>
@@ -55,14 +49,14 @@ const CoachesList: React.FC = () => {
             </thead>
             <tbody>
               <tr>
-                <td><Checkbox label="Bobby Gilbert" checked={isChecked} onChange={handleCheckboxChange}/></td>
+                <td><label><input type="checkbox"/>Bobby Gilbert</label></td>
                 <td>bobby@softnio.com</td>
                 <td>+342 675-6578</td>
                 <td>911</td>
                 <td><LinkButton link="/coaches" name="..."/></td>
               </tr>
               <tr>
-                <td><Checkbox label="Bobby Gilbert" checked={isChecked} onChange={handleCheckboxChange}/></td>
+                <td><label><input type="checkbox"/>Bobby Gilbert</label></td>
                 <td>bobby@softnio.com</td>
                 <td>+342 675-6578</td>
                 <td>122</td>
