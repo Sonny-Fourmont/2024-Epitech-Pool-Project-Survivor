@@ -16,6 +16,7 @@ import CustomersList from './components/customers/customersList';
 import Tips from './components/tipsPage/tipsPage';
 import Events from './components/eventsPage/eventsPage';
 import Astrological from './components/astrological/astrological';
+import Clothes from './components/Clothes/Clothes';
 import AccountPage from './components/accountPage/AccountPage';
 // import PrivateRoute from './PrivateRoute';
 
@@ -32,6 +33,7 @@ const App: React.FC = () => {
         <Route path="/tips" element={<Tips />} />
         <Route path="/events" element={<Events />} />
         <Route path="/astrological" element={<Astrological />} />
+        <Route path="/clothes" element={<Clothes />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/customers/profile" element={<Profile />} />
 

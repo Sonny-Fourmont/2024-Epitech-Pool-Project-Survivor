@@ -36,10 +36,6 @@
   display: flex;
 }
 
-.clientList th, .clientList td {border-top: 1px solid #ddd;}
-.leftAlign {text-align: left;}
-.interSpace {line-height: 1vh;}
-
 .space {
   width: 100%;
   border-collapse: collapse;
@@ -51,7 +47,11 @@
 }
 
 .space th, .space td {
-  padding: 10px;
+  padding: 1vw;
   text-align: left;
   border: none;
 }
+
+.clientList th, .clientList td {border-top: 1px solid #ddd;}
+.leftAlign {text-align: left;}
+.interSpace {line-height: 1vh;}

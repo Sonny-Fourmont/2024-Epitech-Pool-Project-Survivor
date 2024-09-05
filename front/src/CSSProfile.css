@@ -28,19 +28,19 @@
   margin-right: 1vw;
   margin-left: 1vw;
   background-color: #fff;
-  padding: 20px;
+  padding: 2vw;
   border-radius: 0.3vw;
 }
 
 .left {
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
-  width: 24%;
+  width: 24vw;
   height: 76vh;
 }
 
 .right {
-  width: 73%;
+  width: 100vw;
   height: 0vh;
   max-height: 76vh;
 }
@@ -56,13 +56,13 @@
 }
 
 .clientsTable th, .clientsTable td {
-  padding: 10px;
+  padding: 1vw;
   text-align: left;
   border: none;
 }
 
 .interSpace td {
-  padding: 8px 5px;
+  padding: 0.8vw 0.5vw;
 }
 
 .statistic-customers {
