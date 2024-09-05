@@ -11,6 +11,7 @@ import { jwToken } from "./employees";
 import { client } from "..";
 import axios from "axios";
 import { Category } from "../config/dbClass";
+
 router.use(express.json());
 
 router.get('/customers', (req: Request, res: Response) => {
@@ -25,8 +26,31 @@ router.get('/customers', (req: Request, res: Response) => {
 
     axios.request(options)
     .then(response => {
-        console.log(`[${Date()}] : user connected for Customer;`);
-        client.addManyDocumentInCollection(Category.Customers, response.data)
+        console.log(`[${Date()}] : User connected as customer;`);
+        client.addManyDocumentInCollection(Category.Customers, response.data);
+        res.status(response.status).send(response.data);
+    })
+    .catch(error => {
+        console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+        res.status(error.response.status).send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+    });
+});
+
+
+router.get('/customers/:id', (req: Request, res: Response) => {
+    const options = {
+        method: 'GET',
+        url: `https://soul-connection.fr/api/customers/${req.params.id}`,
+        headers: {
+            'X-Group-Authorization': process.env.API_KEY,
+            'Authorization': `Bearer ${jwToken}`
+        },
+    }
+
+    axios.request(options)
+    .then(response => {
+        console.log(`[${Date()}] : User connected as customer n°${req.params.id};`);
+        client.addDocumentInCollection(Category.Customers, response.data);
         res.status(response.status).send(response.data);
     })
     .catch(error => {
