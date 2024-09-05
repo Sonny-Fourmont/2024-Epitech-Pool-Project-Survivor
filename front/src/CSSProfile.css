@@ -1,0 +1,88 @@
+/*
+** EPITECH PROJECT, 2024
+** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
+** File description:
+** CSSProfile
+*/
+
+.name-container {
+  padding-bottom: 1vw;
+  border-bottom: 1px solid #ddd;
+  margin-top: 1vw;
+  margin-bottom: 2vw;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1vw;
+}
+
+.profilPicture {
+  display: block;
+  margin: auto;
+  height: 5vw;
+  width: 5vw;
+  border-radius: 50%;
+}
+
+.left, .right {
+  border: 1px solid #ddd;
+  margin-right: 1vw;
+  margin-left: 1vw;
+  background-color: #fff;
+  padding: 2vw;
+  border-radius: 0.3vw;
+}
+
+.left {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  width: 24vw;
+  height: 76vh;
+}
+
+.right {
+  width: 100vw;
+  height: 0vh;
+  max-height: 76vh;
+}
+
+.clientsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.clientsTable tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.clientsTable th, .clientsTable td {
+  padding: 1vw;
+  text-align: left;
+  border: none;
+}
+
+.interSpace td {
+  padding: 0.8vw 0.5vw;
+}
+
+.statistic-customers {
+  text-align: center;
+  width: 100%;
+}
+
+.customerTitleDetails {
+  color: #8ba3a7;
+  font-size: 13px;
+}
+
+.customerDetails {
+  color: #4c4c83;
+}
+
+.interLine {
+  line-height: 0.5vh;
+}
+
+.flexBack {
+  align-items: center;
+}

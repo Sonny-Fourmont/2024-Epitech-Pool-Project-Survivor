@@ -1,5 +1,6 @@
 # Dependencies
 front/node_modules
+front/package-lock.json
 
 # Back
 back/node_modules
@@ -11,3 +12,4 @@ back/package-lock.json
 # Miscellaneous
 .DS_Store
 .env
+profileBackup.tsx

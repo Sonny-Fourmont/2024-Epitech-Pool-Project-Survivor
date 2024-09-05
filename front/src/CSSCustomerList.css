@@ -1,0 +1,57 @@
+/*
+** EPITECH PROJECT, 2024
+** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
+** File description:
+** CSSCustomerList
+*/
+
+.fakeCounter {
+  margin-left: 1vw;
+  color: rgb(72, 72, 121);
+}
+
+.container {
+  align-items: stretch;
+  display: flex;
+  color: rgb(61, 101, 124);
+}
+
+.clientList {
+  border-radius: 0.3vw;
+  background-color: white;
+  margin-left: 1vw;
+  margin-top: 1vw;
+  margin-right: 1vw;
+}
+
+.tripleDot:hover {
+  color: rgb(52, 52, 100);
+  cursor: pointer;
+}
+
+.buttonAlign {
+  margin-left: 1vw;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  display: flex;
+}
+
+.space {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.space tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.space th, .space td {
+  padding: 1vw;
+  text-align: left;
+  border: none;
+}
+
+.clientList th, .clientList td {border-top: 1px solid #ddd;}
+.leftAlign {text-align: left;}
+.interSpace {line-height: 1vh;}
