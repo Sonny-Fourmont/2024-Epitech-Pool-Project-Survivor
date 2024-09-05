@@ -9,7 +9,7 @@ import { MongoClient, Db } from "mongodb";
 
 export enum Category {
     Employee = "Employee",
-    Customers = "customers",
+    Customers = "Customers",
     Encounters = "Encounters",
     Tips = "Tips",
     Events = "Events",
@@ -90,6 +90,17 @@ export class DbClient {
         } else {
             console.log(`[${Date()}] : This document doesn't exist!;`);
             return false;
+        }
+    };
+
+    async getData(collection: Category, document: any) : Promise<any> {
+        const myDoc = await this.db.collection(collection).find(document).toArray();
+        if (myDoc) {
+            console.log(`[${Date()}] : Document found!;`);
+            return myDoc;
+        } else {
+            console.log(`[${Date()}] : Document not found!;`);
+            return undefined;
         }
     };
 
