@@ -27,30 +27,31 @@ router.get('/customers', (req: Request, res: Response) => {
 
     axios.request(options)
     .then(response => {
-        console.log(`[${Date()}] : User connected as customer;`);
 
         response.data.forEach((element: any) => {
             axios.request({
                 method: 'GET',
-                url: `http://localhost:3001/customers/${element.id}`,
+                url: `https://soul-connection.fr/api/customers/${element.id}`,
                 headers: {
                     'X-Group-Authorization': process.env.API_KEY,
                     'Authorization': `Bearer ${jwToken}`
                 }
             })
             .then(response => {
-                console.log(`[${Date()}] : Got customer n°${req.params.id} from external API;`);
+                console.log(`[${Date()}] : Got customer n°${element.id} from external API;`);
                 client.addDocumentInCollection(Category.Customers, response.data);
-                res.status(response.status).send(response.data);
             })
             .catch(error => {
-                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on customer ${element.id};`);
                 console.log(error.response.data)
-                res.status(error.response.status).send(error.response.data);
             });
         });
-
-        res.status(response.status).send(response.data);
+        (async () => {
+            const data: any = await client.getData(
+                Category.Customers,
+                {})
+                res.status(response.status).send(data);
+        })()
     })
     .catch(error => {
         console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
