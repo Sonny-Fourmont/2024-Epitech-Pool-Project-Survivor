@@ -11,7 +11,7 @@ import { setAuthenticated } from '../../auth';
 
 interface SignUpFormState  {
   email: string;
-  password: string
+  password: string;
 }
 
 const Login: React.FC = () => {
