@@ -20,13 +20,14 @@ import employees from './routes/employees';
 import events from './routes/events';
 import encounters from './routes/encounters'
 import customers from './routes/customers';
+import tips from './routes/tips';
 
 export const client: DbClient = new DbClient();
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/', employees, events, encounters, customers);
+app.use('/', employees, events, encounters, customers, tips);
 
 // Routes
 app.get('/', (req: Request, res: Response) => {

@@ -5,21 +5,43 @@
 ** profil
 */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../../navbar/Navbar";
 import StarRating from "../../starRating/starRating"
 import LinkButton from "../../linkButton/linkButton";
+import { getCustomersID } from "../../GetBackendData/GetBackendData";
+import { CustomerData } from "../../GetBackendData/interfaces/CustomersInterface";
 import "../../../CSSProfile.css"
 
 const Profile: React.FC = () => {
-  const [fields] = useState({
-    name: "Jeanne Martin",
-    address: "Rue champs elysee",
-    email: "jeanne.martin@soul-connection.fr"});
+  const [data , setData] = useState<CustomerData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   const handleRatingChange = (newRating: number) => {
     console.log(`New rating is: ${newRating}`);
   };
+
+  const clientID:number = parseInt(window.location.pathname.split("/").pop() || "");
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const result = await getCustomersID(clientID);
+        setData(result || null);
+        setLoading(false);
+      } catch (error) {
+        setError("Failed to fetch data");
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, [clientID]);
+  if (loading) {return <p>Loading...</p>;}
+  if (error) {return <p>Error: {error}</p>;}
+
+  const { name, surname, email, address, id } = data || {};
 
   return (
     <>
@@ -31,15 +53,15 @@ const Profile: React.FC = () => {
         </div>
         <div className="container">
           <table className="left">
-            <thead>
-              <tr>
-                <th colSpan={3} className="profil-header">
-                  <img src="../../../assets/survivor.jpg" alt="Profil" className="profilPicture" />
-                  <p className="name-container">{fields.name}</p>
-                </th>
-              </tr>
-            </thead>
             <tbody>
+              {data && (
+                <tr>
+                  <th colSpan={3} className="profil-header">
+                    <img src="../../../assets/survivor.jpg" alt="Profil" className="profilPicture" />
+                    <p className="name-container">{name} {surname}</p>
+                  </th>
+                </tr>
+              )}
               <tr></tr>
               <tr className="text-Flex">
                 <td className="statistic-customers horizontaleLineUp">23</td>
@@ -52,18 +74,24 @@ const Profile: React.FC = () => {
                 <td className="statistic-customers horizontaleLineDown">In Progress</td>
               </tr>
               <h4>SHORT DETAILS</h4>
-              <tr className="interSpace interLine">
-                <p className="customerTitleDetails">User ID:</p>
-                <p className="customerDetails">A Number</p>
-              </tr>
-              <tr className="interSpace interLine">
-                <p className="customerTitleDetails">Email:</p>
-                <p className="customerDetails">{fields.email}</p>
-              </tr>
-              <tr className="interSpace interLine">
-                <p className="customerTitleDetails">Address:</p>
-                <p className="customerDetails">{fields.address}</p>
-              </tr>
+              {data && (
+                <tr className="interSpace interLine">
+                  <p className="customerTitleDetails">User ID:</p>
+                  <p className="customerDetails">{id}</p>
+                </tr>
+              )}
+              {data && (
+                <tr className="interSpace interLine">
+                  <p className="customerTitleDetails">Email:</p>
+                  <p className="customerDetails">{email}</p>
+                </tr>
+              )}
+              {data && (
+                <tr className="interSpace interLine">
+                  <p className="customerTitleDetails">Address:</p>
+                  <p className="customerDetails">{address}</p>
+                </tr>
+              )}
               <tr className="interSpace interLine">
                 <p className="customerTitleDetails">Last Activity:</p>
                 <p className="customerDetails">One day</p>
@@ -105,18 +133,6 @@ const Profile: React.FC = () => {
                   <th>Comment</th>
                 </tr>
                 <tr> {/*for exemple*/}
-                  <td>20 Jul 2024</td>
-                  <td>Visa</td>
-                  <td>-$45.00</td>
-                  <td>Monthly Subscription</td>
-                </tr>
-                <tr>
-                  <td>20 Jul 2024</td>
-                  <td>Visa</td>
-                  <td>-$45.00</td>
-                  <td>Monthly Subscription</td>
-                </tr>
-                <tr>
                   <td>20 Jul 2024</td>
                   <td>Visa</td>
                   <td>-$45.00</td>

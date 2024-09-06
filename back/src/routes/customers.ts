@@ -11,46 +11,45 @@ import { jwToken } from "./employees";
 import { client } from "..";
 import axios from "axios";
 import { Category } from "../config/dbClass";
-// import * as fs from 'fs';
+import * as fs from 'fs';
 
 router.use(express.json());
 
 router.get('/customers', (req: Request, res: Response) => {
-    const options = {
+    axios.request({
         method: 'GET',
         url: 'https://soul-connection.fr/api/customers',
         headers: {
             'X-Group-Authorization': process.env.API_KEY,
             'Authorization': `Bearer ${jwToken}`
         },
-    }
-
-    axios.request(options)
+    })
     .then(response => {
-        console.log(`[${Date()}] : User connected as customer;`);
 
         response.data.forEach((element: any) => {
             axios.request({
                 method: 'GET',
-                url: `http://localhost:3001/customers/${element.id}`,
+                url: `https://soul-connection.fr/api/customers/${element.id}`,
                 headers: {
                     'X-Group-Authorization': process.env.API_KEY,
                     'Authorization': `Bearer ${jwToken}`
                 }
             })
             .then(response => {
-                console.log(`[${Date()}] : Got customer n°${req.params.id} from external API;`);
+                console.log(`[${Date()}] : Got customer n°${element.id} from external API;`);
                 client.addDocumentInCollection(Category.Customers, response.data);
-                res.status(response.status).send(response.data);
             })
             .catch(error => {
-                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on customer ${element.id};`);
                 console.log(error.response.data)
-                res.status(error.response.status).send(error.response.data);
             });
         });
-
-        res.status(response.status).send(response.data);
+        (async () => {
+            const data: any = await client.getData(
+                Category.Customers,
+                {})
+                res.status(response.status).send(data);
+        })()
     })
     .catch(error => {
         console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
@@ -66,7 +65,7 @@ router.get('/customers/:id', (req: Request, res: Response) => {
             const data: any = await client.getData(
                 Category.Customers,
                 {id: parseInt(req.params.id)})
-                res.status(200).send(data);
+                res.status(200).send(data[0]);
         })();
     } catch(error) {
         console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
@@ -76,21 +75,24 @@ router.get('/customers/:id', (req: Request, res: Response) => {
 });
 
 router.get('/customers/:id/image', (req: Request, res: Response) => {
-    const options = {
+    axios.request({
         method: 'GET',
         url: `https://soul-connection.fr/api/customers/${req.params.id}/image`,
         headers: {
             'X-Group-Authorization': process.env.API_KEY,
             'Authorization': `Bearer ${jwToken}`
         },
-    }
-
-    axios.request(options)
+        responseType: 'arraybuffer'
+    })
     .then(response => {
-        // const image: string = Buffer.from(response.data, 'binary').toString('base64');
-        // fs.writeFileSync(__dirname + '/../test.png', image);
-        console.log(`[${Date()}] : User connected as customer n°${req.params.id} with his image;`);
-        res.status(response.status).send(response.headers);
+        (async () => {
+            const data: any = await client.getData(
+                Category.Customers,
+                {id: parseInt(req.params.id)})
+                fs.writeFileSync(__dirname + `/../../../front/public/assets/${data[0].name}_${data[0].surname}.png`, response.data);
+                console.log(`[${Date()}] : User connected as customer n°${req.params.id} with his image;`);
+                res.status(response.status).send(response.data);
+        })();
     })
     .catch(error => {
         console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
