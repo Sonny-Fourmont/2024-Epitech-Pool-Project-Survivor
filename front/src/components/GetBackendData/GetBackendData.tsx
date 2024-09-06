@@ -30,6 +30,23 @@ export const getCustomers = async (): Promise<CustomerData[] | undefined> => {
     return undefined;
 }
 
+export const getCustomersID = async (ID:number): Promise<CustomerData | undefined> => {
+    try {
+        const res: AxiosResponse = await axios.get('http://localhost:3001/customers/' + ID);
+        if (res.data) {
+            console.log(res.data);
+            return res.data;
+        }
+    } catch (error) {
+        if (error instanceof AxiosError) {
+            console.error("Cannot get the data", error.message);
+        } else {
+            console.error("An unexpected error occurred", error);
+        }
+    }
+    return undefined;
+}
+
 // export const getEmployee = async (): Promise<EmployeeData | undefined> => {
 //     try {
 //         const res: AxiosResponse = await axios.get('http://localhost:3001/employees');

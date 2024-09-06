@@ -5,9 +5,11 @@
 ** App
 */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
+import { getCustomers } from './components/GetBackendData/GetBackendData';
+import { CustomerData } from "./components/GetBackendData/interfaces/CustomersInterface";
 import Dashboard from './components/dashboardPage/DashboardPage';
 import Login from './components/loginPage/loginPage';
 import Profile from './components/customers/profilePage/profile';
@@ -21,6 +23,27 @@ import AccountPage from './components/accountPage/AccountPage';
 // import PrivateRoute from './PrivateRoute';
 
 const App: React.FC = () => {
+  const [data , setData] = useState<CustomerData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const result = await getCustomers();
+        setData(result || []);
+        setLoading(false);
+      } catch (error) {
+        setError("Failed to fetch data");
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
+  if (loading) {return <p>Loading...</p>;}
+  if (error) {return <p>Error: {error}</p>;}
+
   return (
     <div>
       <Routes>
@@ -35,9 +58,11 @@ const App: React.FC = () => {
         <Route path="/astrological" element={<Astrological />} />
         <Route path="/clothes" element={<Clothes />} />
         <Route path="/account" element={<AccountPage />} />
-        <Route path="/customers/profile" element={<Profile />} />
+        {data.map((data) =>
+          <Route path={"/customers/profile/" + data.id} element={<Profile />} />
+          )}
 
-		    <Route path="*" element={<Navigate to={"/login"} />}/>
+        <Route path="*" element={<Navigate to={"/login"} />}/>
       </Routes>
     </div>
   );

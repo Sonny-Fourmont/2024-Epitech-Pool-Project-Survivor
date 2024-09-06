@@ -5,13 +5,36 @@
 ** customersList
 */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import NavBar from '../navbar/Navbar';
 import LinkButton from "../linkButton/linkButton";
+import { getCustomers } from '../GetBackendData/GetBackendData';
+import { CustomerData } from "../GetBackendData/interfaces/CustomersInterface";
 import "../../CSSCustomerList.css"
+
 
 const CustomersList: React.FC = () => {
   let fakeCount:number = 932
+  const [data , setData] = useState<CustomerData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const result = await getCustomers();
+        setData(result || []);
+        setLoading(false);
+      } catch (error) {
+        setError("Failed to fetch data");
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
+  if (loading) {return <p>Loading...</p>;}
+  if (error) {return <p>Error: {error}</p>;}
 
   return (
     <>
@@ -48,20 +71,19 @@ const CustomersList: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><label><input type="checkbox"/>Bobby Gilbert</label></td>
-                <td>bobby@softnio.com</td>
-                <td>+342 675-6578</td>
-                <td>visa</td>
-                <td><LinkButton link="/customers/profile" name="..."/></td>
-              </tr>
-              <tr>
-                <td><label><input type="checkbox"/>Bobby Gilbert</label></td>
-                <td>bobby@softnio.com</td>
-                <td>+342 675-6578</td>
-                <td>visa</td>
-                <td><LinkButton link="/customers/profile" name="..."/></td>
-              </tr>
+              {data.map((customer) => (
+                  <tr key={customer.id}>
+                    <td>
+                      <label>
+                        <input type="checkbox" /> {customer.name} {customer.surname}
+                      </label>
+                    </td>
+                    <td>{customer.email}</td>
+                    <td>{customer.phone_number}</td>
+                    <td>{'N/A'}</td>
+                    <td><LinkButton link={`/customers/profile/${customer.id}`} name="..." /></td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
