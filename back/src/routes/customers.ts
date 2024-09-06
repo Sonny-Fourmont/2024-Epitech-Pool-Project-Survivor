@@ -65,7 +65,7 @@ router.get('/customers/:id', (req: Request, res: Response) => {
             const data: any = await client.getData(
                 Category.Customers,
                 {id: parseInt(req.params.id)})
-                res.status(200).send(data);
+                res.status(200).send(data[0]);
         })();
     } catch(error) {
         console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
@@ -85,9 +85,14 @@ router.get('/customers/:id/image', (req: Request, res: Response) => {
         responseType: 'arraybuffer'
     })
     .then(response => {
-        fs.writeFileSync(__dirname + '/../test.png', response.data);
-        console.log(`[${Date()}] : User connected as customer n°${req.params.id} with his image;`);
-        res.status(response.status).send(response.data);
+        (async () => {
+            const data: any = await client.getData(
+                Category.Customers,
+                {id: parseInt(req.params.id)})
+                fs.writeFileSync(__dirname + `/../../../front/public/assets/${data[0].name}_${data[0].surname}.png`, response.data);
+                console.log(`[${Date()}] : User connected as customer n°${req.params.id} with his image;`);
+                res.status(response.status).send(response.data);
+        })();
     })
     .catch(error => {
         console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
