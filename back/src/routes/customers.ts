@@ -53,8 +53,12 @@ router.get('/customers', (req: Request, res: Response) => {
     })
     .catch(error => {
         console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
-        console.log(error.response.data)
-        res.status(error.response.status).send(error.response.data);
+        (async () => {
+            const data: any = await client.getData(
+                Category.Customers,
+                {})
+                res.status(error.response.status).send(data);
+        })()
     });
 });
 
