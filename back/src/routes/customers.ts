@@ -11,21 +11,19 @@ import { jwToken } from "./employees";
 import { client } from "..";
 import axios from "axios";
 import { Category } from "../config/dbClass";
-// import * as fs from 'fs';
+import * as fs from 'fs';
 
 router.use(express.json());
 
 router.get('/customers', (req: Request, res: Response) => {
-    const options = {
+    axios.request({
         method: 'GET',
         url: 'https://soul-connection.fr/api/customers',
         headers: {
             'X-Group-Authorization': process.env.API_KEY,
             'Authorization': `Bearer ${jwToken}`
         },
-    }
-
-    axios.request(options)
+    })
     .then(response => {
 
         response.data.forEach((element: any) => {
@@ -77,21 +75,19 @@ router.get('/customers/:id', (req: Request, res: Response) => {
 });
 
 router.get('/customers/:id/image', (req: Request, res: Response) => {
-    const options = {
+    axios.request({
         method: 'GET',
         url: `https://soul-connection.fr/api/customers/${req.params.id}/image`,
         headers: {
             'X-Group-Authorization': process.env.API_KEY,
             'Authorization': `Bearer ${jwToken}`
         },
-    }
-
-    axios.request(options)
+        responseType: 'arraybuffer'
+    })
     .then(response => {
-        // const image: string = Buffer.from(response.data, 'binary').toString('base64');
-        // fs.writeFileSync(__dirname + '/../test.png', image);
+        fs.writeFileSync(__dirname + '/../test.png', response.data);
         console.log(`[${Date()}] : User connected as customer n°${req.params.id} with his image;`);
-        res.status(response.status).send(response.headers);
+        res.status(response.status).send(response.data);
     })
     .catch(error => {
         console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
