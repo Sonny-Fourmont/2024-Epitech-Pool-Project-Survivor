@@ -14,7 +14,6 @@ import "../../CSSCustomerList.css"
 
 
 const CustomersList: React.FC = () => {
-  let fakeCount:number = 932
   const [data , setData] = useState<CustomerData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,11 +29,12 @@ const CustomersList: React.FC = () => {
         setLoading(false);
       }
     };
-
     loadData();
   }, []);
   if (loading) {return <p>Loading...</p>;}
   if (error) {return <p>Error: {error}</p>;}
+
+  let customerCount:number = data.length;
 
   return (
     <>
@@ -43,7 +43,7 @@ const CustomersList: React.FC = () => {
         <div className="text-Flex flexBack">
           <div className='interSpace'>
             <h2 className="titleTopPage">Customer List</h2>
-            <p className='fakeCounter'>You have total {fakeCount} customers</p>
+            <p className='fakeCounter'>You have total {customerCount} customers</p>
           </div>
           <div>
             <button className="prefabButton">☁ Export</button>
