@@ -16,13 +16,60 @@ import { CustomerData } from '../GetBackendData/interfaces/CustomersInterface';
 import { EventsData } from '../GetBackendData/interfaces/EventsInterface';
 
 import { getCustomers, getEvents } from '../GetBackendData/GetBackendData';
-// import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { parseISO, format, getMonth, getWeek, getYear } from 'date-fns';
+
+type Statistics = {
+  byMonth: Record<string, number>;
+  byWeek: Record<string, number>;
+  byDay: Record<string, number>;
+};
 
 const Dashboard: React.FC = () => {
 
   const [customersData, setCustomersData] = useState<CustomerData[] | undefined>([]);
   const [eventData, setEventsData] = useState<EventsData[] | undefined>([]);
   const [error, setError] = useState<string | null>(null);
+  const [stats, setStats] = useState<Statistics>({
+    byMonth: {},
+    byWeek: {},
+    byDay: {},
+  });
+
+  const calculateEventStatistics = (events: EventsData[] | undefined): Statistics => {
+    const stats: Statistics = {
+      byMonth: {},
+      byWeek: {},
+      byDay: {},
+    };
+
+    events?.forEach((event) => {
+      const eventDate = parseISO(event.date);
+
+      const monthKey = `${getYear(eventDate)}-${(getMonth(eventDate) + 1)
+        .toString()
+        .padStart(2, '0')}`;
+      stats.byMonth[monthKey] = (stats.byMonth[monthKey] || 0) + 1;
+
+      const weekKey = `${getYear(eventDate)}-W${getWeek(eventDate)
+        .toString()
+        .padStart(2, '0')}`;
+      stats.byWeek[weekKey] = (stats.byWeek[weekKey] || 0) + 1;
+
+      const dayKey = format(eventDate, 'yyyy-MM-dd');
+      stats.byDay[dayKey] = (stats.byDay[dayKey] || 0) + 1;
+    });
+
+    return stats;
+  }
+
+  const sumValues = (obj: Record<string, number>) => {
+    return Object.values(obj).reduce((sum, value) => sum + value, 0);
+  };
+
+  const averageValues = (obj: Record<string, number>) => {
+    const values = Object.values(obj);
+    return values.length > 0 ? (sumValues(obj) / values.length).toFixed(2) : 0;
+  };
 
   useEffect(() => {
 
@@ -42,11 +89,23 @@ const Dashboard: React.FC = () => {
     } catch (error) {
         setError("Failed to fetch data");
       }
-    };
+  };
+
+    setStats(calculateEventStatistics(eventData));
 
     loadCustomersData();
     loadEventsData();
   }, []);
+
+  useEffect(() => {
+    if (eventData && eventData.length > 0) {
+      setStats(calculateEventStatistics(eventData));
+    }
+  }, [eventData]);
+
+  const totalMonthlyEvents = averageValues(stats.byMonth);
+  const totalWeeklyEvents = averageValues(stats.byWeek);
+  const averageDailyEvents = averageValues(stats.byDay);
 
   return (
     <>
@@ -83,16 +142,16 @@ const Dashboard: React.FC = () => {
                 <td className='card-values-first-group'>
                   <p className='card-values-title'>Customers</p>
                   <p className='card-values-number'>{customersData?.length}</p>
-                  <p className='green'>+ 12.37%</p>
+                  <p className='green'>+ XX.X%</p>
                 </td>
                 <td className='card-values-second-group'>
                   <p className='card-values-title'>Doing meetings</p>
-                  <p className='card-values-number'>28.49%</p>
-                  <p className='red'>- 12.37%</p>
+                  <p className='card-values-number'>XX%</p>
+                  <p className='red'>- XX.X%</p>
                 </td>
                 <td className='card-values-second-group'>
                   <p className='card-values-title'>Customers by coach</p>
-                  <p className='card-values-number'>34</p>
+                  <p className='card-values-number'>XX</p>
                 </td>
               </tr>
               <tr>
@@ -115,18 +174,18 @@ const Dashboard: React.FC = () => {
               <tr className='card-values'>
                 <td className='card-values-first-group'>
                   <p className='card-values-title'>Monthly</p>
-                  <p className='card-values-number'>{eventData?.length}</p>
-                  <p className='green'>+ 4.63%</p>
+                  <p className='card-values-number'>{totalMonthlyEvents}</p>
+                  <p className='green'>+ XX.X%</p>
                 </td>
                 <td className='card-values-second-group'>
                   <p className='card-values-title'>Weekly</p>
-                  <p className='card-values-number'>20</p>
-                  <p className='red'>- 1.92%</p>
+                  <p className='card-values-number'>{totalWeeklyEvents}</p>
+                  <p className='red'>- XX.X%</p>
                 </td>
                 <td className='card-values-second-group'>
                   <p className='card-values-title'>Daily (Avg)</p>
-                  <p className='card-values-number'>3</p>
-                  <p className='green'>+3.45%</p>
+                  <p className='card-values-number'>{averageDailyEvents}</p>
+                  <p className='green'>+XX.X%</p>
                 </td>
               </tr>
               <tr className='card-chart'>
@@ -145,7 +204,7 @@ const Dashboard: React.FC = () => {
                   <h2>Customers by Country</h2>
                 </th>
                 <th className="duration-button">
-                  <button className='trigger-button'>30 Days ^</button>
+                  <button className='trigger-button'>30 Days</button>
                 </th>
               </tr>
               <tr>
