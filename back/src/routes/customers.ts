@@ -53,12 +53,19 @@ router.get('/customers', (req: Request, res: Response) => {
     })
     .catch(error => {
         console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
-        (async () => {
-            const data: any = await client.getData(
-                Category.Customers,
-                {})
-                res.status(error.response.status).send(data);
-        })()
+        try {
+            (async () => {
+                const data: any = await client.getData(
+                    Category.Customers,
+                    {})
+                    console.log(`[${Date()}] : Got all customer from the Database;`);
+                    res.status(303).send(data);
+            })()
+        } catch (errorDb) {
+            console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+            console.log(errorDb)
+            res.status(error.response.status).send(errorDb);
+        }
     });
 });
 
