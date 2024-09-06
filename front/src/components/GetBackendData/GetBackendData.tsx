@@ -9,9 +9,27 @@ import React from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { CustomerData } from "./interfaces/CustomersInterface";
 import { EmployeeData } from "./interfaces/EmployeeInterface";
+import { TipsData } from "./interfaces/TipsInterface";
 import { ClothesData } from "./interfaces/ClosthesInterface";
 import { EventsData } from "./interfaces/EventsInterface";
 import { EncounterData } from "./interfaces/EncounterInterface";
+
+export const getTips = async (): Promise<TipsData[] | undefined> => {
+    try {
+        const res: AxiosResponse = await axios.get('http://localhost:3001/tips');
+        if (res.data) {
+            console.log(res.data);
+            return res.data ;
+        }
+    } catch (error) {
+        if (error instanceof AxiosError) {
+            console.error("Cannot get the data", error.message);
+        } else {
+            console.error("An unexpected error occurred", error);
+        }
+    }
+    return undefined;
+}
 
 export const getCustomers = async (): Promise<CustomerData[] | undefined> => {
     try {
