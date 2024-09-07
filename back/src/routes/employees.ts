@@ -37,28 +37,6 @@ router.post('/employees/login', (req: Request, res: Response) => {
     });
 });
 
-// router.get('/employees', (req: Request, res: Response) => {
-//     const options = {
-//         method: 'GET',
-//         url: 'https://soul-connection.fr/api/employees',
-//         headers: {
-//             'X-Group-Authorization': process.env.API_KEY,
-//             'Authorization': `Bearer ${jwToken}`
-//         }
-//     };
-//     console.log(jwToken)
-//     axios.request(options)
-//     .then(response => {
-//         client.addManyDocumentInCollection(Category.Employee, response.data);
-//         console.log("Got the employees list!")
-//         res.status(response.status).send(response.data)
-//     })
-//     .catch(error => {
-//         console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-//         res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-//     });
-// });
-
 router.get('/employees', (req: Request, res: Response) => {
     axios.request({
         method: 'GET',
