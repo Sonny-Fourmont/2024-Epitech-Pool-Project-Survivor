@@ -5,12 +5,11 @@
 ** GetBackendData
 */
 
-import React from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { CustomerData } from "./interfaces/CustomersInterface";
-import { EmployeeData } from "./interfaces/EmployeeInterface";
+// import { EmployeeData } from "./interfaces/EmployeeInterface";
 import { TipsData } from "./interfaces/TipsInterface";
-import { ClothesData } from "./interfaces/ClosthesInterface";
+// import { ClothesData } from "./interfaces/ClosthesInterface";
 import { EventsData } from "./interfaces/EventsInterface";
 import { EncounterData } from "./interfaces/EncounterInterface";
 

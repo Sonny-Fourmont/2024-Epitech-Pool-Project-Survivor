@@ -17,6 +17,7 @@ import { EventsData } from '../GetBackendData/interfaces/EventsInterface';
 
 import { getCustomers, getEvents } from '../GetBackendData/GetBackendData';
 import { parseISO, format, getMonth, getWeek, getYear } from 'date-fns';
+import WorldMapChart from '../charts/WorldMapChart';
 
 type Statistics = {
   byMonth: Record<string, number>;
@@ -28,7 +29,6 @@ const Dashboard: React.FC = () => {
 
   const [customersData, setCustomersData] = useState<CustomerData[] | undefined>([]);
   const [eventData, setEventsData] = useState<EventsData[] | undefined>([]);
-  const [error, setError] = useState<string | null>(null);
   const [stats, setStats] = useState<Statistics>({
     byMonth: {},
     byWeek: {},
@@ -78,7 +78,7 @@ const Dashboard: React.FC = () => {
         const result = await getCustomers();
         setCustomersData(result);
     } catch (error) {
-        setError("Failed to fetch data");
+        console.error(error, "Failed to fetch customers data");
       }
     };
 
@@ -87,7 +87,7 @@ const Dashboard: React.FC = () => {
         const result = await getEvents();
         setEventsData(result);
     } catch (error) {
-        setError("Failed to fetch data");
+        console.error("Failed to fetch events data", error);
       }
   };
 
@@ -95,7 +95,7 @@ const Dashboard: React.FC = () => {
 
     loadCustomersData();
     loadEventsData();
-  }, []);
+  }, [eventData]);
 
   useEffect(() => {
     if (eventData && eventData.length > 0) {
@@ -204,14 +204,18 @@ const Dashboard: React.FC = () => {
                   <h2>Customers by Country</h2>
                 </th>
                 <th className="duration-button">
-                  <button className='trigger-button'>30 Days</button>
+                  <select className='trigger-button'>
+                    <option>This Month</option>
+                    <option>This Week</option>
+                    <option>Today</option>
+                  </select>
                 </th>
               </tr>
-              <tr>
-                {/* ADD MAP */}
+              <tr className='card-chart'>
+                <WorldMapChart/>
               </tr>
             </tbody>
-          </table>
+        </table>
 
           <table className='card'>
             <tbody>
@@ -220,7 +224,11 @@ const Dashboard: React.FC = () => {
                   <h2>Meetings top sources</h2>
                 </th>
                 <th className="duration-button">
-                  <button className='trigger-button'>30 Days ^</button>
+                  <select className='trigger-button'>
+                    <option>This Month</option>
+                    <option>This Week</option>
+                    <option>Today</option>
+                  </select>
                 </th>
               </tr>
               <tr>
