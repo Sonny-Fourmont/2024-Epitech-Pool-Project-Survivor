@@ -7,7 +7,7 @@
 
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { CustomerData } from "./interfaces/CustomersInterface";
-// import { EmployeeData } from "./interfaces/EmployeeInterface";
+import { EmployeeData } from "./interfaces/EmployeeInterface";
 import { TipsData } from "./interfaces/TipsInterface";
 // import { ClothesData } from "./interfaces/ClosthesInterface";
 import { EventsData } from "./interfaces/EventsInterface";
@@ -64,22 +64,22 @@ export const getCustomersID = async (ID:number): Promise<CustomerData | undefine
     return undefined;
 }
 
-// export const getEmployee = async (): Promise<EmployeeData | undefined> => {
-//     try {
-//         const res: AxiosResponse = await axios.get('http://localhost:3001/employees');
-//         if (res.data) {
-//             const parsedResponse: EmployeeData = res.data;
-//             return parsedResponse;
-//         }
-//     } catch (error) {
-//         if (error instanceof AxiosError) {
-//             console.error("Cannot get the data", error.message);
-//         } else {
-//             console.error("An unexpected error occurred", error);
-//         }
-//     }
-//     return undefined;
-// }
+export const getEmployee = async (): Promise<EmployeeData[] | undefined> => {
+    try {
+        const res: AxiosResponse = await axios.get('http://localhost:3001/employees');
+        if (res.data) {
+            console.log(res.data);
+            return res.data;
+        }
+    } catch (error) {
+        if (error instanceof AxiosError) {
+            console.error("Cannot get the data", error.message);
+        } else {
+            console.error("An unexpected error occurred", error);
+        }
+    }
+    return undefined;
+}
 
 // export const getClothes = async (): Promise<ClothesData | undefined> => {
 //     try {
