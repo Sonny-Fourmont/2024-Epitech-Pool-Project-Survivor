@@ -116,9 +116,27 @@ export const getEvents = async (): Promise<EventsData[] | undefined> => {
     return undefined;
 }
 
-export const getEncouters = async (): Promise<EncounterData | undefined> => {
+export const getEncouters = async (): Promise<EncounterData[] | undefined> => {
     try {
         const res: AxiosResponse = await axios.get('http://localhost:3001/encounters');
+        if (res.data) {
+            console.log(res.data);
+            const parsedResponse: EncounterData[] = res.data;
+            return parsedResponse;
+        }
+    } catch (error) {
+        if (error instanceof AxiosError) {
+            console.error("Cannot get the data", error.message);
+        } else {
+            console.error("An unexpected error occurred", error);
+        }
+    }
+    return undefined;
+}
+
+export const getEncoutersById = async (id: number): Promise<EncounterData | undefined> => {
+    try {
+        const res: AxiosResponse = await axios.get('http://localhost:3001/encounters/' + id);
         if (res.data) {
             console.log(res.data);
             const parsedResponse: EncounterData = res.data;
