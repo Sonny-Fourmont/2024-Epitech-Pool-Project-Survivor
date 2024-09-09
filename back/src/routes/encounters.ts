@@ -74,32 +74,6 @@ router.get('/encounters/:id', (req: Request, res: Response) => {
 });
 
 router.get('/encounters/customer/:id', (req: Request, res: Response) => {
-    axios.request({
-        method: 'GET',
-        url: `https://soul-connection.fr/api/encounters/customer/${req.params.id}`,
-        headers: {
-            'X-Group-Authorization': process.env.API_KEY,
-            'Authorization': `Bearer ${jwToken}`
-        },
-    })
-    .then(response => {
-        (async () => {
-            const data: any = await client.getData(
-                Category.Encounters,
-                {id: parseInt(req.params.id)})
-                console.log(`[${Date()}] : User connected as encouter n°${req.params.id} with his image;`);
-                res.status(200).send(data[0]);
-        })();
-    })
-    .catch(error => {
-        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
-        console.log(error.response.data)
-        res.status(error.response.status).send(error.response.data);
-    });
-});
-
-
-router.get('/encounters/customer/:id', (req: Request, res: Response) => {
     const options = {
         method: 'GET',
         url: `https://soul-connection.fr/api/encounters/customer/${req.params.id}`,
