@@ -12,7 +12,6 @@ import { getCustomers } from '../GetBackendData/GetBackendData';
 import { CustomerData } from "../GetBackendData/interfaces/CustomersInterface";
 import "../../CSSCustomerList.css"
 
-
 const CustomersList: React.FC = () => {
   const [data , setData] = useState<CustomerData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -31,6 +30,10 @@ const CustomersList: React.FC = () => {
     const updatedCheckedItems = [...checkedItems];
     updatedCheckedItems[index] = !updatedCheckedItems[index];
     setCheckedItems(updatedCheckedItems);
+  };
+
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    event.currentTarget.src = '../../assets/user.png';
   };
 
   const sortClients = (column: keyof CustomerData) => {
@@ -103,8 +106,8 @@ const CustomersList: React.FC = () => {
               {data.map((customer, index) => (
                   <tr key={customer.id}>
                     <td>
-                      <label>
-                        <input type="checkbox" checked={checkedItems[index]} onChange={() => handleCheckboxChange(index)} /> {customer.name} {customer.surname}
+                      <label className='imagePostion alineCenter'>
+                        <input type="checkbox" checked={checkedItems[index]} onChange={() => handleCheckboxChange(index)} /><img src={`../../assets/clientsImages/${customer.name}_${customer.surname}.png`} alt='img' className='profilPicture' onError={handleImageError}></img> {customer.name} {customer.surname}
                       </label>
                     </td>
                     <td>{customer.email}</td>

@@ -17,7 +17,6 @@
 }
 
 .scaleSort {
-  /* margin-left: 40vw; */
   width: 1vw;
   height: 0.8vw;
 }
@@ -65,3 +64,9 @@
 .clientList th, .clientList td {border-top: 1px solid #ddd;}
 .leftAlign {text-align: left;}
 .interSpace {line-height: 1vh;}
+.alineCenter{text-align: center;}
+.imagePostion {
+  display: flex;
+  align-items: center;
+  width: 15vw;
+}
