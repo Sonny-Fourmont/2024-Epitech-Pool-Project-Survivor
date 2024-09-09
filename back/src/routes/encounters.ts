@@ -110,7 +110,7 @@ router.get('/encounters/customer/:id', (req: Request, res: Response) => {
     };
     axios.request(options)
     .then(response => {
-        console.log(`[${Date()}] : Get encounters of customer n°${req.params.id};`);
+        console.log(`[${Date()}] : Get encounters of encounters n°${req.params.id};`);
         client.addManyDocumentInCollection(Category.Encounters, response.data);
         res.status(response.status).send(response.data)
     })
