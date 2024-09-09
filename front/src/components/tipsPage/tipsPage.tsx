@@ -16,12 +16,6 @@ const Tips: React.FC = () => {
   const [data , setData] = useState<TipsData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [compatibility, setCompatibility] = useState<number>(0);
-
-  const randNumber = (): number => {
-    const rand = Math.random() * (100 - 1)
-    return Math.trunc(rand);
-  }
 
   useEffect(() => {
     const loadData = async () => {

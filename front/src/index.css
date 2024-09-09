@@ -1,5 +1,10 @@
 /* -------------- General items --------------*/
 
+/*#fce4ec; Rose très clair */
+/*#ff47c8; Rose vif */
+/*#e91e63; Couleur principale pour le texte */
+/*#c2185b; Rose foncé */
+
 body {
   font-family: 'Outfit', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -9,19 +14,18 @@ body {
   background: #f7f7f7;
   background-attachment: fixed;
   background-size: cover;
-  color: #333;
+  color: #e91e63;
   display: flex;
   align-items: center;
 }
 
 li {
   margin-left: 2vw;
-
 }
 
 .titleTopPage {
   margin-left: 1vw;
-  color: rgb(72, 72, 121);
+  color: #c2185b;
 }
 
 .text-Flex {
@@ -38,17 +42,17 @@ li {
 .container {
   align-items: stretch;
   display: flex;
-  color: rgb(61, 101, 124);
+  color: #d81b60;
 }
 
 .horizontaleLineUp {
   padding-top: 1vw;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #f8bbd0;
 }
 
 .horizontaleLineDown {
   padding-bottom: 1vw;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #f8bbd0;
 }
 
 .tipsText {
@@ -61,21 +65,20 @@ li {
   margin-right: 1vw;
   font-size: 15px;
   font-weight: bold;
-  border: 1px solid #ddd;
-  background-color: white;
-  color: rgb(72, 72, 121);
+  border: 1px solid #f48fb1;
+  background-color: #fce4ec;
+  color: #c2185b;
   border-radius: 0.3vw;
   width: 6vw;
   height: 2vw;
 }
 
-.prefabButton:active{
-  background-color: rgb(72, 72, 121);
-  color: white;
+.prefabButton:active {
+  background-color: #c2185b;
+  color: #fff;
 }
 
 h1 {
-  color: #222;
   padding-top: 6vh;
   padding-left: 1vh;
   letter-spacing: 1.5px;
@@ -85,33 +88,33 @@ details {
   padding: 2vh;
   font-size: 1.2em;
   transition: transform 0.3s ease-in-out;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #f8bbd0;
   font-weight: bold;
 }
 
 details > p {
   margin: 10px 0 0 0;
   padding: 10px;
-  border-top: 1px solid #ddd;
-  background-color:#fff;
+  border-top: 1px solid #f8bbd0;
+  background-color: #fce4ec;
   font-size: 0.8vw;
   margin-right: 10px;
-  font-weight:400;
+  font-weight: 400;
 }
 
 h3 {
-  color: #8d8d8d;
+  color: #e91e63;
   padding-left: 1vh;
   letter-spacing: 1.5px;
 }
 
 h4 {
-  color: #8d8d8d;
+  color: #d81b60;
 }
 
 table {
   width: 100%;
-  border: 1px solid #ddd;
+  border: 1px solid #fce4ec;
 }
 
 @keyframes fadeIn {
@@ -136,15 +139,15 @@ img {
 textarea {
   width: 100%;
   padding: 15px;
-  border: 2px solid #ddd;
+  border: 2px solid #f8bbd0;
   border-radius: 10px;
   font-size: 15px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 textarea:focus {
-  border-color: #4CAF50;
-  box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+  border-color: #e91e63;
+  box-shadow: 0 0 10px rgba(233, 30, 99, 0.3);
   outline: none;
 }
 
@@ -152,8 +155,8 @@ textarea:focus {
   display: block;
   width: 100%;
   padding: 15px 20px;
-  background: linear-gradient(135deg, #6e8efb 0%, #a777e3 100%);
-  color: white;
+  background: linear-gradient(135deg, #f06292 0%, #ec407a 100%);
+  color: #fff;
   border: none;
   border-radius: 10px;
   font-size: 18px;
@@ -164,9 +167,9 @@ textarea:focus {
 }
 
 .login button:hover {
-  background: linear-gradient(135deg, #5a7cfb 0%, #9967e3 100%);
+  background: linear-gradient(135deg, #ec407a 0%, #d81b60 100%);
   transform: translateY(-2px);
-  color: #ffffff;
+  color: #fff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -177,8 +180,8 @@ button:active {
 
 input[type="file"] {
   padding: 0.5vw;
-  background: #f7f9fc;
-  border: 1px solid #ccc;
+  background: #fce4ec;
+  border: 1px solid #f8bbd0;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   height: 10vw;
@@ -194,13 +197,13 @@ input[type="file"] {
 }
 
 .login {
-  border: 3px solid rgb(229, 235, 235);
+  border: 3px solid #f8bbd0;
   min-width: 15vw;
   max-width: 20vw;
   margin-top: 20vh;
   margin-left: 40vw;
   margin-bottom: 3vw;
-  background-color: #ffffff;
+  background-color: #fff;
   padding: 40px;
   border-radius: 0.5vw;
   animation: fadeIn 0.5s ease-in-out;
@@ -221,20 +224,20 @@ input[type="file"] {
   width: 90%;
   padding: 15px;
   margin-top: 5px;
-  border: 2px solid #ddd;
+  border: 2px solid #f8bbd0;
   border-radius: 10px;
   font-size: 15px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .login form input:focus {
-  border-color: #4CAF50;
-  box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+  border-color: #e91e63;
+  box-shadow: 0 0 10px rgba(233, 30, 99, 0.3);
   outline: none;
 }
 
 .login form button {
-  background: linear-gradient(135deg, #6e8efb 0%, #a777e3 100%);
+  background: linear-gradient(135deg, #f06292 0%, #ec407a 100%);
   margin-top: 30px;
 }
 
@@ -246,7 +249,7 @@ input[type="file"] {
   left: 0;
   width: 100%;
   height: 50px;
-  background: #ffff;
+  background: #fff;
   border-bottom: 1px solid #dfdfdf;
   display: flex;
   justify-content: center;
@@ -320,14 +323,14 @@ input[type="file"] {
 
 .dashboard-dropdown {
   margin-left: 1vw;
-  background: white;
+  background: #fff;
   color: black;
 }
 
 .dashboard-popup {
   margin-left: 1vw;
-  background: linear-gradient(135deg, #6e8efb 0%, #a777e3 100%);
-  color: white;
+  background: linear-gradient(135deg, #f06292 0%, #ec407a 100%);
+  color: #fff;
   font-weight: bold;
 }
 
@@ -343,7 +346,7 @@ input[type="file"] {
 }
 
 .card {
-  background-color: white;
+  background-color: #fff;
   margin-left: 1vw;
   padding-left: 1vw;
   width: 50%;
@@ -363,8 +366,8 @@ input[type="file"] {
 
 .trigger-button {
   background-color: transparent;
-  border: solid 2px rgb(207, 206, 206);
-  color: rgb(92, 91, 91);
+  border: solid 2px #f8bbd0;
+  color: #d81b60;
   font-size: 10px;
   font-weight: bold;
   padding: 5px 10px;

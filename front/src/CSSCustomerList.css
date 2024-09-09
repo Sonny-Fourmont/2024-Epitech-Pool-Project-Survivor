@@ -7,13 +7,13 @@
 
 .fakeCounter {
   margin-left: 1vw;
-  color: rgb(72, 72, 121);
+  color: #e91e63;
 }
 
 .container {
   align-items: stretch;
   display: flex;
-  color: rgb(61, 101, 124);
+  color: #c2185b;
 }
 
 .scaleSort {
@@ -27,14 +27,14 @@
 
 .clientList {
   border-radius: 0.3vw;
-  background-color: white;
+  background-color: #fce4ec;
   margin-left: 1vw;
   margin-top: 1vw;
   margin-right: 1vw;
 }
 
 .tripleDot:hover {
-  color: rgb(52, 52, 100);
+  color: #7a4c83;
   cursor: pointer;
 }
 
@@ -51,8 +51,8 @@
 }
 
 .space tr {
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #f8bbd0;
+  border-bottom: 1px solid #f8bbd0;
 }
 
 .space th, .space td {
@@ -61,10 +61,22 @@
   border: none;
 }
 
-.clientList th, .clientList td {border-top: 1px solid #ddd;}
-.leftAlign {text-align: left;}
-.interSpace {line-height: 1vh;}
-.alineCenter{text-align: center;}
+.clientList th, .clientList td {
+  border-top: 1px solid #f8bbd0;
+}
+
+.leftAlign {
+  text-align: left;
+}
+
+.interSpace {
+  line-height: 1vh;
+}
+
+.alineCenter {
+  text-align: center;
+}
+
 .imagePostion {
   display: flex;
   align-items: center;

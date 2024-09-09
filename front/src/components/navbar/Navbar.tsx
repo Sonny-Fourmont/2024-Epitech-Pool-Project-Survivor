@@ -23,7 +23,7 @@ const NavBar: React.FC = () => {
                 display: "inline-block",
                 borderBottom: isActive ? "solid" : "hidden",
                 fontWeight: isActive ? "bold" : "",
-                color: isActive ? "blue" : "black",
+                color: isActive ? "#c2185b" : "#c2185b;",
               };
             }}>
               <p className="icon">Dashboard</p>
@@ -36,7 +36,7 @@ const NavBar: React.FC = () => {
                 display: "inline-block",
                 borderBottom: isActive ? "solid" : "hidden",
                 fontWeight: isActive ? "bold" : "",
-                color: isActive ? "blue" : "black",
+                color: isActive ? "#c2185b" : "#c2185b;",
               };
             }}>
               <p className="icon">Coaches</p>
@@ -49,7 +49,7 @@ const NavBar: React.FC = () => {
                 display: "inline-block",
                 borderBottom: isActive ? "solid" : "hidden",
                 fontWeight: isActive ? "bold" : "",
-                color: isActive ? "blue" : "black",
+                color: isActive ? "#c2185b" : "#c2185b;",
               };
             }}>
               <p className="icon">Customers</p>
@@ -62,7 +62,7 @@ const NavBar: React.FC = () => {
                 display: "inline-block",
                 borderBottom: isActive ? "solid" : "hidden",
                 fontWeight: isActive ? "bold" : "",
-                color: isActive ? "blue" : "black",
+                color: isActive ? "#c2185b" : "#c2185b;",
               };
             }}>
               <p className="icon">Tips</p>
@@ -75,7 +75,7 @@ const NavBar: React.FC = () => {
                 display: "inline-block",
                 borderBottom: isActive ? "solid" : "hidden",
                 fontWeight: isActive ? "bold" : "",
-                color: isActive ? "blue" : "black",
+                color: isActive ? "#c2185b" : "#c2185b;",
               };
             }}>
               <p className="icon">Events</p>
@@ -88,7 +88,7 @@ const NavBar: React.FC = () => {
                 display: "inline-block",
                 borderBottom: isActive ? "solid" : "hidden",
                 fontWeight: isActive ? "bold" : "",
-                color: isActive ? "blue" : "black",
+                color: isActive ? "#c2185b" : "#c2185b;",
               };
             }}>
               <p className="icon">Astrological</p>
@@ -101,7 +101,7 @@ const NavBar: React.FC = () => {
                 display: "inline-block",
                 borderBottom: isActive ? "solid" : "hidden",
                 fontWeight: isActive ? "bold" : "",
-                color: isActive ? "blue" : "black",
+                color: isActive ? "#c2185b" : "#c2185b;",
               };
             }}>
               <p className="icon">Clothes</p>
@@ -114,7 +114,7 @@ const NavBar: React.FC = () => {
                 display: "inline-block",
                 borderBottom: isActive ? "solid" : "hidden",
                 fontWeight: isActive ? "bold" : "",
-                color: isActive ? "blue" : "black",
+                color: isActive ? "#c2185b" : "#c2185b;",
               };
             }}>
               <p className="icon">Account</p>
