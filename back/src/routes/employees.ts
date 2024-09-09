@@ -5,7 +5,7 @@
 ** employees
 */
 
-import express, { Request, response, Response, Router } from "express";
+import express, { Request, Response, Router } from "express";
 const router: Router = express.Router();
 import axios from "axios";
 import { client } from "..";
@@ -62,7 +62,7 @@ router.get('/employees', (req: Request, res: Response) => {
                 client.addDocumentInCollection(Category.Employee, response.data);
             })
             .catch(error => {
-                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on customer ${element.id};`);
+                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on employee ${element.id};`);
                 console.log(error.response.data)
             });
         });
@@ -135,7 +135,7 @@ router.get('/employees/me', (req: Request, res: Response) => {
     console.log(jwToken)
     axios.request(options)
     .then(response => {
-        console.log(`[${Date()}] : Get event n°${req.params.id};`);
+        console.log(`[${Date()}] : Get employee n°${req.params.id};`);
         client.addDocumentInCollection(Category.Employee, response.data);
         res.status(response.status).send(response.data)
     })
