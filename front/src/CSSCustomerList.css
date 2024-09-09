@@ -16,6 +16,16 @@
   color: rgb(61, 101, 124);
 }
 
+.scaleSort {
+  /* margin-left: 40vw; */
+  width: 1vw;
+  height: 0.8vw;
+}
+
+.scaleSort:active {
+  opacity: 50%;
+}
+
 .clientList {
   border-radius: 0.3vw;
   background-color: white;

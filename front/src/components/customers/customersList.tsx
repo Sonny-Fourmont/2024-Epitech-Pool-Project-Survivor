@@ -17,6 +17,34 @@ const CustomersList: React.FC = () => {
   const [data , setData] = useState<CustomerData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectAll, setSelectAll] = useState<boolean>(false);
+  const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
+  const [sortColumn, setSortColumn] = useState<string>("name");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+
+  const activeAll = () => {
+    setSelectAll(!selectAll);
+    setCheckedItems(new Array(data.length).fill(!selectAll));
+  }
+
+  const handleCheckboxChange = (index: number) => {
+    const updatedCheckedItems = [...checkedItems];
+    updatedCheckedItems[index] = !updatedCheckedItems[index];
+    setCheckedItems(updatedCheckedItems);
+  };
+
+  const sortClients = (column: keyof CustomerData) => {
+    const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortColumn(column);
+    setSortOrder(newSortOrder);
+
+    const sortedData = [...data].sort((a, b) => {
+      if (a[column] < b[column]) return newSortOrder === "asc" ? -1 : 1;
+      if (a[column] > b[column]) return newSortOrder === "asc" ? 1 : -1;
+      return 0;
+    });
+    setData(sortedData);
+  };
 
   useEffect(() => {
     const loadData = async () => {
@@ -61,9 +89,10 @@ const CustomersList: React.FC = () => {
                   <option>Move To Trash</option>
                 </select>
                 <button className='prefabButton'>Apply</button>
+                <img src='../../assets/sort.png' alt='sort' className='scaleSort' onClick={() => sortClients("name")}></img>
               </div>
               <tr className='leftAlign'>
-                <th><label><input type="checkbox"/>Customers</label></th>
+                <th><label><input type="checkbox" onClick={activeAll}/>Customers</label></th>
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Payment Methods</th>
@@ -71,11 +100,11 @@ const CustomersList: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((customer) => (
+              {data.map((customer, index) => (
                   <tr key={customer.id}>
                     <td>
                       <label>
-                        <input type="checkbox" /> {customer.name} {customer.surname}
+                        <input type="checkbox" checked={checkedItems[index]} onChange={() => handleCheckboxChange(index)} /> {customer.name} {customer.surname}
                       </label>
                     </td>
                     <td>{customer.email}</td>
