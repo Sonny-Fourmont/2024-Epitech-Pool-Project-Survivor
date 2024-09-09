@@ -22,7 +22,7 @@ export default function SimpleLineChart() {
           width={850}
           height={300}
           series={[
-            { data: data, area: true, color: '#4c4c83' },
+            { data: data, area: true, color: '#7a4c83' },
           ]}
           xAxis={[{ scaleType: 'point', data: xLabels }]}
         />

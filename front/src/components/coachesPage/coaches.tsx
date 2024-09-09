@@ -28,7 +28,7 @@ const CoachesList: React.FC = () => {
   };
 
   const handleCheckboxChange = (index: number) => {
-    const updatedCheckedItems = [... checkedItems];
+    const updatedCheckedItems = [...checkedItems];
     updatedCheckedItems[index] = !updatedCheckedItems[index]
     setCheckedItems(updatedCheckedItems);
   };

@@ -10,7 +10,7 @@
   margin-right: 1vw;
   position: relative;
   border: 1px solid #ddd;
-  background-color: #fff;
+  background-color: #fce4ec;
   width: 97vw;
   height: 79vh;
   display: flex;
@@ -84,4 +84,4 @@
 }
 
 .clientSelector {margin-left: 1vw;}
-.arrowCloth:active {color: #4c4c83;}
+.arrowCloth:active {color: #c2185b;}

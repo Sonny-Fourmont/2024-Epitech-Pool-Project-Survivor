@@ -23,7 +23,7 @@ return (
             margin: "0 10px",
             display: "inline-block",
             fontWeight: "bold",
-            color: isActive ? "rgb(52, 52, 100)" : "rgb(37, 37, 77)",
+            color: isActive ? "#7a4c83" : "rgb(37, 37, 77)",
             fontSize: "20px"
         })}
         >

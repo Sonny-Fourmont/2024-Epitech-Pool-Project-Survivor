@@ -6,14 +6,15 @@
 */
 
 .containerCompatibility {
+  margin-left: 1vw;
+  margin-right: 1vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #fce4ec;
   border-radius: 1vw;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin: 20px 0;
   margin-top: 20vh;
 }
 
@@ -21,16 +22,16 @@
   font-size: 20px;
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #f68886;
   width: 100%;
   height: auto;
   text-align: center;
-  background-color: #ffffff;
+  background-color: #f68886;
   transition: border-color 0.3s ease;
 }
 
 .choseYourCharacter:focus {
-  border-color: #484879;
+  border-color: #c2185b;
   outline: none;
 }
 
@@ -44,17 +45,16 @@
 
 .CompatibilityPercentageNumber {
   font-size: 60px;
-  color: #ff6347;
+  color: #ff47c8;
   margin: 0;
   margin-top: 10vh;
-  
 }
 
 .TRYButton {
   font-size: 24px;
   font-weight: bold;
-  background-color: rgb(72, 72, 121);
-  color: white;
+  background-color: #e91e63;
+  color: #fff;
   border: none;
   border-radius: 50px;
   padding: 15px 40px;
@@ -64,14 +64,14 @@
 }
 
 .TRYButton:hover {
-  background-color: rgb(52, 52, 101);
+  background-color: #c2185b;
   transform: translateY(-3px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .TRYButton:active {
-  background-color: white;
-  color: rgb(72, 72, 121);
+  background-color: #fff;
+  color: #e91e63;
 }
 
 .heart {
@@ -98,7 +98,7 @@
 
 .leftCompatibility, .rightCompatibility {
   border: 1px solid #ddd;
-  background-color: #fff;
+  background-color: #fce4ec;
   padding: 20px;
   border-radius: 0.5vw;
   width: 30%;
