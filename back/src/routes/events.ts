@@ -15,45 +15,62 @@ import { Category } from "../config/dbClass";
 router.use(express.json());
 
 router.get('/events', (req: Request, res: Response) => {
-    const options = {
+    axios.request({
         method: 'GET',
         url: 'https://soul-connection.fr/api/events',
         headers: {
             'X-Group-Authorization': process.env.API_KEY,
             'Authorization': `Bearer ${jwToken}`
-        }
-    };
-    axios.request(options)
+        },
+    })
     .then(response => {
-        client.addManyDocumentInCollection(Category.Events, response.data);
-        console.log("Got the events list!")
-        res.status(response.status).send(response.data)
+
+        response.data.forEach((element: any) => {
+            axios.request({
+                method: 'GET',
+                url: `https://soul-connection.fr/api/events/${element.id}`,
+                headers: {
+                    'X-Group-Authorization': process.env.API_KEY,
+                    'Authorization': `Bearer ${jwToken}`
+                }
+            })
+            .then(response => {
+                console.log(`[${Date()}] : Got events n°${element.id} from external API;`);
+                client.addDocumentInCollection(Category.Events, response.data);
+            })
+            .catch(error => {
+                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on employee ${element.id};`);
+                console.log(error.response.data)
+            });
+        });
+        (async () => {
+            const data: any = await client.getData(
+                Category.Events,
+                {})
+                res.status(response.status).send(data);
+        })()
     })
     .catch(error => {
-        console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-        res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+        console.log(error.response.data)
+        res.status(error.response.status).send(error.response.data);
     });
 });
 
 router.get('/events/:id', (req: Request, res: Response) => {
-    const options = {
-        method: 'GET',
-        url: `https://soul-connection.fr/api/events/${req.params.id}`,
-        headers: {
-            'X-Group-Authorization': process.env.API_KEY,
-            'Authorization': `Bearer ${jwToken}`
-        }
-    };
-    axios.request(options)
-    .then(response => {
-        console.log(`[${Date()}] : Get event n°${req.params.id};`);
-        client.addDocumentInCollection(Category.Events, response.data);
-        res.status(response.status).send(response.data)
-    })
-    .catch(error => {
-        console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-        res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-    });
+    try {
+        console.log(`[${Date()}] : Got events n°${req.params.id} from Database;`);
+        (async () => {
+            const data: any = await client.getData(
+                Category.Events,
+                {id: parseInt(req.params.id)})
+                res.status(200).send(data[0]);
+        })();
+    } catch(error) {
+        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+        console.log(error)
+        res.status(404).send(error);
+    }
 });
 
 export default router;
