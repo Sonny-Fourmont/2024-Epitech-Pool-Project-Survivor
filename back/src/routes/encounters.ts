@@ -76,7 +76,7 @@ router.get('/encounters/:id', (req: Request, res: Response) => {
 router.get('/encounters/customer/:id', (req: Request, res: Response) => {
     axios.request({
         method: 'GET',
-        url: `https://soul-connection.fr/api/customers/${req.params.id}/image`,
+        url: `https://soul-connection.fr/api/encounters/customer/${req.params.id}`,
         headers: {
             'X-Group-Authorization': process.env.API_KEY,
             'Authorization': `Bearer ${jwToken}`
