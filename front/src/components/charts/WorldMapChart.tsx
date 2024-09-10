@@ -24,7 +24,7 @@ const WorldMapChart = () => {
 
   return (
     <WorldMap
-        color="blue"
+        color="purple"
         valueSuffix="customers"
         size="lg"
         data={data}
