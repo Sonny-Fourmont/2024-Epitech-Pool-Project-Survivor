@@ -71,7 +71,7 @@ const CoachesList: React.FC = () => {
         <div className="text-Flex flexBack">
           <div className='interSpace'>
             <h2 className="titleTopPage">Coaches List</h2>
-            <p className='fakeCounter'>You have total {employeeCount} customers</p>
+            <p className='fakeCounter'>You have total {employeeCount} Coaches</p>
           </div>
           <div>
             <button className="prefabButton">☁ Export</button>
@@ -99,13 +99,19 @@ const CoachesList: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><label><input type="checkbox" onChange={() => handleCheckboxChange}/>Bobby Gilbert</label></td>
-                <td>bobby@softnio.com</td>
-                <td>+342 675-6578</td>
-                <td>911</td>
-                <td><LinkButton link="/coaches" name="..."/></td>
-              </tr>
+              {data.map((Employees, index) =>
+                <tr key={Employees.id}>
+                  <td>
+                    <label className='imagePostion alineCenter'>
+                      <input type="checkbox" checked={checkedItems[index]} onChange={() => handleCheckboxChange(index)} /><img src={`../../assets/clientsImages/${Employees.name}_${Employees.surname}.png`} alt='img' className='profilPicture'></img> {Employees.name} {Employees.surname}
+                    </label>
+                  </td>
+                  <td>{Employees.email}</td>
+                  <td>+342 675-6578</td>
+                  <td>911</td>
+                  <td><LinkButton link="/coaches" name="..."/></td>
+                </tr>
+              )};
             </tbody>
           </table>
         </div>
