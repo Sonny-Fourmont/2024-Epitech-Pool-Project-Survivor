@@ -42,8 +42,8 @@ const Profile: React.FC = () => {
 
     loadData();
   }, [clientID]);
-  if (loading) {return <p>Loading...</p>;}
-  if (error) {return <p>Error: {error}</p>;}
+  if (loading) {return <h1 className='centerTEXT'>Loading...</h1>;}
+  if (error) {return <h1 className='centerTEXT'>Error: {error}</h1>;}
 
   const { name, surname, email, address, id } = data || {};
 
