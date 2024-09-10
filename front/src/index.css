@@ -23,6 +23,12 @@ li {
   margin-left: 2vw;
 }
 
+.centerTEXT {
+  display: flex;
+  margin-top: 20vw;
+  margin-left: 45vw;
+}
+
 .titleTopPage {
   margin-left: 1vw;
   color: #c2185b;
