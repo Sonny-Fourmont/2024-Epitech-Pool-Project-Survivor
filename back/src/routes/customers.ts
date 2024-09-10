@@ -144,4 +144,34 @@ router.get('/customers/:id/payments_history', (req: Request, res: Response) => {
     });
 });
 
+router.get('/customers/:id/clothes', (req: Request, res: Response) => {
+    axios.request({
+        method: 'GET',
+        url: `https://soul-connection.fr/api/customers/${req.params.id}/clothes`,
+        headers: {
+            'X-Group-Authorization': process.env.API_KEY,
+            'Authorization': `Bearer ${jwToken}`
+        }
+    })
+    .then(response => {
+        console.log(`[${Date()}] : Got customer's n°${req.params.id} clothes from external API;`);
+        for (var body of response.data) {
+            const result: any = {body, customerId: parseInt(req.params.id)};
+            client.addDocumentInCollection(Category.CustomersClothes, result);
+        };
+        (async () => {
+            const data: any = await client.getData(
+                Category.CustomersClothes,
+                {customerId: parseInt(req.params.id)})
+                console.log(`[${Date()}] : Got customer's n°${req.params.id} clothes from Database;`);
+                res.status(response.status).send(data);
+        })();
+    })
+    .catch(error => {
+        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+        console.log(error.response.data)
+        res.status(error.response.status).send(error.response.data);
+    });
+});
+
 export default router;
