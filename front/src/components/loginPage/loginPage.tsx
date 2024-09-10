@@ -16,6 +16,7 @@ interface SignUpFormState  {
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState<any>();
   const [formData, setFormData] = useState<SignUpFormState> ({
     email: '',
     password: ''
@@ -33,47 +34,56 @@ const Login: React.FC = () => {
       if (res.data === "OK") {
         setAuthenticated(true);
         navigate("/dashboard");
+      } else {
+        setErrorMessage("Invalid credential");
+        console.log(errorMessage);
       }
     } catch (error) {
       if (error instanceof AxiosError) {
         console.error("Cannot post the form");
+        setErrorMessage(error);
       }
     }
   }
 
   return (
     <section className='login'>
-        <h3>Login Here</h3>
+      { errorMessage != null &&
+        <div className='error-message'>
+          <h3 className='error-text'>{errorMessage}</h3>
+        </div>
+      }
+      <h3>Login Here</h3>
 
-        <form onSubmit={handleSubmit}>
-          <label htmlFor='email'>Username</label>
-          <input
-            className="login-box"
-            type="email"
-            name="email"
-            id='email'
-            placeholder="Email"
-            onChange={handleChange}
-            value={formData.email}
-            required
-            maxLength={40}
-          />
+      <form onSubmit={handleSubmit}>
+        <label htmlFor='email'>Username</label>
+        <input
+          className="login-box"
+          type="email"
+          name="email"
+          id='email'
+          placeholder="Email"
+          onChange={handleChange}
+          value={formData.email}
+          required
+          maxLength={40}
+        />
 
-          <label htmlFor='password'>Password</label>
-          <input
-            className="login-box"
-            type="password"
-            name="password"
-            id="pass"
-            placeholder="Password"
-            onChange={handleChange}
-            value={formData.password}
-            required
-            maxLength={40}
-          />
+        <label htmlFor='password'>Password</label>
+        <input
+          className="login-box"
+          type="password"
+          name="password"
+          id="pass"
+          placeholder="Password"
+          onChange={handleChange}
+          value={formData.password}
+          required
+          maxLength={40}
+        />
 
-          <button type='submit'>Log In</button>
-        </form>
+        <button type='submit'>Log In</button>
+      </form>
     </section>
   );
 };
