@@ -17,15 +17,13 @@ const xLabels = [
 
 export default function SimpleLineChart() {
   return (
-    <div>
-        <LineChart
-          width={850}
-          height={300}
-          series={[
-            { data: data, area: true, color: '#4c4c83' },
-          ]}
-          xAxis={[{ scaleType: 'point', data: xLabels }]}
-        />
-    </div>
+    <LineChart
+      width={850}
+      height={300}
+      series={[
+        { data: data, area: true, color: '#7a4c83' },
+      ]}
+      xAxis={[{ scaleType: 'point', data: xLabels }]}
+    />
   );
 }

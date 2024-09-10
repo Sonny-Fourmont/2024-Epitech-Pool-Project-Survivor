@@ -47,14 +47,32 @@ export class DbClient {
     };
 
     async addManyDocumentInCollection(collection: Category, document: any) : Promise<boolean> {
-        try {
-            await this.db.collection(collection).insertMany(document);
-            console.log(`[${Date()}] : Document has been created!;`);
-            return true;
-        } catch (error) {
-            console.log(`[${Date()}] : A error occured in the Document creation!;\n${error}`);
-            return false;
+        const myDoc: any = await this.db.collection(collection).find().toArray();
+
+        if (myDoc[0] == undefined) {
+            try {
+                await this.db.collection(collection).insertMany(document);
+                console.log(`[${Date()}] : Document has been created!;`);
+                return true;
+            } catch (error) {
+                console.log(`[${Date()}] : A error occured in the Document creation!;\n${error}`);
+                return false;
+            }
         }
+        for (var element of myDoc) {
+            var myElem: any = this.db.collection(collection).findOne(element);
+            if (myElem) {
+                console.log(`[${Date()}] : Document has already been created!;`);
+            } else {
+                try {
+                    await this.db.collection(collection).insertOne(document);
+                    console.log(`[${Date()}] : Document has been created!;`);
+                } catch (error) {
+                    console.log(`[${Date()}] : A error occured in the Document creation!;\n${error}`);
+                }
+            }
+        }
+        return true;
     };
 
     async deleteDocumentInCollection(collection: Category, document: any) : Promise<boolean> {

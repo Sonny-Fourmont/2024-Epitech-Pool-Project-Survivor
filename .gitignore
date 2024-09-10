@@ -13,3 +13,5 @@ back/package-lock.json
 .DS_Store
 .env
 profileBackup.tsx
+clientsImages
+coachesImages

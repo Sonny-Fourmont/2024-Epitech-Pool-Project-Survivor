@@ -16,7 +16,7 @@ import Profile from './components/customers/profilePage/profile';
 import Coaches from './components/coachesPage/coaches';
 import CustomersList from './components/customers/customersList';
 import Tips from './components/tipsPage/tipsPage';
-import Events from './components/eventsPage/eventsPage';
+import EventPage from './components/EventPage/EventPage';
 import Astrological from './components/astrological/astrological';
 import Clothes from './components/Clothes/Clothes';
 import AccountPage from './components/accountPage/AccountPage';
@@ -41,8 +41,8 @@ const App: React.FC = () => {
 
     loadData();
   }, []);
-  if (loading) {return <p>Loading...</p>;}
-  if (error) {return <p>Error: {error}</p>;}
+  if (loading) {return <h1 className='centerTEXT'>Loading...</h1>;}
+  if (error) {return <h1 className='centerTEXT'>Error: {error}</h1>;}
 
   return (
     <div>
@@ -54,7 +54,7 @@ const App: React.FC = () => {
         <Route path="/coaches" element={<Coaches />} />
         <Route path="/customers" element={<CustomersList />} />
         <Route path="/tips" element={<Tips />} />
-        <Route path="/events" element={<Events />} />
+        <Route path="/events" element={<EventPage />} />
         <Route path="/astrological" element={<Astrological />} />
         <Route path="/clothes" element={<Clothes />} />
         <Route path="/account" element={<AccountPage />} />

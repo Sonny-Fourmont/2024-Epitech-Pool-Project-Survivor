@@ -7,12 +7,13 @@
 
 .name-container {
   padding-bottom: 1vw;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #f8bbd0;
   margin-top: 1vw;
   margin-bottom: 2vw;
   font-weight: bold;
   text-align: center;
   font-size: 1vw;
+  color: #e91e63;
 }
 
 .profilPicture {
@@ -21,20 +22,21 @@
   height: 5vw;
   width: 5vw;
   border-radius: 50%;
+  border: 2px solid #f8bbd0;
 }
 
 .left, .right {
-  border: 1px solid #ddd;
+  border: 1px solid #f8bbd0;
   margin-right: 1vw;
   margin-left: 1vw;
-  background-color: #fff;
+  background-color: #fce4ec;
   padding: 2vw;
   border-radius: 0.3vw;
 }
 
 .left {
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #f8bbd0;
+  border-bottom: 1px solid #f8bbd0;
   width: 24vw;
   height: 76vh;
 }
@@ -51,8 +53,8 @@
 }
 
 .clientsTable tr {
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #f8bbd0;
+  border-bottom: 1px solid #f8bbd0;
 }
 
 .clientsTable th, .clientsTable td {
@@ -71,12 +73,12 @@
 }
 
 .customerTitleDetails {
-  color: #8ba3a7;
+  color: #e91e63;
   font-size: 13px;
 }
 
 .customerDetails {
-  color: #4c4c83;
+  color: #c2185b;
 }
 
 .interLine {

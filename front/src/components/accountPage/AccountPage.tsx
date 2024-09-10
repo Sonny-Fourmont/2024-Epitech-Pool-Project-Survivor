@@ -5,159 +5,185 @@
 ** accountPage
 */
 
-import React from 'react';
+import React, { useState } from 'react';
 import NavBar from '../navbar/Navbar';
 // import { useNavigate } from 'react-router-dom';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+// import MultiSelectDropdown from '../charts/MultiSelectDropdown';
 
-// interface AccountCreationFormState  {
-//   email: string;
-//   password: string;
-//   name: string;
-//   surname: string;
-//   birth_date: string;
-//   gender: string;
-//   work: string;
-// }
+interface AccountCreationFormState  {
+  email: string;
+  password: string;
+  name: string;
+  surname: string;
+  birth_date: string;
+  gender: string;
+  work: string;
+}
+
+const workList = [
+  "CEO",
+  "CTO",
+  "COO",
+  "VP of Marketing",
+  "Marketing Manager",
+  "Marketing Specialist",
+  "Finance Manager",
+  "Financial Analyst",
+  "Coach",
+  "Sales Manager",
+  "Sales Representative",
+]
 
 const AccountPage: React.FC = () => {
 
   // const navigate = useNavigate();
-  // const [formData, setFormData] = useState<AccountCreationFormState> ({
-  //   email: '',
-  //   password: '',
-  //   name: '',
-  //   surname: '',
-  //   birth_date: '',
-  //   gender: '',
-  //   work: '',
-  // })
+  const [formData, setFormData] = useState<AccountCreationFormState> ({
+    email: '',
+    password: '',
+    name: '',
+    surname: '',
+    birth_date: '',
+    gender: '',
+    work: '',
+  })
+  const [work, setWork] = useState<string>();
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const {name, value} = e.target;
-  //   setFormData(prevData => ({...prevData, [name]: value}));
-  // }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = e.target;
+    setFormData(prevData => ({...prevData, [name]: value}));
+  }
 
-  // const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>): Promise<void> => {
-  //   e.preventDefault();
-  //   try {
-  //     const res: AxiosResponse = await axios.post('http://localhost:3001/employees/login', formData);
-  //     if (res.data === "OK") {
-  //       setAuthenticated(true);
-  //       navigate("/dashboard");
-  //     }
-  //   } catch (error) {
-  //     if (error instanceof AxiosError) {
-  //       console.error("Cannot post the form");
-  //     }
-  //   }
-  // }
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
+    console.log("Result of the form: ", "\nEmail: ", formData.email, "\nName: ", formData.name, "\nSurname: ", formData.surname, "\nPassword: ", formData.password, "\nBirth Date: ", formData.birth_date, "\nGender: ", formData.gender, "\nWork: ", work);
+    // try {
+    //   const res: AxiosResponse = await axios.post('http://localhost:3001/employees/register', [
+    //     formData.email,
+    //     formData.name,
+    //     formData.surname,
+    //     formData.password,
+    //     formData.birth_date,
+    //     formData.gender,
+    //     work
+    //   ]);
+    //   if (res) {
+    //     console.log("Employee sucessfully created");
+    //   } else {
+    //     console.error("Cannot send the newly created employee");
+    //   }
+    //   navigate("/dashboard");
+    // } catch (error) {
+    //   if (error instanceof AxiosError) {
+    //     console.error("Cannot post the form");
+    //   }
+    // }
+  }
 
   return (
     <>
       <NavBar/>
-      <div>
-        <h1>Welcome to the Account page!</h1>
+      <div className='account'>
+        <p className='account-header'>New employee</p>
+        <form onSubmit={handleSubmit} className='account-form'>
+
+          <label htmlFor='email' className='account-title'>Email: </label>
+          <input
+            className="account-text-field"
+            type="email"
+            name="email"
+            id='email'
+            placeholder="your-email@mail.com"
+            onChange={handleChange}
+            value={formData.email}
+            required
+            maxLength={40}
+          />
+
+          <label htmlFor='password' className='account-title'>Password: </label>
+          <input
+            className="account-text-field"
+            type="password"
+            name="password"
+            id='password'
+            placeholder="********"
+            onChange={handleChange}
+            value={formData.password}
+            required
+            maxLength={40}
+          />
+
+          <label htmlFor='name' className='account-title'>Name: </label>
+          <input
+            className="account-text-field"
+            type="name"
+            name="name"
+            id='name'
+            placeholder="Name"
+            onChange={handleChange}
+            value={formData.name}
+            required
+            maxLength={40}
+          />
+
+          <label htmlFor='surname' className='account-title'>Surname: </label>
+          <input
+            className="account-text-field"
+            type="surname"
+            name="surname"
+            id='surname'
+            placeholder="Surname"
+            onChange={handleChange}
+            value={formData.surname}
+            required
+            maxLength={40}
+          />
+
+          <label htmlFor='birth_date' className='account-title'>Birth Date: </label>
+          <input
+            className="account-text-field"
+            type="date"
+            name="birth_date"
+            id='birth_date'
+            placeholder="Birth Date"
+            onChange={handleChange}
+            value={formData.birth_date}
+            required
+            maxLength={40}
+          />
+
+          <label htmlFor='work' className='account-title'>Work: </label>
+          <select className='account-dropdown' required onChange={e => setWork(e.target.value)}>
+            {workList.map((work, index) =>
+              <option value={work}>{work}</option>)
+            }
+          </select>
+
+          <label htmlFor='gender' className='account-title'>Gender: </label>
+          <div className='account-gender'>
+            <div>
+              <input className='account-gender-input' type='radio' value={"male"} name='gender' onChange={handleChange} key={"Male"}/>
+              <label className='account-gender-label'>Male</label>
+            </div>
+            <div>
+              <input className='account-gender-input' type='radio' value={"female"} name='gender' onChange={handleChange} key={"Female"}/>
+              <label className='account-gender-label'>Female</label>
+            </div>
+          </div>
+
+          <button type='submit'>Create</button>
+        </form>
       </div>
     </>
-    // <section className='account'>
-    //     <h3>Create employee</h3>
-
-    //     <form onSubmit={handleSubmit}>
-    //       <label htmlFor='email'>Username</label>
-    //       <input
-    //         className="login-box"
-    //         type="email"
-    //         name="email"
-    //         id='email'
-    //         placeholder="Email"
-    //         onChange={handleChange}
-    //         value={formData.email}
-    //         required
-    //         maxLength={40}
-    //       />
-
-    //       <label htmlFor='password'>Password</label>
-    //       <input
-    //         className="login-box"
-    //         type="password"
-    //         name="password"
-    //         id="pass"
-    //         placeholder="Password"
-    //         onChange={handleChange}
-    //         value={formData.password}
-    //         required
-    //         maxLength={40}
-    //       />
-
-    //       <label htmlFor='name'>Name</label>
-    //       <input
-    //         className="login-box"
-    //         type="name"
-    //         name="name"
-    //         id='name'
-    //         placeholder="Name"
-    //         onChange={handleChange}
-    //         value={formData.name}
-    //         required
-    //         maxLength={40}
-    //       />
-
-    //       <label htmlFor='surname'>Surname</label>
-    //       <input
-    //         className="login-box"
-    //         type="surname"
-    //         name="surname"
-    //         id='surname'
-    //         placeholder="Surname"
-    //         onChange={handleChange}
-    //         value={formData.surname}
-    //         required
-    //         maxLength={40}
-    //       />
-
-    //       <label htmlFor='birth_date'>Birth Date</label>
-    //       <input
-    //         className="login-box"
-    //         type="birth_date"
-    //         name="birth_date"
-    //         id='birth_date'
-    //         placeholder="Birth Date"
-    //         onChange={handleChange}
-    //         value={formData.birth_date}
-    //         required
-    //         maxLength={40}
-    //       />
-
-    //       <label htmlFor='gender'>Gender</label>
-    //       <input
-    //         className="login-box"
-    //         type="gender"
-    //         name="gender"
-    //         id='gender'
-    //         placeholder="Gender"
-    //         onChange={handleChange}
-    //         value={formData.gender}
-    //         required
-    //         maxLength={40}
-    //       />
-
-    //       <label htmlFor='work'>Work</label>
-    //       <input
-    //         className="login-box"
-    //         type="work"
-    //         name="work"
-    //         id='work'
-    //         placeholder="Work"
-    //         onChange={handleChange}
-    //         value={formData.work}
-    //         required
-    //         maxLength={40}
-    //       />
-
-    //       <button type='submit'>Create</button>
-    //     </form>
-    // </section>
   );
 };
+
+{/* <label htmlFor='assign-client' className='account-title'>Assign Client: </label>
+  <select className='account-dropdown' required>
+    <option value={formData.work}>Option 1</option>
+    <option value={formData.work}>Option 2</option>
+    <option value={formData.work}>Option 3</option>
+  </select> */}
+{/* <MultiSelectDropdown/> */}
 
 export default AccountPage;

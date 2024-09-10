@@ -22,6 +22,10 @@ const Profile: React.FC = () => {
     console.log(`New rating is: ${newRating}`);
   };
 
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    event.currentTarget.src = '../../assets/user.png';
+  };
+
   const clientID:number = parseInt(window.location.pathname.split("/").pop() || "");
 
   useEffect(() => {
@@ -38,8 +42,8 @@ const Profile: React.FC = () => {
 
     loadData();
   }, [clientID]);
-  if (loading) {return <p>Loading...</p>;}
-  if (error) {return <p>Error: {error}</p>;}
+  if (loading) {return <h1 className='centerTEXT'>Loading...</h1>;}
+  if (error) {return <h1 className='centerTEXT'>Error: {error}</h1>;}
 
   const { name, surname, email, address, id } = data || {};
 
@@ -57,7 +61,7 @@ const Profile: React.FC = () => {
               {data && (
                 <tr>
                   <th colSpan={3} className="profil-header">
-                    <img src="../../../assets/survivor.jpg" alt="Profil" className="profilPicture" />
+                    <img src={`../../assets/clientsImages/${name}_${surname}.png`} alt='img' className='profilPicture' onError={handleImageError}></img>
                     <p className="name-container">{name} {surname}</p>
                   </th>
                 </tr>
