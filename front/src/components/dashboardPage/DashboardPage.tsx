@@ -97,7 +97,7 @@ const Dashboard: React.FC = () => {
 
     loadCustomersData();
     loadEventsData();
-  }, []);
+  }, [eventData]);
 
   const totalMonthlyEvents = averageValues(stats.byMonth);
   const totalWeeklyEvents = averageValues(stats.byWeek);
