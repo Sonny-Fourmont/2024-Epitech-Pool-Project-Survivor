@@ -126,11 +126,11 @@ router.get('/customers/:id/payments_history', (req: Request, res: Response) => {
         console.log(`[${Date()}] : Got customer's n°${req.params.id} payments history from external API;`);
         for (var body of response.data) {
             const result: any = {body, customerId: parseInt(req.params.id)};
-            client.addDocumentInCollection(Category.Customers, result);
+            client.addDocumentInCollection(Category.CustomersPayments, result);
         };
         (async () => {
             const data: any = await client.getData(
-                Category.Customers,
+                Category.CustomersPayments,
                 {customerId: parseInt(req.params.id)})
                 console.log(`[${Date()}] : Got customer's n°${req.params.id} payments history from Database;`);
                 res.status(response.status).send(data);
