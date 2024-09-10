@@ -33,6 +33,10 @@ const CoachesList: React.FC = () => {
     setCheckedItems(updatedCheckedItems);
   };
 
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    event.currentTarget.src = '../../assets/user.png';
+  };
+
   const sortClients = (column: keyof EmployeeData) => {
     const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
     setSortColumn(column);
@@ -103,7 +107,7 @@ const CoachesList: React.FC = () => {
                 <tr key={Employees.id}>
                   <td>
                     <label className='imagePostion alineCenter'>
-                      <input type="checkbox" checked={checkedItems[index]} onChange={() => handleCheckboxChange(index)} /><img src={`../../assets/clientsImages/${Employees.name}_${Employees.surname}.png`} alt='img' className='profilPicture'></img> {Employees.name} {Employees.surname}
+                      <input type="checkbox" checked={checkedItems[index]} onChange={() => handleCheckboxChange(index)} /><img src={`../../assets/coachesImages/${Employees.name}_${Employees.surname}.png`} alt='img' onError={handleImageError} className='profilPicture'></img> {Employees.name} {Employees.surname}
                     </label>
                   </td>
                   <td>{Employees.email}</td>
