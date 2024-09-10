@@ -40,7 +40,7 @@ router.get('/encounters', (req: Request, res: Response) => {
             })
             .catch(error => {
                 console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on encounter ${element.id};`);
-                console.log(error.response.data)
+                // console.log(error.response.data)
             });
         });
         (async () => {
