@@ -13,72 +13,72 @@ import { EncounterData } from '../GetBackendData/interfaces/EncounterInterface';
 
 type MeetingData = {
   id: number,
-  value: number,
-  label: string
+  label: string,
+  value: number
 }
 
-const meetingsData = [
-  { id: 0, value: 1, label: 'Dating App' },
-  { id: 1, value: 102, label: 'Social Media' },
-  { id: 2, value: 20, label: 'Others' },
-  { id: 3 , value: 2, label: 'Dating App' },
-]
-
 export default function BasicPie() {
-  const sourceMeetingData: MeetingData[] = [];
+  const [sourceMeetingData, setSourceMeetingData] = useState<EncounterData[] | undefined>([]);
+  const [meetingsData, setMeetingsData] = useState<MeetingData[]>([]);
 
   useEffect(() => {
     const loadMeetingData = async () => {
       try {
         const result = await getEncouters();
         if (result) {
-          for (let id = 0; id < result.length; id++) {
-            calculateMeetingsStat(id);
-          }
+          setSourceMeetingData(result);
         } else {
           console.error("Meetings data is undefined");
         }
       } catch (error) {
-        console.error("Failled to fetch encounters data: ", error);
+        console.error("Failed to fetch encounters data: ", error);
       }
+    };
+
+    const calculateMeetingsStat = () => {
+      const updatedMeetingsData: MeetingData[] = [];
+
+      sourceMeetingData?.forEach((encounter) => {
+        const existingMeeting = updatedMeetingsData.find(
+          (meeting) => meeting.label === encounter.source
+        );
+
+        if (existingMeeting) {
+          existingMeeting.value++;
+        } else {
+          updatedMeetingsData.push({
+            id: updatedMeetingsData.length,
+            label: encounter.source,
+            value: 1
+          });
+        }
+      });
+
+      setMeetingsData(updatedMeetingsData);
+    };
+
+    if (sourceMeetingData && sourceMeetingData.length > 0) {
+      calculateMeetingsStat();
+    } else {
+      loadMeetingData();
     }
-
-    const calculateMeetingsStat = async (meetingId: number) => {
-      const result = await getEncoutersById(meetingId);
-      if (result) {
-        const parsedResult: MeetingData = {
-          id: result?.id,
-          label: result.source,
-          value: 1
-        };
-        sourceMeetingData.forEach((meeting) => {
-          if (meeting.label == result.source) {
-            meeting.value++;
-          }
-          console.log("Adding meeting of label: ", meeting.label);
-          return;
-        })
-        console.log("Creating new meeting label: ", parsedResult.label);
-        sourceMeetingData.push(parsedResult);
-      } else {
-        console.error("Cannot find encounter id: ", meetingId);
-      }
-    }
-
-    // loadMeetingData();
-  });
-
+  }, [sourceMeetingData]);
 
   return (
     <PieChart
       series={[
         {
           data: meetingsData,
-          innerRadius: 50
+          innerRadius: 50,
+          highlightScope: { fade: 'global', highlight: 'item' },
+          faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
         },
       ]}
-      width={850}
-      height={200}
+      width={1000}
+      height={400}
+      slotProps={{
+        legend: { hidden: true },
+      }}
     />
   );
 }
