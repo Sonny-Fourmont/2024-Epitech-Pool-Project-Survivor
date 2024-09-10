@@ -88,20 +88,16 @@ const Dashboard: React.FC = () => {
         setEventsData(result);
     } catch (error) {
         console.error("Failed to fetch events data", error);
-      }
-  };
+    }
+    };
 
-    setStats(calculateEventStatistics(eventData));
-
-    loadCustomersData();
-    loadEventsData();
-  }, [eventData]);
-
-  useEffect(() => {
     if (eventData && eventData.length > 0) {
       setStats(calculateEventStatistics(eventData));
     }
-  }, [eventData]);
+
+    loadCustomersData();
+    loadEventsData();
+  }, []);
 
   const totalMonthlyEvents = averageValues(stats.byMonth);
   const totalWeeklyEvents = averageValues(stats.byWeek);
