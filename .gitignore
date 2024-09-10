@@ -14,3 +14,4 @@ back/package-lock.json
 .env
 profileBackup.tsx
 clientsImages
+coachesImages
