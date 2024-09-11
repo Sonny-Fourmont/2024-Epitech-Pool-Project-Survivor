@@ -1,24 +1,29 @@
 /*
-** EPITECH PROJECT, 2024
-** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
-** File description:
-** PieChart
-*/
+ ** EPITECH PROJECT, 2024
+ ** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
+ ** File description:
+ ** PieChart
+ */
 
 import React, { useState, useEffect } from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { EventsData } from '../GetBackendData/interfaces/EventsInterface';
-import { getEncouters, getEncoutersById } from '../GetBackendData/GetBackendData';
+import {
+  getEncouters,
+  getEncoutersById,
+} from '../GetBackendData/GetBackendData';
 import { EncounterData } from '../GetBackendData/interfaces/EncounterInterface';
 
 type MeetingData = {
-  id: number,
-  label: string,
-  value: number
-}
+  id: number;
+  label: string;
+  value: number;
+};
 
 export default function BasicPie() {
-  const [sourceMeetingData, setSourceMeetingData] = useState<EncounterData[] | undefined>([]);
+  const [sourceMeetingData, setSourceMeetingData] = useState<
+    EncounterData[] | undefined
+  >([]);
   const [meetingsData, setMeetingsData] = useState<MeetingData[]>([]);
 
   useEffect(() => {
@@ -28,10 +33,10 @@ export default function BasicPie() {
         if (result) {
           setSourceMeetingData(result);
         } else {
-          console.error("Meetings data is undefined");
+          console.error('Meetings data is undefined');
         }
       } catch (error) {
-        console.error("Failed to fetch encounters data: ", error);
+        console.error('Failed to fetch encounters data: ', error);
       }
     };
 
@@ -40,7 +45,7 @@ export default function BasicPie() {
 
       sourceMeetingData?.forEach((encounter) => {
         const existingMeeting = updatedMeetingsData.find(
-          (meeting) => meeting.label === encounter.source
+          (meeting) => meeting.label === encounter.source,
         );
 
         if (existingMeeting) {
@@ -49,7 +54,7 @@ export default function BasicPie() {
           updatedMeetingsData.push({
             id: updatedMeetingsData.length,
             label: encounter.source,
-            value: 1
+            value: 1,
           });
         }
       });

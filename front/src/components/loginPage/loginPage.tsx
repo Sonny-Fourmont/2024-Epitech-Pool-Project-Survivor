@@ -1,15 +1,15 @@
 /*
-** EPITECH PROJECT, 2024
-** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
-** File description:
-** loginPage
-*/
+ ** EPITECH PROJECT, 2024
+ ** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
+ ** File description:
+ ** loginPage
+ */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { setAuthenticated } from '../../auth';
 
-interface SignUpFormState  {
+interface SignUpFormState {
   email: string;
   password: string;
 }
@@ -17,51 +17,56 @@ interface SignUpFormState  {
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<any>();
-  const [formData, setFormData] = useState<SignUpFormState> ({
+  const [formData, setFormData] = useState<SignUpFormState>({
     email: '',
-    password: ''
-  })
+    password: '',
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = e.target;
-    setFormData(prevData => ({...prevData, [name]: value}));
-  }
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
-  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = async (
+    e: React.ChangeEvent<HTMLFormElement>,
+  ): Promise<void> => {
     e.preventDefault();
     try {
-      const res: AxiosResponse = await axios.post('http://localhost:3001/employees/login', formData);
-      if (res.data === "OK") {
+      const res: AxiosResponse = await axios.post(
+        'http://localhost:3001/employees/login',
+        formData,
+      );
+      if (res.data === 'OK') {
         setAuthenticated(true);
-        navigate("/dashboard");
+        navigate('/dashboard');
       } else {
-        setErrorMessage("Invalid credential");
+        setErrorMessage('Invalid credential');
         console.log(errorMessage);
       }
     } catch (error) {
       if (error instanceof AxiosError) {
-        console.error("Cannot post the form");
+        console.error('Cannot post the form');
         setErrorMessage(error);
       }
     }
-  }
+  };
 
   return (
-    <section className='login'>
-      { errorMessage != null &&
-        <div className='error-message'>
-          <h3 className='error-text'>{errorMessage}</h3>
+    <section className="login">
+      {errorMessage != null && (
+        <div className="error-message">
+          <h3 className="error-text">{errorMessage}</h3>
         </div>
-      }
+      )}
       <h3>Login Here</h3>
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor='email'>Username</label>
+        <label htmlFor="email">Username</label>
         <input
           className="login-box"
           type="email"
           name="email"
-          id='email'
+          id="email"
           placeholder="Email"
           onChange={handleChange}
           value={formData.email}
@@ -69,7 +74,7 @@ const Login: React.FC = () => {
           maxLength={40}
         />
 
-        <label htmlFor='password'>Password</label>
+        <label htmlFor="password">Password</label>
         <input
           className="login-box"
           type="password"
@@ -82,7 +87,7 @@ const Login: React.FC = () => {
           maxLength={40}
         />
 
-        <button type='submit'>Log In</button>
+        <button type="submit">Log In</button>
       </form>
     </section>
   );

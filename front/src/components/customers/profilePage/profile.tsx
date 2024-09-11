@@ -1,20 +1,20 @@
 /*
-** EPITECH PROJECT, 2024
-** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
-** File description:
-** profil
-*/
+ ** EPITECH PROJECT, 2024
+ ** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
+ ** File description:
+ ** profil
+ */
 
-import React, { useEffect, useState } from "react";
-import NavBar from "../../navbar/Navbar";
-import StarRating from "../../starRating/starRating"
-import LinkButton from "../../linkButton/linkButton";
-import { getCustomersID } from "../../GetBackendData/GetBackendData";
-import { CustomerData } from "../../GetBackendData/interfaces/CustomersInterface";
-import "../../../CSSProfile.css"
+import React, { useEffect, useState } from 'react';
+import NavBar from '../../navbar/Navbar';
+import StarRating from '../../starRating/starRating';
+import LinkButton from '../../linkButton/linkButton';
+import { getCustomersID } from '../../GetBackendData/GetBackendData';
+import { CustomerData } from '../../GetBackendData/interfaces/CustomersInterface';
+import '../../../CSSProfile.css';
 
 const Profile: React.FC = () => {
-  const [data , setData] = useState<CustomerData | null>(null);
+  const [data, setData] = useState<CustomerData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -22,11 +22,15 @@ const Profile: React.FC = () => {
     console.log(`New rating is: ${newRating}`);
   };
 
-  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+  const handleImageError = (
+    event: React.SyntheticEvent<HTMLImageElement, Event>,
+  ) => {
     event.currentTarget.src = '../../assets/user.png';
   };
 
-  const clientID:number = parseInt(window.location.pathname.split("/").pop() || "");
+  const clientID: number = parseInt(
+    window.location.pathname.split('/').pop() || '',
+  );
 
   useEffect(() => {
     const loadData = async () => {
@@ -35,25 +39,31 @@ const Profile: React.FC = () => {
         setData(result || null);
         setLoading(false);
       } catch (error) {
-        setError("Failed to fetch data");
+        setError('Failed to fetch data');
         setLoading(false);
       }
     };
 
     loadData();
   }, [clientID]);
-  if (loading) {return <h1 className='centerTEXT'>Loading...</h1>;}
-  if (error) {return <h1 className='centerTEXT'>Error: {error}</h1>;}
+  if (loading) {
+    return <h1 className="centerTEXT">Loading...</h1>;
+  }
+  if (error) {
+    return <h1 className="centerTEXT">Error: {error}</h1>;
+  }
 
   const { name, surname, email, address, id } = data || {};
 
   return (
     <>
-      <NavBar/>
+      <NavBar />
       <div className="marginTopPage">
         <div className="text-Flex flexBack">
           <h2 className="titleTopPage">Customer Details</h2>
-          <button className="prefabButton"><LinkButton link="/customers" name="← Back"/></button>
+          <button className="prefabButton">
+            <LinkButton link="/customers" name="← Back" />
+          </button>
         </div>
         <div className="container">
           <table className="left">
@@ -61,8 +71,15 @@ const Profile: React.FC = () => {
               {data && (
                 <tr>
                   <th colSpan={3} className="profil-header">
-                    <img src={`../../assets/clientsImages/${name}_${surname}.png`} alt='img' className='profilPicture' onError={handleImageError}></img>
-                    <p className="name-container">{name} {surname}</p>
+                    <img
+                      src={`../../assets/clientsImages/${name}_${surname}.png`}
+                      alt="img"
+                      className="profilPicture"
+                      onError={handleImageError}
+                    ></img>
+                    <p className="name-container">
+                      {name} {surname}
+                    </p>
                   </th>
                 </tr>
               )}
@@ -73,9 +90,17 @@ const Profile: React.FC = () => {
                 <td className="statistic-customers horizontaleLineUp">3</td>
               </tr>
               <tr className="text-Flex">
-                <td className="statistic-customers horizontaleLineDown">Total<br/>Encounters</td>
-                <td className="statistic-customers horizontaleLineDown">Positives</td>
-                <td className="statistic-customers horizontaleLineDown">In Progress</td>
+                <td className="statistic-customers horizontaleLineDown">
+                  Total
+                  <br />
+                  Encounters
+                </td>
+                <td className="statistic-customers horizontaleLineDown">
+                  Positives
+                </td>
+                <td className="statistic-customers horizontaleLineDown">
+                  In Progress
+                </td>
               </tr>
               <h4>SHORT DETAILS</h4>
               {data && (
@@ -120,7 +145,11 @@ const Profile: React.FC = () => {
                 <tr>
                   <td>23 Jul 2024</td>
                   <td>
-                    <StarRating maxStars={5} initialRating={3} onRatingChange={handleRatingChange} />
+                    <StarRating
+                      maxStars={5}
+                      initialRating={3}
+                      onRatingChange={handleRatingChange}
+                    />
                   </td>
                   <td>A very good moment !</td>
                   <td>Dating app</td>
@@ -136,12 +165,15 @@ const Profile: React.FC = () => {
                   <th>Amount</th>
                   <th>Comment</th>
                 </tr>
-                <tr> {/*for exemple*/}
+                <tr>
+                  {' '}
+                  {/*for exemple*/}
                   <td>20 Jul 2024</td>
                   <td>Visa</td>
                   <td>-$45.00</td>
                   <td>Monthly Subscription</td>
-                </tr> {/*for exemple end*/}
+                </tr>{' '}
+                {/*for exemple end*/}
               </tbody>
             </table>
           </table>

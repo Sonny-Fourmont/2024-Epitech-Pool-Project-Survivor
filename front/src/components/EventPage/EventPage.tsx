@@ -1,13 +1,13 @@
 /*
-** EPITECH PROJECT, 2024
-** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
-** File description:
-** EventPage
-*/
+ ** EPITECH PROJECT, 2024
+ ** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
+ ** File description:
+ ** EventPage
+ */
 import React, { useState, useEffect } from 'react';
 import NavBar from '../navbar/Navbar';
 import { getEvents } from '../GetBackendData/GetBackendData';
-import { EventsData } from "../GetBackendData/interfaces/EventsInterface";
+import { EventsData } from '../GetBackendData/interfaces/EventsInterface';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
@@ -32,10 +32,10 @@ interface CalendarEvent {
 }
 
 const EventPage: React.FC = () => {
-  const [data , setData] = useState<EventsData[]>([]);
+  const [data, setData] = useState<EventsData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [events, setEvents] = useState<CalendarEvent[]>([])
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -44,30 +44,36 @@ const EventPage: React.FC = () => {
         setData(result || []);
         setLoading(false);
         if (data.length > 0) {
-          const calendarEvents: CalendarEvent[] = data.map(eventList => ({
+          const calendarEvents: CalendarEvent[] = data.map((eventList) => ({
             title: eventList.name,
             start: new Date(eventList.date),
-            end: new Date(new Date(eventList.date).getTime() + eventList.duration),
+            end: new Date(
+              new Date(eventList.date).getTime() + eventList.duration,
+            ),
           }));
           setEvents(calendarEvents);
         }
       } catch (error) {
-        setError("Failed to fetch data");
+        setError('Failed to fetch data');
         setLoading(false);
       }
     };
     loadData();
   }, [data]);
 
-  if (loading) {return <h1 className='centerTEXT'>Loading...</h1>;}
-  if (error) {return <h1 className='centerTEXT'>Error: {error}</h1>;}
+  if (loading) {
+    return <h1 className="centerTEXT">Loading...</h1>;
+  }
+  if (error) {
+    return <h1 className="centerTEXT">Error: {error}</h1>;
+  }
 
   return (
     <>
-      <NavBar/>
-      <div className="marginTopPage" >
+      <NavBar />
+      <div className="marginTopPage">
         <div className="text-Flex flexBack">
-         <div className='interSpace'>
+          <div className="interSpace">
             <h2 className="titleTopPage">Events</h2>
           </div>
           <div>
@@ -98,7 +104,7 @@ const EventPage: React.FC = () => {
                   loading="lazy"
                   width={1790}
                   height={800}
-                  className='mapEvent'
+                  className="mapEvent"
                   allowFullScreen
                 ></iframe>
               </div>

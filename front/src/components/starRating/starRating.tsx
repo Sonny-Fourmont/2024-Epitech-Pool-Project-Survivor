@@ -1,12 +1,12 @@
 /*
-** EPITECH PROJECT, 2024
-** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
-** File description:
-** starRating
-*/
+ ** EPITECH PROJECT, 2024
+ ** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
+ ** File description:
+ ** starRating
+ */
 
-import React, { useState } from "react";
-import "../../CSSStarRating.css";
+import React, { useState } from 'react';
+import '../../CSSStarRating.css';
 
 type StarRatingProps = {
   maxStars?: number;
@@ -14,15 +14,25 @@ type StarRatingProps = {
   onRatingChange?: (rating: number) => void;
 };
 
-const StarRating: React.FC<StarRatingProps> = ({maxStars = 5, initialRating = 0, onRatingChange,}) => {
+const StarRating: React.FC<StarRatingProps> = ({
+  maxStars = 5,
+  initialRating = 0,
+  onRatingChange,
+}) => {
   const [rating, setRating] = useState<number>(initialRating);
   const [hoverRating, setHoverRating] = useState<number>(0);
   const handleClick = (ratingValue: number) => {
     setRating(ratingValue);
-    if (onRatingChange) {onRatingChange(ratingValue);    }
+    if (onRatingChange) {
+      onRatingChange(ratingValue);
+    }
   };
-  const handleMouseEnter = (ratingValue: number) => {setHoverRating(ratingValue);  };
-  const handleMouseLeave = () => {setHoverRating(0);};
+  const handleMouseEnter = (ratingValue: number) => {
+    setHoverRating(ratingValue);
+  };
+  const handleMouseLeave = () => {
+    setHoverRating(0);
+  };
 
   return (
     <div className="star-rating">
@@ -32,7 +42,7 @@ const StarRating: React.FC<StarRatingProps> = ({maxStars = 5, initialRating = 0,
           <span
             key={index}
             className={`star ${
-              (hoverRating || rating) >= ratingValue ? "filled" : ""
+              (hoverRating || rating) >= ratingValue ? 'filled' : ''
             }`}
             onClick={() => handleClick(ratingValue)}
             onMouseEnter={() => handleMouseEnter(ratingValue)}
