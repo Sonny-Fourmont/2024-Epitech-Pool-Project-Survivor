@@ -7,11 +7,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
-import { EventsData } from '../GetBackendData/interfaces/EventsInterface';
-import {
-  getEncouters,
-  getEncoutersById,
-} from '../GetBackendData/GetBackendData';
+import { getEncouters } from '../GetBackendData/GetBackendData';
 import { EncounterData } from '../GetBackendData/interfaces/EncounterInterface';
 
 type MeetingData = {

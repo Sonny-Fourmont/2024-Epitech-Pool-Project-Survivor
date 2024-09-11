@@ -9,14 +9,6 @@ import React from 'react';
 import NavBar from '../navbar/Navbar';
 import '../../CSSClothes.css';
 
-interface SelectionArrowProps {
-  path: string;
-}
-
-const SelectionArrow: React.FC<SelectionArrowProps> = ({ path }) => {
-  return <img src={path} alt="clothes" className="picture imageCloth" />;
-};
-
 const Clothes: React.FC = () => {
   return (
     <>

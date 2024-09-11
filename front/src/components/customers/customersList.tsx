@@ -18,7 +18,6 @@ const CustomersList: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectAll, setSelectAll] = useState<boolean>(false);
   const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
-  const [sortColumn, setSortColumn] = useState<string>('name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   const activeAll = () => {
@@ -40,7 +39,7 @@ const CustomersList: React.FC = () => {
 
   const sortClients = (column: keyof CustomerData) => {
     const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-    setSortColumn(column);
+    // setSortColumn(column);
     setSortOrder(newSortOrder);
 
     const sortedData = [...data].sort((a, b) => {

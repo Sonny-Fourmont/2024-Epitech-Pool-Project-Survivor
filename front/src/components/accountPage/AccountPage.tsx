@@ -7,7 +7,6 @@
 
 import React, { useState } from 'react';
 import NavBar from '../navbar/Navbar';
-import { id } from 'date-fns/locale';
 
 interface AccountCreationFormState {
   email: string;
@@ -34,6 +33,7 @@ const workList = [
 ];
 
 const AccountPage: React.FC = () => {
+  // const navigate = useNavigate();
   const [formData, setFormData] = useState<AccountCreationFormState>({
     email: '',
     password: '',
@@ -71,6 +71,27 @@ const AccountPage: React.FC = () => {
       '\nWork: ',
       work,
     );
+    // try {
+    //   const res: AxiosResponse = await axios.post('http://localhost:3001/employees/register', [
+    //     formData.email,
+    //     formData.name,
+    //     formData.surname,
+    //     formData.password,
+    //     formData.birth_date,
+    //     formData.gender,
+    //     work
+    //   ]);
+    //   if (res) {
+    //     console.log("Employee sucessfully created");
+    //   } else {
+    //     console.error("Cannot send the newly created employee");
+    //   }
+    //   navigate("/dashboard");
+    // } catch (error) {
+    //   if (error instanceof AxiosError) {
+    //     console.error("Cannot post the form");
+    //   }
+    // }
   };
 
   return (
@@ -203,5 +224,17 @@ const AccountPage: React.FC = () => {
     </>
   );
 };
+
+{
+  /* <label htmlFor='assign-client' className='account-title'>Assign Client: </label>
+  <select className='account-dropdown' required>
+    <option value={formData.work}>Option 1</option>
+    <option value={formData.work}>Option 2</option>
+    <option value={formData.work}>Option 3</option>
+  </select> */
+}
+{
+  /* <MultiSelectDropdown/> */
+}
 
 export default AccountPage;
