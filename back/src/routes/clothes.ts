@@ -28,10 +28,10 @@ router.get('/clothes/:id/image', (req: Request, res: Response) => {
     .then(response => {
         (async () => {
             const data: any = await client.getData(
-                Category.Clothes,
-                {id: parseInt(req.params.id)})
+                Category.CustomersClothes,
+                {"body.id": parseInt(req.params.id)})
                 console.log(response.data)
-                fs.writeFileSync(__dirname + `/../../../front/public/assets/.png`, response.data);
+                fs.writeFileSync(__dirname + `/../../../front/public/assets/${data[0].body.type}_${req.params.id}.png`, response.data);
                 console.log(`[${Date()}] : User connected as clothes n°${req.params.id} with his image;`);
                 res.status(response.status).send(response.data);
         })();
