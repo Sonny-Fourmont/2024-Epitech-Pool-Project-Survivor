@@ -11,7 +11,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { getDataList } from './components/GetBackendData/GetBackendData';
 import { CustomerData } from './components/GetBackendData/interfaces/CustomersInterface';
 import Dashboard from './components/DashboardPage/DashboardPage';
-import Login from './components/LoginPage';
+import Login from './components/LoginPage/LoginPage';
 import Profile from './components/ListingPages/ProfilePage/ProfilePage';
 import Coaches from './components/ListingPages/CoachesPage';
 import CustomersList from './components/ListingPages/CustomersListPage';
