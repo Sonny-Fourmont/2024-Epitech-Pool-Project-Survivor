@@ -70,6 +70,37 @@ router.get('/customers', (req: Request, res: Response) => {
     });
 });
 
+router.post('/customers/register', (req: Request, res: Response) => {
+    (async () => {
+        var id: number = 0;
+        const data: any = await client.getData(Category.Customers, {});
+        for (var element of data) {
+            if (id < element.id)
+                id = element.id;
+            if (req.body.email == element.email) {
+                console.log(`[${Date()}] : Customer already exists!;`)
+                return res.send('Customer already exists!;')
+            }
+        }
+
+        const customerDoc: any = {
+            id: (id + 1),
+            email: req.body.email,
+            name: req.body.name,
+            surname: req.body.surname,
+            birth_date: req.body.birth_date,
+            gender: req.body.gender,
+            description: req.body.description,
+            astrological_sign: req.body.astrological_sign,
+            phone_number: req.body.phone_number,
+            address: req.body.address
+        };
+
+        client.addDocumentInCollection(Category.Customers, customerDoc)
+        res.sendStatus(200);
+    })();
+});
+
 router.get('/customers/:id', (req: Request, res: Response) => {
     try {
         console.log(`[${Date()}] : Got customer n°${req.params.id} from Database;`);
