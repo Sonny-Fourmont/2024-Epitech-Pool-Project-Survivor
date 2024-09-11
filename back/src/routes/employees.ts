@@ -32,8 +32,30 @@ router.post('/employees/login', (req: Request, res: Response) => {
         res.sendStatus(200);
     })
     .catch(error => {
-        console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-        res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+        if (error.status == 401) {
+            (async () => {
+                const data: any = await client.getData(Category.Employee, {
+                    "email": `${req.body.email}`
+                });
+                return bcrypt.compare(req.body.password, data[0].password, (err: Error, result: string) => {
+                    if (err) {
+                        console.log(`[${Date()}] : Error comparing passwords;`);
+                        console.log(err);
+                        return res.status(401).send(err);
+                    }
+                    if (result) {
+                        console.log(`[${Date()}] : Passwords match! User authenticated;`);
+                        return res.sendStatus(200);
+                    } else {
+                        console.log(`[${Date()}] : Passwords do not match! Authentication failed;`);
+                        return res.sendStatus(401);
+                    }
+                });
+            })();
+        } else {
+            console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+            res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+        }
     });
 });
 
