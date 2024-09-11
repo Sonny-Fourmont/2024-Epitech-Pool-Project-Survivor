@@ -112,10 +112,7 @@ const CustomersList: React.FC = () => {
           <table className="clientList space">
             <thead>
               <div className="buttonAlign">
-                <select
-                  className="prefabButton"
-                  onChange={handleActionChange}
-                >
+                <select className="prefabButton" onChange={handleActionChange}>
                   <option value="">Bulk Action</option>
                   <option value="Edit">Edit</option>
                   <option value="Move To Trash">Move To Trash</option>

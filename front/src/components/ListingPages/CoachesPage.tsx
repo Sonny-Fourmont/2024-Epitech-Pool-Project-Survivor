@@ -23,7 +23,6 @@ const CoachesList: React.FC = () => {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [action, setAction] = useState<string>('');
 
-
   useEffect(() => {
     setData(dataList.data || []);
   }, [dataList.data]);
@@ -122,7 +121,9 @@ const CoachesList: React.FC = () => {
                   <option>Edit</option>
                   <option>Move To Trash</option>
                 </select>
-                <button className="prefabButton" onClick={handleDeleteSelected}>Apply</button>
+                <button className="prefabButton" onClick={handleDeleteSelected}>
+                  Apply
+                </button>
                 <img
                   src="../../../assets/sort.png"
                   alt="sort"
