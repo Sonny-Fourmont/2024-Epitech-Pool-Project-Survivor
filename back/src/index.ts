@@ -10,15 +10,14 @@ import express, {Express, Request, Response} from "express";
 const app: Express = express();
 const cors = require('cors');
 import bodyParser from 'body-parser';
-import { getJwtoken } from './routes/syncAPI';
-import { fetchTips } from './routes/syncAPI';
+import { getJwtoken, fetchTips } from './routes/syncAPI';
 export const bcrypt = require('bcrypt')
 
 const HOST: string = `${process.env.NODE_HOST}`;
 const PORT: number = parseInt(`${process.env.NODE_PORT}`);
 
 async function startInterval() {
-    const twoHour = 1000 * 60 * 60 * 2
+    const oneHour = 1000 * 60 * 60
     const token = (await getJwtoken())
 
     setInterval(() => {
@@ -26,7 +25,7 @@ async function startInterval() {
         fetchTips(token)
         .then(() => console.log("Database OK"))
         .catch((error: Error) => console.log("Database error", error))
-    }, twoHour)
+    }, oneHour)
 }
 
 // Features
