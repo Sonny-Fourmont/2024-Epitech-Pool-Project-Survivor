@@ -82,7 +82,8 @@
 }
 
 @keyframes heartbeat {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   25% {
@@ -96,7 +97,8 @@
   }
 }
 
-.leftCompatibility, .rightCompatibility {
+.leftCompatibility,
+.rightCompatibility {
   border: 1px solid #ddd;
   background-color: #fce4ec;
   padding: 20px;
@@ -120,7 +122,8 @@
     gap: 20px;
   }
 
-  .leftCompatibility, .rightCompatibility {
+  .leftCompatibility,
+  .rightCompatibility {
     width: 100%;
     margin: 0;
   }

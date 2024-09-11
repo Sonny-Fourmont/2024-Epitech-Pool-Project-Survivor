@@ -55,13 +55,15 @@
   border-bottom: 1px solid #f8bbd0;
 }
 
-.space th, .space td {
+.space th,
+.space td {
   padding: 1vw;
   text-align: left;
   border: none;
 }
 
-.clientList th, .clientList td {
+.clientList th,
+.clientList td {
   border-top: 1px solid #f8bbd0;
 }
 

@@ -6,9 +6,8 @@
 /*#c2185b; Rose foncé */
 
 body {
-  font-family: 'Outfit', 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Outfit', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #f7f7f7;
@@ -148,7 +147,9 @@ textarea {
   border: 2px solid #f8bbd0;
   border-radius: 10px;
   font-size: 15px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 textarea:focus {
@@ -169,7 +170,9 @@ textarea:focus {
   font-weight: bold;
   cursor: pointer;
   margin-top: 20px;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
 }
 
 .error-message {
@@ -184,7 +187,7 @@ textarea:focus {
   font-size: 20px;
   font-weight: bold;
   line-height: 20px;
-  text-shadow: 1px 1px rgba(250,250,250,.3);
+  text-shadow: 1px 1px rgba(250, 250, 250, 0.3);
 }
 
 .login button:hover {
@@ -199,7 +202,7 @@ button:active {
   box-shadow: none;
 }
 
-input[type="file"] {
+input[type='file'] {
   padding: 0.5vw;
   background: #fce4ec;
   border: 1px solid #f8bbd0;
@@ -248,7 +251,9 @@ input[type="file"] {
   border: 2px solid #f8bbd0;
   border-radius: 10px;
   font-size: 15px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .login form input:focus {
@@ -339,7 +344,9 @@ input[type="file"] {
   font-size: 15px;
   cursor: pointer;
   margin-top: 5vh;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
 }
 
 .dashboard-dropdown {
@@ -467,7 +474,7 @@ input[type="file"] {
 .account-text-field {
   border: none;
   border-radius: 10px;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   padding: 1vh 1vw 1vh;
   margin: 1vh 3vw 0 3vw;
   font-size: 2vh;
@@ -476,7 +483,7 @@ input[type="file"] {
 .account-dropdown {
   border: none;
   border-radius: 10px;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   padding: 1vh 1vw 1vh;
   margin: 1vh 3vw 0 3vw;
   font-size: 2vh;

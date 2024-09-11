@@ -25,7 +25,8 @@
   border: 2px solid #f8bbd0;
 }
 
-.left, .right {
+.left,
+.right {
   border: 1px solid #f8bbd0;
   margin-right: 1vw;
   margin-left: 1vw;
@@ -57,7 +58,8 @@
   border-bottom: 1px solid #f8bbd0;
 }
 
-.clientsTable th, .clientsTable td {
+.clientsTable th,
+.clientsTable td {
   padding: 1vw;
   text-align: left;
   border: none;
