@@ -23,8 +23,11 @@ async function startInterval() {
     setInterval(() => {
         console.log("Start data");
         fetchTips(token)
-        .then(() => console.log("Database OK"))
-        .catch((error: Error) => console.log("Database error", error))
+        try {
+            console.log("syncing data OK")
+        } catch (error) {
+            console.log("syncing data error", error)
+        }
     }, oneHour)
 }
 
