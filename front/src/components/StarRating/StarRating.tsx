@@ -11,27 +11,16 @@ import './StarRating.css';
 type StarRatingProps = {
   maxStars?: number;
   initialRating?: number;
-  onRatingChange?: (rating: number) => void;
 };
 
 const StarRating: React.FC<StarRatingProps> = ({
   maxStars = 5,
   initialRating = 0,
-  onRatingChange,
 }) => {
   const [rating, setRating] = useState<number>(initialRating);
-  const [hoverRating, setHoverRating] = useState<number>(0);
+
   const handleClick = (ratingValue: number) => {
     setRating(ratingValue);
-    if (onRatingChange) {
-      onRatingChange(ratingValue);
-    }
-  };
-  const handleMouseEnter = (ratingValue: number) => {
-    setHoverRating(ratingValue);
-  };
-  const handleMouseLeave = () => {
-    setHoverRating(0);
   };
 
   return (
@@ -41,12 +30,8 @@ const StarRating: React.FC<StarRatingProps> = ({
         return (
           <span
             key={index}
-            className={`star ${
-              (hoverRating || rating) >= ratingValue ? 'filled' : ''
-            }`}
+            className={`star ${rating >= ratingValue ? 'filled' : ''}`}
             onClick={() => handleClick(ratingValue)}
-            onMouseEnter={() => handleMouseEnter(ratingValue)}
-            onMouseLeave={handleMouseLeave}
           >
             ★
           </span>

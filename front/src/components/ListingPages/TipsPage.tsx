@@ -5,36 +5,20 @@
  ** tipsPage
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import NavBar from '../Navbar/Navbar';
-import { getTips } from '../GetBackendData/GetBackendData';
+import { useLoadingList } from '../GetBackendData/GetBackendData';
 import { TipsData } from '../GetBackendData/interfaces/TipsInterface';
 import './ListingPage.css';
 
 const Tips: React.FC = () => {
-  const [data, setData] = useState<TipsData[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const dataList = useLoadingList<TipsData>('http://localhost:3001/tips');
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const result = await getTips();
-        setData(result || []);
-        setLoading(false);
-      } catch (error) {
-        setError('Failed to fetch data');
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, []);
-  if (loading) {
+  if (dataList.loading) {
     return <h1 className="centerTEXT">Loading...</h1>;
   }
-  if (error) {
-    return <h1 className="centerTEXT">Error: {error}</h1>;
+  if (dataList.error) {
+    return <h1 className="centerTEXT">Error: {dataList.error}</h1>;
   }
 
   return (
@@ -49,7 +33,7 @@ const Tips: React.FC = () => {
         <div className="container">
           <table className="clientList">
             <tbody>
-              {data.map((Tips) => (
+              {dataList.data.map((Tips) => (
                 <tr key={Tips.id}>
                   <details>
                     <summary>{Tips.title}</summary>

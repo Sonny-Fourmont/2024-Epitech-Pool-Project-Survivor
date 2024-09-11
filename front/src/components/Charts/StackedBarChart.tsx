@@ -7,7 +7,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
-import { getEvents } from '../GetBackendData/GetBackendData';
+import { getDataList } from '../GetBackendData/GetBackendData';
 import { EventsData } from '../GetBackendData/interfaces/EventsInterface';
 
 type StatDate = {
@@ -43,7 +43,9 @@ export default function StackedBarChart() {
   useEffect(() => {
     const loadEventsData = async () => {
       try {
-        const result = await getEvents();
+        const result = await getDataList<EventsData>(
+          'http://localhost:3001/events',
+        );
         setSourceEventData(result);
       } catch (error) {
         console.error('Failed to fetch events data', error);

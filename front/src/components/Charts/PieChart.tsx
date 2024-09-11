@@ -7,7 +7,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
-import { getEncouters } from '../GetBackendData/GetBackendData';
+import { getDataList } from '../GetBackendData/GetBackendData';
 import { EncounterData } from '../GetBackendData/interfaces/EncounterInterface';
 
 type MeetingData = {
@@ -25,7 +25,9 @@ export default function BasicPie() {
   useEffect(() => {
     const loadMeetingData = async () => {
       try {
-        const result = await getEncouters();
+        const result = await getDataList<EncounterData>(
+          'http://localhost:3001/encounters',
+        );
         if (result) {
           setSourceMeetingData(result);
         } else {

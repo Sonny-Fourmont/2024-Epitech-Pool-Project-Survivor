@@ -5,16 +5,16 @@
  ** profil
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import NavBar from '../Navbar/Navbar';
-import { getCustomers } from '../GetBackendData/GetBackendData';
+import { useLoadingList } from '../GetBackendData/GetBackendData';
 import { CustomerData } from '../GetBackendData/interfaces/CustomersInterface';
 import './AstrologicalPage.css';
 
 const Astrological: React.FC = () => {
-  const [data, setData] = useState<CustomerData[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const dataList = useLoadingList<CustomerData>(
+    'http://localhost:3001/customers',
+  );
   const [compatibility, setCompatibility] = useState<number>(0);
 
   const randNumber = (): number => {
@@ -26,25 +26,11 @@ const Astrological: React.FC = () => {
     setCompatibility(randNumber());
   };
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const result = await getCustomers();
-        setData(result || []);
-        setLoading(false);
-      } catch (error) {
-        setError('Failed to fetch data');
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, []);
-  if (loading) {
+  if (dataList.loading) {
     return <h1 className="centerTEXT">Loading...</h1>;
   }
-  if (error) {
-    return <h1 className="centerTEXT">Error: {error}</h1>;
+  if (dataList.error) {
+    return <h1 className="centerTEXT">Error: {dataList.error}</h1>;
   }
 
   return (
@@ -58,7 +44,7 @@ const Astrological: React.FC = () => {
           <table className="leftCompatibility">
             <tbody>
               <select className="prefabButton choseYourCharacter">
-                {data.map((data) => (
+                {dataList.data.map((data) => (
                   <option key={data.id} value={data.id}>
                     {data.name} {data.surname}: {data.astrological_sign}
                   </option>
@@ -83,7 +69,7 @@ const Astrological: React.FC = () => {
           <table className="rightCompatibility">
             <tbody>
               <select className="prefabButton choseYourCharacter">
-                {data.map((data) => (
+                {dataList.data.map((data) => (
                   <option key={data.id} value={data.id}>
                     {data.name} {data.surname}: {data.astrological_sign}
                   </option>

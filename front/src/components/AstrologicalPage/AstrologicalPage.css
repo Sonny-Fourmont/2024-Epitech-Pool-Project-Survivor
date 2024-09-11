@@ -107,14 +107,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.leftCompatibility {
-  margin-right: 1vw;
-}
-
-.rightCompatibility {
-  margin-left: 1vw;
-}
-
 @media (max-width: 768px) {
   .containerCompatibility {
     flex-direction: column;
@@ -131,8 +123,14 @@
   .TRYButton {
     width: 80%;
   }
-
   .CompatibilityPercentageNumber {
     font-size: 40px;
   }
+}
+
+.leftCompatibility {
+  margin-right: 1vw;
+}
+.rightCompatibility {
+  margin-left: 1vw;
 }

@@ -2,23 +2,28 @@
  ** EPITECH PROJECT, 2024
  ** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
  ** File description:
- ** customersList
+ ** CustomersListPage
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBar from '../Navbar/Navbar';
 import LinkButton from '../LinkButton';
-import { getCustomers } from '../GetBackendData/GetBackendData';
+import { useLoadingList } from '../GetBackendData/GetBackendData';
 import { CustomerData } from '../GetBackendData/interfaces/CustomersInterface';
 import './ListingPage.css';
 
 const CustomersList: React.FC = () => {
-  const [data, setData] = useState<CustomerData[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const dataList = useLoadingList<CustomerData>(
+    'http://localhost:3001/customers',
+  );
+  const [data, setData] = useState<CustomerData[]>(dataList.data || []);
   const [selectAll, setSelectAll] = useState<boolean>(false);
   const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+
+  useEffect(() => {
+    setData(dataList.data || []);
+  }, [dataList.data]);
 
   const activeAll = () => {
     setSelectAll(!selectAll);
@@ -39,7 +44,6 @@ const CustomersList: React.FC = () => {
 
   const sortClients = (column: keyof CustomerData) => {
     const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-    // setSortColumn(column);
     setSortOrder(newSortOrder);
 
     const sortedData = [...data].sort((a, b) => {
@@ -50,24 +54,11 @@ const CustomersList: React.FC = () => {
     setData(sortedData);
   };
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const result = await getCustomers();
-        setData(result || []);
-        setLoading(false);
-      } catch (error) {
-        setError('Failed to fetch data');
-        setLoading(false);
-      }
-    };
-    loadData();
-  }, []);
-  if (loading) {
+  if (dataList.loading) {
     return <h1 className="centerTEXT">Loading...</h1>;
   }
-  if (error) {
-    return <h1 className="centerTEXT">Error: {error}</h1>;
+  if (dataList.error) {
+    return <h1 className="centerTEXT">Error: {dataList.error}</h1>;
   }
 
   const customerCount: number = data.length;

@@ -8,21 +8,26 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from '../Navbar/Navbar';
 import LinkButton from '../LinkButton';
-import { getEmployee } from '../GetBackendData/GetBackendData';
+import { useLoadingList } from '../GetBackendData/GetBackendData';
 import { EmployeeData } from '../GetBackendData/interfaces/EmployeeInterface';
 import './ListingPage.css';
 
 const CoachesList: React.FC = () => {
-  const [data, setData] = useState<EmployeeData[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const dataList = useLoadingList<EmployeeData>(
+    'http://localhost:3001/employees',
+  );
+  const [data, setData] = useState<EmployeeData[]>(dataList.data || []);
   const [selectAll, setSelectAll] = useState<boolean>(false);
   const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
+  useEffect(() => {
+    setData(dataList.data || []);
+  }, [dataList.data]);
+
   const activeAll = () => {
     setSelectAll(!selectAll);
-    setCheckedItems(new Array(data.length).fill(!selectAll));
+    setCheckedItems(new Array(dataList.data.length).fill(!selectAll));
   };
 
   const handleCheckboxChange = (index: number) => {
@@ -49,27 +54,14 @@ const CoachesList: React.FC = () => {
     setData(sortedData);
   };
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const result = await getEmployee();
-        setData(result || []);
-        setLoading(false);
-      } catch (error) {
-        setError('Failed to fetch data');
-        setLoading(false);
-      }
-    };
-    loadData();
-  }, []);
-  if (loading) {
+  if (dataList.loading) {
     return <h1 className="centerTEXT">Loading...</h1>;
   }
-  if (error) {
-    return <h1 className="centerTEXT">Error: {error}</h1>;
+  if (dataList.error) {
+    return <h1 className="centerTEXT">Error: {dataList.error}</h1>;
   }
 
-  const employeeCount: number = data.length;
+  const employeeCount: number = dataList.data.length;
 
   return (
     <>

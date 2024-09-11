@@ -65,10 +65,6 @@
   border: none;
 }
 
-.interSpace td {
-  padding: 0.8vw 0.5vw;
-}
-
 .statistic-customers {
   text-align: center;
   width: 100%;
@@ -79,14 +75,7 @@
   font-size: 13px;
 }
 
-.customerDetails {
-  color: #c2185b;
-}
-
-.interLine {
-  line-height: 0.5vh;
-}
-
-.flexBack {
-  align-items: center;
-}
+.customerDetails {color: #c2185b;}
+.interLine {line-height: 0.5vh;}
+.flexBack {align-items: center;}
+.interSpace td {padding: 0.8vw 0.5vw;}
