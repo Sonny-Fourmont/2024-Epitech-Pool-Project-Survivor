@@ -11,7 +11,7 @@ const router: Router = express.Router();
 import { client } from "..";
 import axios from "axios";
 
-export async function getJwtoken(): Promise<string> {
+export async function getJwtoken(): Promise<any> {
     const options = {
         method: 'POST',
         url: 'https://soul-connection.fr/api/employees/login/',
@@ -24,15 +24,15 @@ export async function getJwtoken(): Promise<string> {
         }
     };
 
-    try {
-        const response = await axios.request(options);
+    axios.request(options)
+    .then(response => {
         console.log(`[${Date()}] : Logged in user;`);
         const jwToken = response.data.access_token;
         return jwToken;
-    } catch (error) {
-        console.log(`[${Date()}] : An error occurred, please try again with correct information;\n`, error);
-        throw new Error("Failed to retrieve JWT token");
-    }
+    })
+    .catch(error => {
+        console.log(`[${Date()}] : Failed to retrieve JWT token;\n${error}`);
+    });
 }
 
 
@@ -46,14 +46,14 @@ export async function fetchTips(jwToken: string): Promise<void> {
         }
     };
 
-    try {
-        const response = await axios.request(options);
+    axios.request(options)
+    .then(response => {
         console.log(`[${Date()}] : Got the tips list!`);
 
-        await client.addManyDocumentInCollection(Category.Tips, response.data);
+         client.addManyDocumentInCollection(Category.Tips, response.data);
         console.log(`[${Date()}] : Tips successfully saved to the database!`);
-    } catch (error) {
-        console.log(`[${Date()}] : An error occurred while fetching tips;\n`, error);
-        throw new Error("Failed to fetch tips");
-    }
+    })
+    .catch(error => {
+        console.log(`[${Date()}] : An error occurred while fetching tips;\n${error}`);
+    });
 }
