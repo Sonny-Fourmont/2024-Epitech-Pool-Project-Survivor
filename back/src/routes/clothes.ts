@@ -31,7 +31,7 @@ router.get('/clothes/:id/image', (req: Request, res: Response) => {
                 Category.CustomersClothes,
                 {"body.id": parseInt(req.params.id)})
                 console.log(response.data)
-                fs.writeFileSync(__dirname + `/../../../front/public/assets/${data[0].body.type}_${req.params.id}.png`, response.data);
+                fs.writeFileSync(__dirname + `/../../../front/public/assets/${data[0].body.type[0]}_${req.params.id}.png`, response.data);
                 console.log(`[${Date()}] : User connected as clothes n°${req.params.id} with his image;`);
                 res.status(response.status).send(response.data);
         })();
