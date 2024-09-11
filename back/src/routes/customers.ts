@@ -64,7 +64,7 @@ router.get('/customers', (req: Request, res: Response) => {
             })()
         } catch (errorDb) {
             console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
-            console.log(errorDb)
+            // console.log(errorDb)
             res.status(error.response.status).send(errorDb);
         }
     });
