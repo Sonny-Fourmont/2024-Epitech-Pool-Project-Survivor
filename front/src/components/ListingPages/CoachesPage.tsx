@@ -10,6 +10,7 @@ import NavBar from '../Navbar/Navbar';
 import LinkButton from '../LinkButton';
 import { useLoadingList } from '../GetBackendData/GetBackendData';
 import { EmployeeData } from '../GetBackendData/interfaces/EmployeeInterface';
+import axios from 'axios';
 import './ListingPage.css';
 
 const CoachesList: React.FC = () => {
@@ -20,6 +21,8 @@ const CoachesList: React.FC = () => {
   const [selectAll, setSelectAll] = useState<boolean>(false);
   const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [action, setAction] = useState<string>('');
+
 
   useEffect(() => {
     setData(dataList.data || []);
@@ -54,6 +57,37 @@ const CoachesList: React.FC = () => {
     setData(sortedData);
   };
 
+  const handleDeleteSelected = async () => {
+    if (action === 'Move To Trash') {
+      const idsToDelete = data
+        .filter((_, index) => checkedItems[index])
+        .map((customer) => customer.id);
+
+      try {
+        await Promise.all(
+          idsToDelete.map((id) =>
+            axios.delete(`http://localhost:3001/customers/delete/${id}`),
+          ),
+        );
+
+        const remainingData = data.filter(
+          (customer) => !idsToDelete.includes(customer.id),
+        );
+        setData(remainingData);
+        setCheckedItems(new Array(remainingData.length).fill(false));
+        setSelectAll(false);
+      } catch (error) {
+        console.error('Failed to delete selected customers:', error);
+      }
+    } else {
+      console.log('No valid action selected or action is not Move To Trash');
+    }
+  };
+
+  const handleActionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setAction(e.target.value);
+  };
+
   if (dataList.loading) {
     return <h1 className="centerTEXT">Loading...</h1>;
   }
@@ -83,12 +117,12 @@ const CoachesList: React.FC = () => {
           <table className="clientList space">
             <thead>
               <div className="buttonAlign">
-                <select className="prefabButton">
+                <select className="prefabButton" onChange={handleActionChange}>
                   <option>Bulk Action</option>
                   <option>Edit</option>
                   <option>Move To Trash</option>
                 </select>
-                <button className="prefabButton">Apply</button>
+                <button className="prefabButton" onClick={handleDeleteSelected}>Apply</button>
                 <img
                   src="../../../assets/sort.png"
                   alt="sort"
