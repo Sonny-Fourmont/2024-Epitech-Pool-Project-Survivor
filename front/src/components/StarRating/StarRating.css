@@ -1,0 +1,21 @@
+/*
+** EPITECH PROJECT, 2024
+** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
+** File description:
+** Profile
+*/
+
+.star-rating {
+  display: inline-flex;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.star {
+  color: #f8bbd0;
+  transition: color 0.2s;
+}
+
+.star.filled {
+  color: #e91e63;
+}

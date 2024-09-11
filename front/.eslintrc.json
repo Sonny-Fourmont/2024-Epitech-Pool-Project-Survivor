@@ -1,0 +1,15 @@
+{
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:prettier/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+      "prettier/prettier": "error",
+      "react/prop-types": "off",
+      "@typescript-eslint/explicit-function-return-type": "off"
+    }
+}
