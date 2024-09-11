@@ -60,7 +60,7 @@ const CustomersList: React.FC = () => {
       try {
         await Promise.all(
           idsToDelete.map((id) =>
-            axios.delete(`http://localhost:3001/coaches/delete/${id}`),
+            axios.delete(`http://localhost:3001/customers/delete/${id}`),
           ),
         );
 
