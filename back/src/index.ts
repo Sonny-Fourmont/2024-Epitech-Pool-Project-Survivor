@@ -10,10 +10,24 @@ import express, {Express, Request, Response} from "express";
 const app: Express = express();
 const cors = require('cors');
 import bodyParser from 'body-parser';
+import { getJwtoken } from './routes/syncAPI';
+import { fetchTips } from './routes/syncAPI';
 export const bcrypt = require('bcrypt')
 
 const HOST: string = `${process.env.NODE_HOST}`;
 const PORT: number = parseInt(`${process.env.NODE_PORT}`);
+
+async function startInterval() {
+    const twoHour = 1000 * 60 * 60 * 2
+    const token = (await getJwtoken())
+
+    setInterval(() => {
+        console.log("Start data");
+        fetchTips(token)
+        .then(() => console.log("Database OK"))
+        .catch((error: Error) => console.log("Database error", error))
+    }, twoHour)
+}
 
 // Features
 import { DbClient } from './config/dbClass';
@@ -34,11 +48,12 @@ app.use('/', employees, events, encounters, customers, tips, clothes);
 // Routes
 app.get('/', (req: Request, res: Response) => {
     console.log(`[${Date()}] : User connected;`);
-    res.send("");
+    res.sendStatus(200);
 });
 
 // Listener
 console.log("\n------------------  API IS READY !  ------------------\n");
 app.listen(PORT, () => {
     console.log (`listening at http://${HOST}:${PORT}`);
+    startInterval();
 });
