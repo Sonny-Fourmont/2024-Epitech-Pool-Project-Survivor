@@ -5,22 +5,21 @@
  ** profil
  */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import NavBar from '../../Navbar/Navbar';
 import StarRating from '../../StarRating/StarRating';
 import LinkButton from '../../LinkButton';
-import { getCustomersID } from '../../GetBackendData/GetBackendData';
+import { useLoading } from '../../GetBackendData/GetBackendData';
 import { CustomerData } from '../../GetBackendData/interfaces/CustomersInterface';
 import './ProfilePage.css';
 
 const Profile: React.FC = () => {
-  const [data, setData] = useState<CustomerData | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const handleRatingChange = (newRating: number) => {
-    console.log(`New rating is: ${newRating}`);
-  };
+  const clientID: number = parseInt(
+    window.location.pathname.split('/').pop() || '',
+  );
+  const dataList = useLoading<CustomerData>(
+    'http://localhost:3001/customers' + clientID,
+  );
 
   const handleImageError = (
     event: React.SyntheticEvent<HTMLImageElement, Event>,
@@ -28,32 +27,14 @@ const Profile: React.FC = () => {
     event.currentTarget.src = '../../assets/user.png';
   };
 
-  const clientID: number = parseInt(
-    window.location.pathname.split('/').pop() || '',
-  );
-
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const result = await getCustomersID(clientID);
-        setData(result || null);
-        setLoading(false);
-      } catch (error) {
-        setError('Failed to fetch data');
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, [clientID]);
-  if (loading) {
+  if (dataList.loading) {
     return <h1 className="centerTEXT">Loading...</h1>;
   }
-  if (error) {
-    return <h1 className="centerTEXT">Error: {error}</h1>;
+  if (dataList.error) {
+    return <h1 className="centerTEXT">Error: {dataList.error}</h1>;
   }
 
-  const { name, surname, email, address, id } = data || {};
+  const { name, surname, email, address, id } = dataList.data || {};
 
   return (
     <>
@@ -68,7 +49,7 @@ const Profile: React.FC = () => {
         <div className="container">
           <table className="left">
             <tbody>
-              {data && (
+              {dataList.data && (
                 <tr>
                   <th colSpan={3} className="profil-header">
                     <img
@@ -103,19 +84,19 @@ const Profile: React.FC = () => {
                 </td>
               </tr>
               <h4>SHORT DETAILS</h4>
-              {data && (
+              {dataList.data && (
                 <tr className="interSpace interLine">
                   <p className="customerTitleDetails">User ID:</p>
                   <p className="customerDetails">{id}</p>
                 </tr>
               )}
-              {data && (
+              {dataList.data && (
                 <tr className="interSpace interLine">
                   <p className="customerTitleDetails">Email:</p>
                   <p className="customerDetails">{email}</p>
                 </tr>
               )}
-              {data && (
+              {dataList.data && (
                 <tr className="interSpace interLine">
                   <p className="customerTitleDetails">Address:</p>
                   <p className="customerDetails">{address}</p>
@@ -145,11 +126,7 @@ const Profile: React.FC = () => {
                 <tr>
                   <td>23 Jul 2024</td>
                   <td>
-                    <StarRating
-                      maxStars={5}
-                      initialRating={3}
-                      onRatingChange={handleRatingChange}
-                    />
+                    <StarRating maxStars={5} initialRating={3} />
                   </td>
                   <td>A very good moment !</td>
                   <td>Dating app</td>

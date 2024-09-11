@@ -15,7 +15,7 @@ import BasicPie from '../Charts/PieChart';
 import { CustomerData } from '../GetBackendData/interfaces/CustomersInterface';
 import { EventsData } from '../GetBackendData/interfaces/EventsInterface';
 
-import { getCustomers, getEvents } from '../GetBackendData/GetBackendData';
+import { getDataList } from '../GetBackendData/GetBackendData';
 import { parseISO, format, getMonth, getWeek, getYear } from 'date-fns';
 import WorldMapChart from '../Charts/WorldMapChart';
 
@@ -77,7 +77,9 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const loadCustomersData = async () => {
       try {
-        const result = await getCustomers();
+        const result = await getDataList<CustomerData>(
+          'http://localhost:3001/customers',
+        );
         setCustomersData(result);
       } catch (error) {
         console.error(error, 'Failed to fetch customers data');
@@ -86,7 +88,9 @@ const Dashboard: React.FC = () => {
 
     const loadEventsData = async () => {
       try {
-        const result = await getEvents();
+        const result = await getDataList<EventsData>(
+          'http://localhost:3001/events',
+        );
         setEventsData(result);
       } catch (error) {
         console.error('Failed to fetch events data', error);

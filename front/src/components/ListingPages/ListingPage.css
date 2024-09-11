@@ -21,10 +21,6 @@
   height: 0.8vw;
 }
 
-.scaleSort:active {
-  opacity: 50%;
-}
-
 .clientList {
   border-radius: 0.3vw;
   background-color: #fce4ec;
@@ -62,25 +58,25 @@
   border: none;
 }
 
-.clientList th,
-.clientList td {
-  border-top: 1px solid #f8bbd0;
-}
-
-.leftAlign {
-  text-align: left;
-}
-
-.interSpace {
-  line-height: 1vh;
-}
-
-.alineCenter {
-  text-align: center;
-}
-
 .imagePostion {
   display: flex;
   align-items: center;
   width: 15vw;
+}
+
+.clientList th,
+.clientList td {
+  border-top: 1px solid #f8bbd0;
+}
+.leftAlign {
+  text-align: left;
+}
+.interSpace {
+  line-height: 1vh;
+}
+.alineCenter {
+  text-align: center;
+}
+.scaleSort:active {
+  opacity: 50%;
 }

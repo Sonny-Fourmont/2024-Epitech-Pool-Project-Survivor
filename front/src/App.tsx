@@ -8,7 +8,7 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import { getCustomers } from './components/GetBackendData/GetBackendData';
+import { getDataList } from './components/GetBackendData/GetBackendData';
 import { CustomerData } from './components/GetBackendData/interfaces/CustomersInterface';
 import Dashboard from './components/DashboardPage/DashboardPage';
 import Login from './components/LoginPage';
@@ -30,7 +30,9 @@ const App: React.FC = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const result = await getCustomers();
+        const result = await getDataList<CustomerData>(
+          'http://localhost:3001/customers',
+        );
         setData(result || []);
         setLoading(false);
       } catch (error) {
@@ -69,7 +71,6 @@ const App: React.FC = () => {
             element={<Profile />}
           />
         ))}
-
         <Route path="*" element={<Navigate to={'/login'} />} />
       </Routes>
     </div>

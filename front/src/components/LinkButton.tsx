@@ -4,16 +4,19 @@
  ** File description:
  ** linkButton
  */
+
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import './Navbar/Navbar.css';
 
 interface LinkButtonProps {
   link: string;
   name: string;
+  nav?: boolean;
 }
 
-const LinkButton: React.FC<LinkButtonProps> = ({ link, name }) => {
-  return (
+const LinkButton: React.FC<LinkButtonProps> = ({ link, name, nav = false }) => {
+  return nav ? (
     <NavLink
       to={link}
       style={({ isActive }) => ({
@@ -22,12 +25,28 @@ const LinkButton: React.FC<LinkButtonProps> = ({ link, name }) => {
         cursor: 'pointer',
         margin: '0 10px',
         display: 'inline-block',
-        fontWeight: 'bold',
-        color: isActive ? '#7a4c83' : 'rgb(37, 37, 77)',
-        fontSize: '20px',
+        fontWeight: isActive ? 'bold' : 'normal',
+        borderBottom: isActive ? 'solid' : 'hidden',
+        color: '#c2185b',
       })}
     >
-      <span>{name}</span>
+      <p className="icon">{name}</p>
+    </NavLink>
+  ) : (
+    <NavLink
+      to={link}
+      style={() => ({
+        textDecoration: 'none',
+        height: '65%',
+        cursor: 'pointer',
+        margin: '0 10px',
+        display: 'inline-block',
+        fontWeight: 'bold',
+        color: '#c2185b',
+        fontSize: '15px',
+      })}
+    >
+      <p className="icon">{name}</p>
     </NavLink>
   );
 };

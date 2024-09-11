@@ -6,7 +6,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import NavBar from '../Navbar/Navbar';
-import { getEvents } from '../GetBackendData/GetBackendData';
+import { getDataList } from '../GetBackendData/GetBackendData';
 import { EventsData } from '../GetBackendData/interfaces/EventsInterface';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -40,7 +40,9 @@ const EventPage: React.FC = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const result = await getEvents();
+        const result = await getDataList<EventsData>(
+          'http://localhost:3001/events',
+        );
         setData(result || []);
         setLoading(false);
         if (data.length > 0) {

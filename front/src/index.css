@@ -6,10 +6,7 @@
 /*#c2185b; Rose foncé */
 
 body {
-  font-family: 'Outfit', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
-    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Ubuntu', sans-serif;
   background: #f7f7f7;
   background-attachment: fixed;
   background-size: cover;
