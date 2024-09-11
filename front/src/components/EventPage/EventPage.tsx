@@ -5,7 +5,7 @@
  ** EventPage
  */
 import React, { useState, useEffect } from 'react';
-import NavBar from '../navbar/Navbar';
+import NavBar from '../Navbar/Navbar';
 import { getEvents } from '../GetBackendData/GetBackendData';
 import { EventsData } from '../GetBackendData/interfaces/EventsInterface';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';

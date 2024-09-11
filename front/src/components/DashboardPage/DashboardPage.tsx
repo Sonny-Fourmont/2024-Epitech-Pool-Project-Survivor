@@ -6,18 +6,18 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import NavBar from '../navbar/Navbar';
+import NavBar from '../Navbar/Navbar';
 
-import SimpleLineChart from '../charts/LineChart';
-import StackedBarChart from '../charts/StackedBarChart';
-import BasicPie from '../charts/PieChart';
+import SimpleLineChart from '../Charts/LineChart';
+import StackedBarChart from '../Charts/StackedBarChart';
+import BasicPie from '../Charts/PieChart';
 
 import { CustomerData } from '../GetBackendData/interfaces/CustomersInterface';
 import { EventsData } from '../GetBackendData/interfaces/EventsInterface';
 
 import { getCustomers, getEvents } from '../GetBackendData/GetBackendData';
 import { parseISO, format, getMonth, getWeek, getYear } from 'date-fns';
-import WorldMapChart from '../charts/WorldMapChart';
+import WorldMapChart from '../Charts/WorldMapChart';
 
 type Statistics = {
   byMonth: Record<string, number>;

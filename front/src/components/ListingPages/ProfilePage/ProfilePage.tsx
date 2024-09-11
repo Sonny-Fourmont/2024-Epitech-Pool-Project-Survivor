@@ -6,12 +6,12 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import NavBar from '../../navbar/Navbar';
-import StarRating from '../../starRating/starRating';
-import LinkButton from '../../linkButton/linkButton';
+import NavBar from '../../Navbar/Navbar';
+import StarRating from '../../StarRating/StarRating';
+import LinkButton from '../../LinkButton';
 import { getCustomersID } from '../../GetBackendData/GetBackendData';
 import { CustomerData } from '../../GetBackendData/interfaces/CustomersInterface';
-import '../../../CSSProfile.css';
+import './ProfilePage.css';
 
 const Profile: React.FC = () => {
   const [data, setData] = useState<CustomerData | null>(null);

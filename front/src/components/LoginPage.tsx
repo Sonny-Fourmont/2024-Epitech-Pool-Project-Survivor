@@ -7,7 +7,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios, { AxiosResponse, AxiosError } from 'axios';
-import { setAuthenticated } from '../../auth';
+import { setAuthenticated } from '../auth';
 
 interface SignUpFormState {
   email: string;

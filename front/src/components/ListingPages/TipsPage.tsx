@@ -6,10 +6,10 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import NavBar from '../navbar/Navbar';
+import NavBar from '../Navbar/Navbar';
 import { getTips } from '../GetBackendData/GetBackendData';
 import { TipsData } from '../GetBackendData/interfaces/TipsInterface';
-import '../../CSSCustomerList.css';
+import './ListingPage.css';
 
 const Tips: React.FC = () => {
   const [data, setData] = useState<TipsData[]>([]);

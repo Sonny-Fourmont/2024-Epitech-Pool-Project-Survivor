@@ -6,8 +6,8 @@
  */
 
 import React from 'react';
-import NavBar from '../navbar/Navbar';
-import '../../CSSClothes.css';
+import NavBar from '../Navbar/Navbar';
+import './ClothesPage.css';
 
 const Clothes: React.FC = () => {
   return (

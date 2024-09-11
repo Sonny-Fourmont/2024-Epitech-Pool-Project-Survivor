@@ -2,18 +2,18 @@
  ** EPITECH PROJECT, 2024
  ** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
  ** File description:
- ** coaches
+ ** customersList
  */
 
-import React, { useState, useEffect } from 'react';
-import NavBar from '../navbar/Navbar';
-import LinkButton from '../linkButton/linkButton';
-import { getEmployee } from '../GetBackendData/GetBackendData';
-import { EmployeeData } from '../GetBackendData/interfaces/EmployeeInterface';
-import '../../CSSCustomerList.css';
+import React, { useEffect, useState } from 'react';
+import NavBar from '../Navbar/Navbar';
+import LinkButton from '../LinkButton';
+import { getCustomers } from '../GetBackendData/GetBackendData';
+import { CustomerData } from '../GetBackendData/interfaces/CustomersInterface';
+import './ListingPage.css';
 
-const CoachesList: React.FC = () => {
-  const [data, setData] = useState<EmployeeData[]>([]);
+const CustomersList: React.FC = () => {
+  const [data, setData] = useState<CustomerData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -37,8 +37,9 @@ const CoachesList: React.FC = () => {
     event.currentTarget.src = '../../assets/user.png';
   };
 
-  const sortClients = (column: keyof EmployeeData) => {
+  const sortClients = (column: keyof CustomerData) => {
     const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+    // setSortColumn(column);
     setSortOrder(newSortOrder);
 
     const sortedData = [...data].sort((a, b) => {
@@ -52,7 +53,7 @@ const CoachesList: React.FC = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const result = await getEmployee();
+        const result = await getCustomers();
         setData(result || []);
         setLoading(false);
       } catch (error) {
@@ -69,7 +70,7 @@ const CoachesList: React.FC = () => {
     return <h1 className="centerTEXT">Error: {error}</h1>;
   }
 
-  const employeeCount: number = data.length;
+  const customerCount: number = data.length;
 
   return (
     <>
@@ -77,9 +78,9 @@ const CoachesList: React.FC = () => {
       <div className="marginTopPage">
         <div className="text-Flex flexBack">
           <div className="interSpace">
-            <h2 className="titleTopPage">Coaches List</h2>
+            <h2 className="titleTopPage">Customer List</h2>
             <p className="fakeCounter">
-              You have total {employeeCount} Coaches
+              You have total {customerCount} customers
             </p>
           </div>
           <div>
@@ -87,6 +88,7 @@ const CoachesList: React.FC = () => {
             <button className="prefabButton">+</button>
           </div>
         </div>
+
         <div className="container">
           <table className="clientList space">
             <thead>
@@ -98,7 +100,7 @@ const CoachesList: React.FC = () => {
                 </select>
                 <button className="prefabButton">Apply</button>
                 <img
-                  src="../../../assets/sort.png"
+                  src="../../assets/sort.png"
                   alt="sort"
                   className="scaleSort"
                   onClick={() => sortClients('name')}
@@ -108,18 +110,18 @@ const CoachesList: React.FC = () => {
                 <th>
                   <label>
                     <input type="checkbox" onClick={activeAll} />
-                    Coach
+                    Customers
                   </label>
                 </th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>Number of customers</th>
+                <th>Payment Methods</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {data.map((Employees, index) => (
-                <tr key={Employees.id}>
+              {data.map((customer, index) => (
+                <tr key={customer.id}>
                   <td>
                     <label className="imagePostion alineCenter">
                       <input
@@ -128,23 +130,25 @@ const CoachesList: React.FC = () => {
                         onChange={() => handleCheckboxChange(index)}
                       />
                       <img
-                        src={`../../assets/coachesImages/${Employees.name}_${Employees.surname}.png`}
+                        src={`../../assets/clientsImages/${customer.name}_${customer.surname}.png`}
                         alt="img"
-                        onError={handleImageError}
                         className="profilPicture"
+                        onError={handleImageError}
                       ></img>{' '}
-                      {Employees.name} {Employees.surname}
+                      {customer.name} {customer.surname}
                     </label>
                   </td>
-                  <td>{Employees.email}</td>
-                  <td>+342 675-6578</td>
-                  <td>911</td>
+                  <td>{customer.email}</td>
+                  <td>{customer.phone_number}</td>
+                  <td>{'N/A'}</td>
                   <td>
-                    <LinkButton link="/coaches" name="..." />
+                    <LinkButton
+                      link={`/customers/profile/${customer.id}`}
+                      name="..."
+                    />
                   </td>
                 </tr>
               ))}
-              ;
             </tbody>
           </table>
         </div>
@@ -153,4 +157,4 @@ const CoachesList: React.FC = () => {
   );
 };
 
-export default CoachesList;
+export default CustomersList;

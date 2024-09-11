@@ -10,16 +10,16 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { getCustomers } from './components/GetBackendData/GetBackendData';
 import { CustomerData } from './components/GetBackendData/interfaces/CustomersInterface';
-import Dashboard from './components/dashboardPage/DashboardPage';
-import Login from './components/loginPage/loginPage';
-import Profile from './components/customers/profilePage/profile';
-import Coaches from './components/coachesPage/coaches';
-import CustomersList from './components/customers/customersList';
-import Tips from './components/tipsPage/tipsPage';
+import Dashboard from './components/DashboardPage/DashboardPage';
+import Login from './components/LoginPage';
+import Profile from './components/ListingPages/ProfilePage/ProfilePage';
+import Coaches from './components/ListingPages/CoachesPage';
+import CustomersList from './components/ListingPages/CustomersListPage';
+import Tips from './components/ListingPages/TipsPage';
 import EventPage from './components/EventPage/EventPage';
-import Astrological from './components/astrological/astrological';
-import Clothes from './components/Clothes/Clothes';
-import AccountPage from './components/accountPage/AccountPage';
+import Astrological from './components/AstrologicalPage/AstrologicalPage';
+import Clothes from './components/ClothesPage/ClothesPage';
+import AccountPage from './components/AccountPage/AccountPage';
 // import PrivateRoute from './PrivateRoute';
 
 const App: React.FC = () => {

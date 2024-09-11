@@ -6,7 +6,7 @@
  */
 
 import React, { useState } from 'react';
-import '../../CSSStarRating.css';
+import './StarRating.css';
 
 type StarRatingProps = {
   maxStars?: number;

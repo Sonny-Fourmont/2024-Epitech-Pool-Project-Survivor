@@ -6,7 +6,7 @@
  */
 
 import React, { useState } from 'react';
-import NavBar from '../navbar/Navbar';
+import NavBar from '../Navbar/Navbar';
 
 interface AccountCreationFormState {
   email: string;

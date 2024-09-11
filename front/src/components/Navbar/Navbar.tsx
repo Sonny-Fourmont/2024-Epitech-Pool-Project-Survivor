@@ -7,6 +7,8 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+// import './NavBar.css';
+// import '../../index.css';
 
 const NavBar: React.FC = () => {
   return (

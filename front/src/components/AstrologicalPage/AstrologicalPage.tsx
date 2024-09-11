@@ -6,10 +6,10 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import NavBar from '../navbar/Navbar';
+import NavBar from '../Navbar/Navbar';
 import { getCustomers } from '../GetBackendData/GetBackendData';
 import { CustomerData } from '../GetBackendData/interfaces/CustomersInterface';
-import '../../CSSAstrologicals.css';
+import './AstrologicalPage.css';
 
 const Astrological: React.FC = () => {
   const [data, setData] = useState<CustomerData[]>([]);

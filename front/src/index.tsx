@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
-import './CSSProfile.css';
+import './components/ListingPages/ProfilePage/ProfilePage.css';
+import './components/Navbar/Navbar.css';
+import './components/DashboardPage/DashboardPage.css';
+import './components/AccountPage/AccountPage.css';
 import App from './App';
 
 const root = ReactDOM.createRoot(
