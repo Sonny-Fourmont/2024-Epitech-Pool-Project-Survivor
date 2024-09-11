@@ -5,53 +5,110 @@
  ** StackedBarChart
  */
 
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
+import { getEvents } from '../GetBackendData/GetBackendData';
+import { EventsData } from '../GetBackendData/interfaces/EventsInterface';
 
-const data = [
-  1, 2, 3, 1, 1, 1, 1, 3, 1, 2, 4, 3, 4, 4, 4, 4, 2, 2, 2, 1, 4, 4, 4, 3, 4, 4,
-  4, 4, 3, 3,
-];
-const xLabels = [
-  '01 Jul, 2024',
-  '02 Jul, 2024',
-  '03 Jul, 2024',
-  '04 Jul, 2024',
-  '05 Jul, 2024',
-  '06 Jul, 2024',
-  '07 Jul, 2024',
-  '08 Jul, 2024',
-  '09 Jul, 2024',
-  '10 Jul, 2024',
-  '11 Jul, 2024',
-  '12 Jul, 2024',
-  '13 Jul, 2024',
-  '14 Jul, 2024',
-  '15 Jul, 2024',
-  '16 Jul, 2024',
-  '17 Jul, 2024',
-  '18 Jul, 2024',
-  '19 Jul, 2024',
-  '20 Jul, 2024',
-  '21 Jul, 2024',
-  '22 Jul, 2024',
-  '23 Jul, 2024',
-  '24 Jul, 2024',
-  '25 Jul, 2024',
-  '26 Jul, 2024',
-  '27 Jul, 2024',
-  '28 Jul, 2024',
-  '29 Jul, 2024',
-  '30 Jul, 2024',
-];
+type StatDate = {
+  month: string;
+  year: number;
+};
 
 export default function StackedBarChart() {
+  const [eventData, setEventData] = useState<number[]>([]);
+  const [daysList, setDayList] = useState<string[]>([]);
+  const [sourceEventData, setSourceEventData] = useState<
+    EventsData[] | undefined
+  >([]);
+
+  const calculateEventStat = (date: StatDate) => {
+    const updatedEventsData = Array(daysList.length).fill(0);
+
+    sourceEventData?.forEach((indexEventData) => {
+      const [sourceYear, sourceMonth, sourceDay] =
+        indexEventData.date.split('-');
+      if (
+        sourceMonth === date.month &&
+        parseInt(sourceYear, 10) === date.year
+      ) {
+        const dayIndex = parseInt(sourceDay, 10) - 1;
+        updatedEventsData[dayIndex] += 1;
+      }
+    });
+
+    setEventData(updatedEventsData);
+  };
+
+  useEffect(() => {
+    const loadEventsData = async () => {
+      try {
+        const result = await getEvents();
+        setSourceEventData(result);
+      } catch (error) {
+        console.error('Failed to fetch events data', error);
+      }
+    };
+
+    function getDaysOfMonth(statDate: StatDate) {
+      const { month, year } = statDate;
+
+      const objectDayList: string[] = [];
+
+      let daysInMonth = 0;
+      if (month === '02') {
+        if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+          daysInMonth = 29;
+        } else {
+          daysInMonth = 28;
+        }
+      } else {
+        if (
+          month === '01' ||
+          month === '03' ||
+          month === '05' ||
+          month === '07' ||
+          month === '08' ||
+          month === '10' ||
+          month === '12'
+        ) {
+          daysInMonth = 31;
+        } else {
+          daysInMonth = 30;
+        }
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        let numDay: string = day.toString();
+        if (day < 10) {
+          numDay = '0' + day;
+        }
+        const dayString = numDay + '/' + month + '/' + year;
+        objectDayList.push(dayString);
+      }
+
+      setDayList(objectDayList);
+    }
+
+    loadEventsData();
+
+    getDaysOfMonth({ month: '03', year: 2024 });
+  }, []);
+
+  useEffect(() => {
+    if (sourceEventData && daysList.length > 0) {
+      calculateEventStat({ month: '03', year: 2024 });
+    }
+  }, [sourceEventData, daysList]);
+
   return (
     <BarChart
       width={850}
       height={300}
-      series={[{ data: data, id: 'pvId', stack: 'total', color: '#7a4c83' }]}
-      xAxis={[{ data: xLabels, scaleType: 'band' }]}
+      series={[
+        { data: eventData, id: 'pvId', stack: 'total', color: '#7a4c83' },
+      ]}
+      xAxis={[{ data: daysList, scaleType: 'band' }]}
     />
   );
 }
