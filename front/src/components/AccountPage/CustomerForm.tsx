@@ -222,7 +222,7 @@ const CustomerForm: React.FC = () => {
             onChange={handleChange}
             value={formData.phone_number}
             required
-            maxLength={10}
+            maxLength={30}
           />
 
           <label htmlFor="address" className="account-title">
