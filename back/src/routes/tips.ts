@@ -14,7 +14,29 @@ import { Category } from "../config/dbClass";
 
 router.use(express.json());
 
+
+//--------------------------------------------------------------------------//
+//-------------------------  FETCH FROM DATABASE  --------------------------//
+//--------------------------------------------------------------------------//
 router.get('/tips', (req: Request, res: Response) => {
+    try {
+        (async () => {
+            const data: any = await client.getData(Category.Tips, {})
+            console.log(`[${Date()}] : Got all tips from the database;`);
+            res.status(res.statusCode).send(data);
+        })()
+    } catch (error: any) {
+        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+        console.log(error)
+        res.sendStatus(404).send(error);
+    }
+});
+
+
+//--------------------------------------------------------------------------//
+//-----------------------  FETCH FROM EXTERNAL API  ------------------------//
+//--------------------------------------------------------------------------//
+router.get('/api/tips', (req: Request, res: Response) => {
     const options = {
         method: 'GET',
         url: 'https://soul-connection.fr/api/tips',
