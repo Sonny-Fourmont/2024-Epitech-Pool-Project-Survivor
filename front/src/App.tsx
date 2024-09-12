@@ -19,7 +19,9 @@ import Tips from './components/ListingPages/TipsPage';
 import EventPage from './components/EventPage/EventPage';
 import Astrological from './components/AstrologicalPage/AstrologicalPage';
 import Clothes from './components/ClothesPage/ClothesPage';
-import AccountPage from './components/AccountPage/AccountPage';
+import AccountPage from './components/AccountPage/CoachForm';
+import CustomerForm from './components/AccountPage/CustomerForm';
+import CoachForm from './components/AccountPage/CoachForm';
 // import PrivateRoute from './PrivateRoute';
 
 const App: React.FC = () => {
@@ -64,6 +66,8 @@ const App: React.FC = () => {
         <Route path="/astrological" element={<Astrological />} />
         <Route path="/clothes" element={<Clothes />} />
         <Route path="/account" element={<AccountPage />} />
+        <Route path="/customerForm" element={<CustomerForm />} />
+        <Route path="/coachForm" element={<CoachForm />} />
         {data.map((data) => (
           <Route
             key={data.id}
