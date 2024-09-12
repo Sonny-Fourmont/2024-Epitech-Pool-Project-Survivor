@@ -1,48 +1,54 @@
 /*
-** EPITECH PROJECT, 2024
-** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
-** File description:
-** App
-*/
+ ** EPITECH PROJECT, 2024
+ ** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
+ ** File description:
+ ** App
+ */
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import { getCustomers } from './components/GetBackendData/GetBackendData';
-import { CustomerData } from "./components/GetBackendData/interfaces/CustomersInterface";
-import Dashboard from './components/dashboardPage/DashboardPage';
-import Login from './components/loginPage/loginPage';
-import Profile from './components/customers/profilePage/profile';
-import Coaches from './components/coachesPage/coaches';
-import CustomersList from './components/customers/customersList';
-import Tips from './components/tipsPage/tipsPage';
+import { getDataList } from './components/GetBackendData/GetBackendData';
+import { CustomerData } from './components/GetBackendData/interfaces/CustomersInterface';
+import Dashboard from './components/DashboardPage/DashboardPage';
+import Login from './components/LoginPage/LoginPage';
+import Profile from './components/ListingPages/ProfilePage/ProfilePage';
+import Coaches from './components/ListingPages/CoachesPage';
+import CustomersList from './components/ListingPages/CustomersListPage';
+import Tips from './components/ListingPages/TipsPage';
 import EventPage from './components/EventPage/EventPage';
-import Astrological from './components/astrological/astrological';
-import Clothes from './components/Clothes/Clothes';
-import AccountPage from './components/accountPage/AccountPage';
+import Astrological from './components/AstrologicalPage/AstrologicalPage';
+import Clothes from './components/ClothesPage/ClothesPage';
+import AccountPage from './components/AccountPage/AccountPage';
 // import PrivateRoute from './PrivateRoute';
 
 const App: React.FC = () => {
-  const [data , setData] = useState<CustomerData[]>([]);
+  const [data, setData] = useState<CustomerData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const result = await getCustomers();
+        const result = await getDataList<CustomerData>(
+          'http://localhost:3001/customers',
+        );
         setData(result || []);
         setLoading(false);
       } catch (error) {
-        setError("Failed to fetch data");
+        setError('Failed to fetch data');
         setLoading(false);
       }
     };
 
     loadData();
   }, []);
-  if (loading) {return <h1 className='centerTEXT'>Loading...</h1>;}
-  if (error) {return <h1 className='centerTEXT'>Error: {error}</h1>;}
+  if (loading) {
+    return <h1 className="centerTEXT">Loading...</h1>;
+  }
+  if (error) {
+    return <h1 className="centerTEXT">Error: {error}</h1>;
+  }
 
   return (
     <div>
@@ -58,11 +64,14 @@ const App: React.FC = () => {
         <Route path="/astrological" element={<Astrological />} />
         <Route path="/clothes" element={<Clothes />} />
         <Route path="/account" element={<AccountPage />} />
-        {data.map((data) =>
-          <Route path={"/customers/profile/" + data.id} element={<Profile />} />
-          )}
-
-        <Route path="*" element={<Navigate to={"/login"} />}/>
+        {data.map((data) => (
+          <Route
+            key={data.id}
+            path={'/customers/profile/' + data.id}
+            element={<Profile />}
+          />
+        ))}
+        {/* <Route path="*" element={<Navigate to={'/login'} />} /> */}
       </Routes>
     </div>
   );

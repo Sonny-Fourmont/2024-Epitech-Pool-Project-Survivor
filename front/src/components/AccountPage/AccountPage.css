@@ -1,0 +1,88 @@
+/*
+** EPITECH PROJECT, 2024
+** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
+** File description:
+** AccountPage
+*/
+
+.account {
+  margin: 15vh 30vw;
+  background-color: white;
+  border-radius: 50px;
+  width: 40vw;
+  height: 105vh;
+}
+
+.account-header {
+  padding-left: 33%;
+  padding-top: 3vh;
+  font-size: 2vw;
+  font-weight: bold;
+  color: #e91e63;
+}
+
+.account-title {
+  padding-left: 5%;
+  font-size: 1.2vw;
+  font-weight: bold;
+  margin-top: 3vh;
+}
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-text-field {
+  border: none;
+  border-radius: 10px;
+  background-color: #eeeeee;
+  padding: 1vh 1vw 1vh;
+  margin: 1vh 3vw 0 3vw;
+  font-size: 2vh;
+}
+
+.account-dropdown {
+  border: none;
+  border-radius: 10px;
+  background-color: #eeeeee;
+  padding: 1vh 1vw 1vh;
+  margin: 1vh 3vw 0 3vw;
+  font-size: 2vh;
+}
+
+.account-gender {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.account-gender-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.account-gender-input {
+  margin: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid;
+  border-radius: 50%;
+}
+
+.account-gender-label {
+  font-weight: bold;
+  font-size: 1vw;
+  padding-left: 1vw;
+}
+
+.account button {
+  margin: 3vh 15vw;
+  padding: 1vh 2vw;
+  background-color: #e91e63;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1vw;
+}

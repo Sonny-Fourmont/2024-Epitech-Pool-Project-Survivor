@@ -8,7 +8,7 @@
 import express, { Request, Response, Router } from "express";
 const router: Router = express.Router();
 import axios from "axios";
-import { client } from "..";
+import { client, bcrypt } from "..";
 import { Category } from "../config/dbClass";
 import * as fs from 'fs';
 
@@ -32,9 +32,69 @@ router.post('/employees/login', (req: Request, res: Response) => {
         res.sendStatus(200);
     })
     .catch(error => {
-        console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
-        res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+        if (error.status == 401) {
+            (async () => {
+                const data: any = await client.getData(Category.Employee, {
+                    "email": `${req.body.email}`
+                });
+                return bcrypt.compare(req.body.password, data[0].password, (err: Error, result: string) => {
+                    if (err) {
+                        console.log(`[${Date()}] : Error comparing passwords;`);
+                        console.log(err);
+                        return res.status(401).send(err);
+                    }
+                    if (result) {
+                        console.log(`[${Date()}] : Passwords match! User authenticated;`);
+                        return res.sendStatus(200);
+                    } else {
+                        console.log(`[${Date()}] : Passwords do not match! Authentication failed;`);
+                        return res.sendStatus(401);
+                    }
+                });
+            })();
+        } else {
+            console.log(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+            res.send(`[${Date()}] : An error occurred, please try again with correct information;\n${error}`);
+        }
     });
+});
+
+router.post('/employees/register', (req: Request, res: Response) => {
+    bcrypt.hash(req.body.password, process.env.HASH_KEY, (err: Error, hash: string) => {
+        if (err) {
+            console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+            console.log(err);
+            res.status(400).send(err);
+        }
+        console.log(`[${Date()}] : Password has been hashed!;`);
+
+        (async () => {
+            var id: number = 0;
+            const data: any = await client.getData(Category.Employee, {});
+            for (var element of data) {
+                if (id < element.id)
+                    id = element.id;
+                if (req.body.email == element.email) {
+                    console.log(`[${Date()}] : Employee already exists!;`)
+                    return res.send('Employee already exists!;')
+                }
+            }
+
+            const employeeDoc: any = {
+                id: (id + 1),
+                email: req.body.email,
+                password: hash,
+                name: req.body.name,
+                surname: req.body.surname,
+                birth_date: req.body.birth_date,
+                gender: req.body.gender,
+                work: req.body.work
+            };
+
+            client.addDocumentInCollection(Category.Employee, employeeDoc)
+            res.sendStatus(200);
+        })();
+    })
 });
 
 router.get('/employees', (req: Request, res: Response) => {
@@ -63,7 +123,7 @@ router.get('/employees', (req: Request, res: Response) => {
             })
             .catch(error => {
                 console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on employee ${element.id};`);
-                console.log(error.response.data)
+                // console.log(error.response.data)
             });
         });
         (async () => {
@@ -75,8 +135,8 @@ router.get('/employees', (req: Request, res: Response) => {
     })
     .catch(error => {
         console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
-        console.log(error.response.data)
-        res.status(error.response.status).send(error.response.data);
+        // console.log(error.response.data)
+        res.send(error.response);
     });
 });
 

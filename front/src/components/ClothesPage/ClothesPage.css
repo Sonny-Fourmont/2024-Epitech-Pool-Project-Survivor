@@ -1,0 +1,103 @@
+/*
+** EPITECH PROJECT, 2024
+** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
+** File description:
+** Clothes
+*/
+
+.centerDiv {
+  margin-left: 1vw;
+  margin-right: 1vw;
+  position: relative;
+  border: 1px solid #ddd;
+  background-color: #fce4ec;
+  width: 97vw;
+  height: 79vh;
+  display: flex;
+  justify-content: center;
+  border-radius: 0.3vw;
+}
+
+.leftCloth {
+  user-select: none;
+  cursor: pointer;
+  margin-right: 70vw;
+  line-height: 0.1vh;
+  font-size: 100px;
+}
+
+.rigthCloth {
+  user-select: none;
+  line-height: 0.1vh;
+  font-size: 100px;
+}
+
+.verticalCompatibilityCloth {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.picture {
+  width: 100%;
+  height: auto;
+}
+
+.imageBody {
+  top: 0;
+  left: 50;
+  width: 35vw;
+  height: 36vw;
+  z-index: 1;
+  position: absolute;
+}
+
+.imageCloth {
+  top: 10;
+  left: 50;
+  z-index: 2;
+  position: absolute;
+}
+
+.headCloth {
+  width: 5vw;
+  height: 5vw;
+  margin-top: 5vh;
+}
+
+.chestCloth {
+  width: 10vw;
+  height: 10vw;
+  margin-top: 16vh;
+}
+
+.legsCloth {
+  width: 10vw;
+  height: 10vw;
+  margin-top: 40vh;
+}
+
+.feetCloth {
+  width: 5vw;
+  height: 5vw;
+  margin-top: 65vh;
+}
+
+.clientSelector {
+  margin-left: 1vw;
+}
+.arrowCloth:active {
+  color: #c2185b;
+}
+
+.selectCustomers {
+  margin-right: 1vw;
+  font-size: 15px;
+  font-weight: bold;
+  border: 1px solid #f48fb1;
+  background-color: #fce4ec;
+  color: #c2185b;
+  border-radius: 0.3vw;
+  width: 10vw;
+  height: 2vw;
+}

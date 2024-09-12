@@ -1,0 +1,123 @@
+/*
+** EPITECH PROJECT, 2024
+** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
+** File description:
+** DashboardPage
+*/
+
+.dashboard-cards-duo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 2vw;
+  margin-top: 2vh;
+}
+
+.dashboard-title {
+  margin-left: 1vw;
+  width: 99vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-title button {
+  display: block;
+  padding: 5px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 5vh;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
+}
+
+.dashboard-dropdown {
+  margin-left: 1vw;
+  background: #fff;
+  color: black;
+}
+
+.dashboard-popup {
+  margin-left: 1vw;
+  background: linear-gradient(135deg, #f06292 0%, #ec407a 100%);
+  color: #fff;
+  font-weight: bold;
+}
+
+.dashboard-right {
+  display: flex;
+  margin-right: 3vw;
+  align-items: center;
+}
+
+.card h2 {
+  color: #222;
+  text-align: left;
+}
+
+.card {
+  background-color: #fff;
+  margin-left: 1vw;
+  padding-left: 1vw;
+  width: 50%;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.duration-button {
+  display: flex;
+  margin-right: 3vw;
+  align-items: center;
+}
+
+.trigger-button {
+  background-color: transparent;
+  border: solid 2px #f8bbd0;
+  color: #d81b60;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+
+.card-values {
+  display: flex;
+  flex-direction: row;
+}
+
+.card-values-first-group {
+  padding-left: 1vw;
+  line-height: 10px;
+}
+
+.card-values-second-group {
+  padding-left: 9vw;
+  line-height: 10px;
+}
+
+.card-values-number {
+  font-size: 3vh;
+  font-weight: bold;
+}
+
+.green {
+  color: green;
+}
+.red {
+  color: red;
+}
+.trigger-button-left {
+  border-radius: 5px 0px 0px 5px;
+}
+.trigger-button-right {
+  border-radius: 0px 5px 5px 0px;
+}
+.card-chart {
+  justify-content: center;
+}

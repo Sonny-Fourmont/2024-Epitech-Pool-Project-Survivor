@@ -10,6 +10,8 @@ import { MongoClient, Db } from "mongodb";
 export enum Category {
     Employee = "Employee",
     Customers = "Customers",
+    CustomersPayments = "CustomersPayments",
+    CustomersClothes = "CustomersClothes",
     Encounters = "Encounters",
     Tips = "Tips",
     Events = "Events",

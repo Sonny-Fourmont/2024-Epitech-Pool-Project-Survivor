@@ -10,9 +10,26 @@ import express, {Express, Request, Response} from "express";
 const app: Express = express();
 const cors = require('cors');
 import bodyParser from 'body-parser';
+import { getJwtoken, fetchTips } from './routes/syncAPI';
+export const bcrypt = require('bcrypt')
 
 const HOST: string = `${process.env.NODE_HOST}`;
 const PORT: number = parseInt(`${process.env.NODE_PORT}`);
+
+async function startInterval() {
+    const oneHour = 1000 * 60 * 60
+    const token = (await getJwtoken())
+
+    setInterval(() => {
+        console.log("Start data");
+        fetchTips(token)
+        try {
+            console.log("syncing data OK")
+        } catch (error) {
+            console.log("syncing data error", error)
+        }
+    }, oneHour)
+}
 
 // Features
 import { DbClient } from './config/dbClass';
@@ -21,22 +38,24 @@ import events from './routes/events';
 import encounters from './routes/encounters'
 import customers from './routes/customers';
 import tips from './routes/tips';
+import clothes from './routes/clothes';
 
 export const client: DbClient = new DbClient();
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/', employees, events, encounters, customers, tips);
+app.use('/', employees, events, encounters, customers, tips, clothes);
 
 // Routes
 app.get('/', (req: Request, res: Response) => {
     console.log(`[${Date()}] : User connected;`);
-    res.send("");
+    res.sendStatus(200);
 });
 
 // Listener
 console.log("\n------------------  API IS READY !  ------------------\n");
 app.listen(PORT, () => {
     console.log (`listening at http://${HOST}:${PORT}`);
+    startInterval();
 });
