@@ -47,7 +47,6 @@ import encounters from './routes/encounters'
 import customers from './routes/customers';
 import tips from './routes/tips';
 import clothes from './routes/clothes';
-import { on } from 'events';
 
 export const client: DbClient = new DbClient();
 
