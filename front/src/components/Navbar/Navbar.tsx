@@ -35,7 +35,6 @@ const NavBar: React.FC = () => {
               nav={true}
             ></LinkButton>
             <LinkButton link="/clothes" name="Clothes" nav={true}></LinkButton>
-            <LinkButton link="/account" name="Account" nav={true}></LinkButton>
           </div>
           <div className="nav-right">
             <img
