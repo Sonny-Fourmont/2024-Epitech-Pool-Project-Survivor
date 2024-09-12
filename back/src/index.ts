@@ -10,7 +10,7 @@ import express, {Express, Request, Response} from "express";
 const app: Express = express();
 const cors = require('cors');
 import bodyParser from 'body-parser';
-import { getJwtoken, fetchTips, fetchEvents, fetchEmployees, fetchCustomers, fetchEncounters } from './routes/syncAPI';
+import { getJwtoken, fetchTips, fetchEvents, fetchEmployees, fetchCustomers, fetchEncounters, sycnAllAPI } from './routes/syncAPI';
 export const bcrypt = require('bcrypt')
 export var token: string;
 
@@ -23,16 +23,16 @@ async function startInterval() {
     try {
         token = await getJwtoken();
 
-        await fetchEncounters(token);
+        await sycnAllAPI(token);
         setInterval(async () => {
             console.log("Start data");
             try {
-                await fetchEncounters(token);
+                await sycnAllAPI(token);
                 console.log("syncing data OK");
             } catch (error) {
                 console.log("syncing data error", error);
             }
-        }, 10000);
+        }, oneHour);
     } catch (error) {
         console.log("Failed to start interval due to token retrieval error:", error);
         token = "";

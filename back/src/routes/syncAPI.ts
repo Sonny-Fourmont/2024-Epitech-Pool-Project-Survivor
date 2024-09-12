@@ -52,7 +52,7 @@ export async function fetchTips(jwToken: string): Promise<void> {
         console.log(`[${Date()}] : Tips successfully saved to the database!`);
     })
     .catch(error => {
-        console.log(`[${Date()}] : An error occurred while fetching tips;\n${error}`);
+        console.log(`[${Date()}] : An error occurred while fetching tips;\n${error}`, error.status);
     });
 }
 
@@ -78,10 +78,10 @@ export async function fetchEvents(jwToken: string): Promise<void> {
             })
             .then(response => {
                 console.log(`[${Date()}] : Got events n°${element.id} from external API;`);
-                setTimeout(() => {client.addDocumentInCollection(Category.Events, response.data)}, 100);
+                client.addDocumentInCollection(Category.Events, response.data)
             })
             .catch(error => {
-                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on events ${element.id};`);
+                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on events ${element.id};`, error.status);
             });
         });
         (async () => {
@@ -119,7 +119,7 @@ export async function fetchEmployees(jwToken: string): Promise<void> {
                 client.addDocumentInCollection(Category.Employee, response.data);
             })
             .catch(error => {
-                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on employee ${element.id};`);
+                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on employee ${element.id};`, error.status);
             });
         });
         (async () => {
@@ -158,7 +158,7 @@ export async function fetchCustomers(jwToken: string): Promise<void> {
                 client.addDocumentInCollection(Category.Customers, response.data);
             })
             .catch(error => {
-                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on customer ${element.id};`);
+                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on customer ${element.id};`, error.status);
                 // console.log(error.response.data)
             });
         });
@@ -199,7 +199,7 @@ export async function fetchEncounters(jwToken: string): Promise<void> {
                 client.addDocumentInCollection(Category.Encounters, response.data);
             })
             .catch(error => {
-                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on encounter ${element.id};`);
+                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on encounter ${element.id};`, error.status);
             });
         });
         (async () => {
@@ -212,3 +212,11 @@ export async function fetchEncounters(jwToken: string): Promise<void> {
         console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
     });
 };
+
+export async function sycnAllAPI(jwToken: string) {
+    fetchTips(jwToken);
+    fetchEvents(jwToken);
+    fetchCustomers(jwToken);
+    fetchEmployees(jwToken);
+    fetchEncounters(jwToken);
+}
