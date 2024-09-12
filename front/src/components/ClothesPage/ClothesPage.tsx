@@ -6,7 +6,7 @@ import { ClothesData } from '../GetBackendData/interfaces/ClosthesInterface';
 import { CustomerData } from '../GetBackendData/interfaces/CustomersInterface';
 
 const Clothes: React.FC = () => {
-  const [clientID, setClientID] = useState<number | null>(1);
+  const [clientID, setClientID] = useState<number | null>(null);
   const [hatIndex, setHatIndex] = useState(0);
   const [topIndex, setTopIndex] = useState(0);
   const [bottomIndex, setBottomIndex] = useState(0);
