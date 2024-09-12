@@ -9,8 +9,15 @@ import React from 'react';
 import NavBar from '../../Navbar/Navbar';
 import StarRating from '../../StarRating/StarRating';
 import LinkButton from '../../LinkButton';
-import { useLoading } from '../../GetBackendData/GetBackendData';
+import {
+  useLoading,
+  useLoadingList,
+} from '../../GetBackendData/GetBackendData';
 import { CustomerData } from '../../GetBackendData/interfaces/CustomersInterface';
+import {
+  EncounterData,
+  EncounterIDData,
+} from '../../GetBackendData/interfaces/EncounterInterface';
 import './ProfilePage.css';
 
 const Profile: React.FC = () => {
@@ -20,6 +27,12 @@ const Profile: React.FC = () => {
   const dataList = useLoading<CustomerData>(
     'http://localhost:3001/customers/' + clientID,
   );
+  const dataListEncounters = useLoadingList<EncounterIDData>(
+    'http://localhost:3001/encounters/customer/' + clientID,
+  );
+  const dataListComment = useLoading<EncounterData>(
+    'http://localhost:3001/encounters/' + clientID,
+  );
 
   const handleImageError = (
     event: React.SyntheticEvent<HTMLImageElement, Event>,
@@ -27,14 +40,18 @@ const Profile: React.FC = () => {
     event.currentTarget.src = '../../assets/user.png';
   };
 
-  if (dataList.loading) {
+  if (dataList.loading || dataListEncounters.loading) {
     return <h1 className="centerTEXT">Loading...</h1>;
   }
-  if (dataList.error) {
+  if (dataList.error || dataListEncounters.error) {
     return <h1 className="centerTEXT">Error: {dataList.error}</h1>;
   }
 
   const { name, surname, email, address, id } = dataList.data || {};
+  const nbrComment: number = dataListEncounters.data.length;
+  const nbrPositiveComment: number = dataListEncounters.data
+    ? dataListEncounters.data.filter((item) => item.rating > 3).length
+    : 0;
 
   return (
     <>
@@ -66,8 +83,12 @@ const Profile: React.FC = () => {
               )}
               <tr></tr>
               <tr className="text-Flex">
-                <td className="statistic-customers horizontaleLineUp">23</td>
-                <td className="statistic-customers horizontaleLineUp">20</td>
+                <td className="statistic-customers horizontaleLineUp">
+                  {nbrComment}
+                </td>
+                <td className="statistic-customers horizontaleLineUp">
+                  {nbrPositiveComment}
+                </td>
                 <td className="statistic-customers horizontaleLineUp">3</td>
               </tr>
               <tr className="text-Flex">
@@ -123,14 +144,23 @@ const Profile: React.FC = () => {
                   <th>Report</th>
                   <th>Source</th>
                 </tr>
-                <tr>
-                  <td>23 Jul 2024</td>
-                  <td>
-                    <StarRating maxStars={5} initialRating={3} />
-                  </td>
-                  <td>A very good moment !</td>
-                  <td>Dating app</td>
-                </tr>
+                {dataListEncounters.data.map((list) => (
+                  <tr key={list.ID}>
+                    {dataListComment.data && (
+                      <>
+                        <td>{dataListComment.data.date}</td>
+                        <td>
+                          <StarRating
+                            maxStars={5}
+                            initialRating={dataListComment.data.rating}
+                          />
+                        </td>
+                        <td>{dataListComment.data.comment}</td>
+                        <td>{dataListComment.data.source}</td>
+                      </>
+                    )}
+                  </tr>
+                ))}
               </tbody>
             </table>
             <h5>Payment History</h5>
