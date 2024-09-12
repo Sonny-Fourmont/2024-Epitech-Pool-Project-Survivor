@@ -74,7 +74,7 @@ router.get('/api/events', (req: Request, res: Response) => {
                 client.addDocumentInCollection(Category.Events, response.data);
             })
             .catch(error => {
-                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on employee ${element.id};`);
+                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on events ${element.id};`);
                 // console.log(error.response.data)
             });
         });
