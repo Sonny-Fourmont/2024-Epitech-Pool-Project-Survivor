@@ -193,7 +193,7 @@ const Dashboard: React.FC = () => {
                 </td>
               </tr>
               <tr className="card-chart">
-                <StackedBarChart />
+                <StackedBarChart sourceEventData={eventData} />
               </tr>
             </tbody>
           </table>
