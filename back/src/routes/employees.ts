@@ -8,11 +8,11 @@
 import express, { Request, Response, Router } from "express";
 const router: Router = express.Router();
 import axios from "axios";
-import { client, bcrypt } from "..";
+import { client, bcrypt, token } from "..";
 import { Category } from "../config/dbClass";
 import * as fs from 'fs';
 
-export var jwToken: string;
+export var jwToken: string = token;
 
 router.use(express.json());
 
