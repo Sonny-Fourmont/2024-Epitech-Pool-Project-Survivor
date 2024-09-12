@@ -71,7 +71,7 @@ const App: React.FC = () => {
             element={<Profile />}
           />
         ))}
-        <Route path="*" element={<Navigate to={'/login'} />} />
+        {/* <Route path="*" element={<Navigate to={'/login'} />} /> */}
       </Routes>
     </div>
   );

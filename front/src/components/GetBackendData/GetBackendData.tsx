@@ -46,7 +46,7 @@ export const useLoading = <T,>(
   useEffect(() => {
     const loadData = async () => {
       try {
-        const res: AxiosResponse<T> = await axios.get(link);
+        const res: AxiosResponse<T> = await axios.get<T>(link);
         if (Array.isArray(res.data)) {
           throw new Error('Data is a list, but an object was expected.');
         }
