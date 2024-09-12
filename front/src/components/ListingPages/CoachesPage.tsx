@@ -12,8 +12,10 @@ import { useLoadingList } from '../GetBackendData/GetBackendData';
 import { EmployeeData } from '../GetBackendData/interfaces/EmployeeInterface';
 import axios from 'axios';
 import './ListingPage.css';
+import { useNavigate } from 'react-router-dom';
 
 const CoachesList: React.FC = () => {
+  const navigate = useNavigate();
   const dataList = useLoadingList<EmployeeData>(
     'http://localhost:3001/employees',
   );
@@ -109,7 +111,12 @@ const CoachesList: React.FC = () => {
           </div>
           <div>
             <button className="prefabButton">☁ Export</button>
-            <button className="prefabButton">+</button>
+            <button
+              className="prefabButton"
+              onClick={() => navigate('/account')}
+            >
+              +
+            </button>
           </div>
         </div>
         <div className="container">

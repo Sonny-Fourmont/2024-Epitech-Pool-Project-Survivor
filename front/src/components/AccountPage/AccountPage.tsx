@@ -7,8 +7,11 @@
 
 import React, { useState } from 'react';
 import NavBar from '../Navbar/Navbar';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 interface AccountCreationFormState {
+  id: number;
   email: string;
   password: string;
   name: string;
@@ -33,8 +36,9 @@ const workList = [
 ];
 
 const AccountPage: React.FC = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<AccountCreationFormState>({
+    id: 0,
     email: '',
     password: '',
     name: '',
@@ -43,7 +47,7 @@ const AccountPage: React.FC = () => {
     gender: '',
     work: '',
   });
-  const [work, setWork] = useState<string>();
+  const [formWork, setFormWork] = useState<string>('CEO');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -54,44 +58,32 @@ const AccountPage: React.FC = () => {
     e: React.ChangeEvent<HTMLFormElement>,
   ): Promise<void> => {
     e.preventDefault();
-    console.log(
-      'Result of the form: ',
-      '\nEmail: ',
-      formData.email,
-      '\nName: ',
-      formData.name,
-      '\nSurname: ',
-      formData.surname,
-      '\nPassword: ',
-      formData.password,
-      '\nBirth Date: ',
-      formData.birth_date,
-      '\nGender: ',
-      formData.gender,
-      '\nWork: ',
-      work,
-    );
-    // try {
-    //   const res: AxiosResponse = await axios.post('http://localhost:3001/employees/register', [
-    //     formData.email,
-    //     formData.name,
-    //     formData.surname,
-    //     formData.password,
-    //     formData.birth_date,
-    //     formData.gender,
-    //     work
-    //   ]);
-    //   if (res) {
-    //     console.log("Employee sucessfully created");
-    //   } else {
-    //     console.error("Cannot send the newly created employee");
-    //   }
-    //   navigate("/dashboard");
-    // } catch (error) {
-    //   if (error instanceof AxiosError) {
-    //     console.error("Cannot post the form");
-    //   }
-    // }
+    try {
+      const body: AccountCreationFormState = {
+        id: formData.id,
+        email: formData.email,
+        password: formData.password,
+        name: formData.name,
+        surname: formData.surname,
+        birth_date: formData.birth_date,
+        gender: formData.gender,
+        work: formWork,
+      };
+      const res: AxiosResponse = await axios.post(
+        'http://localhost:3001/employees/register',
+        body,
+      );
+      if (res) {
+        console.log('Employee sucessfully created');
+      } else {
+        console.error('Cannot send the newly created employee');
+      }
+      navigate('/dashboard');
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.error('Cannot post the form');
+      }
+    }
   };
 
   return (
@@ -181,7 +173,9 @@ const AccountPage: React.FC = () => {
           <select
             className="account-dropdown"
             required
-            onChange={(e) => setWork(e.target.value)}
+            onChange={(e) => {
+              setFormWork(e.target.value);
+            }}
           >
             {workList.map((work) => (
               <option key={work} value={work}>
