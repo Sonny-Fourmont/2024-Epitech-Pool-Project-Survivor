@@ -145,19 +145,11 @@ const Profile: React.FC = () => {
                 </tr>
               )}
               {dataList.data && (
-                <tr className="interSpace interLine">
+                <tr>
                   <p className="customerTitleDetails">Address:</p>
                   <p className="customerDetails">{address}</p>
                 </tr>
               )}
-              <tr className="interSpace interLine">
-                <p className="customerTitleDetails">Last Activity:</p>
-                <p className="customerDetails">One day</p>
-              </tr>
-              <tr className="interSpace interLine">
-                <p className="customerTitleDetails">Coach:</p>
-                <p className="customerDetails">Someone</p>
-              </tr>
             </tbody>
           </table>
 
