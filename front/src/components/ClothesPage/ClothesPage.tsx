@@ -71,6 +71,10 @@ const Clothes: React.FC = () => {
   const handleClientChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedClientID = parseInt(event.target.value);
     setClientID(selectedClientID);
+    setHatIndex(0);
+    setTopIndex(0);
+    setBottomIndex(0);
+    setShoesIndex(0);
   };
 
   if (dataListCustomers.loading || dataListClothes.loading) {
