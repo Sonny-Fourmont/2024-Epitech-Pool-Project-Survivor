@@ -10,25 +10,33 @@ import express, {Express, Request, Response} from "express";
 const app: Express = express();
 const cors = require('cors');
 import bodyParser from 'body-parser';
-import { getJwtoken, fetchTips } from './routes/syncAPI';
+import { getJwtoken, fetchTips, fetchEvents, fetchEmployees, fetchCustomers, fetchEncounters } from './routes/syncAPI';
 export const bcrypt = require('bcrypt')
+export var token: string;
 
 const HOST: string = `${process.env.NODE_HOST}`;
 const PORT: number = parseInt(`${process.env.NODE_PORT}`);
 
 async function startInterval() {
-    const oneHour = 1000 * 60 * 60
-    const token = (await getJwtoken())
+    
+    const oneHour: number = 1000 * 60 * 60
+    try {
+        token = await getJwtoken();
 
-    setInterval(() => {
-        console.log("Start data");
-        fetchTips(token)
-        try {
-            console.log("syncing data OK")
-        } catch (error) {
-            console.log("syncing data error", error)
-        }
-    }, oneHour)
+        await fetchEncounters(token);
+        setInterval(async () => {
+            console.log("Start data");
+            try {
+                await fetchEncounters(token);
+                console.log("syncing data OK");
+            } catch (error) {
+                console.log("syncing data error", error);
+            }
+        }, 10000);
+    } catch (error) {
+        console.log("Failed to start interval due to token retrieval error:", error);
+        token = "";
+    }
 }
 
 // Features
@@ -39,6 +47,7 @@ import encounters from './routes/encounters'
 import customers from './routes/customers';
 import tips from './routes/tips';
 import clothes from './routes/clothes';
+import { on } from 'events';
 
 export const client: DbClient = new DbClient();
 
