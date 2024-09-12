@@ -59,6 +59,10 @@ router.post('/employees/login', (req: Request, res: Response) => {
     });
 });
 
+
+//--------------------------------------------------------------------------//
+//-------------------------  FETCH FROM DATABASE  --------------------------//
+//--------------------------------------------------------------------------//
 router.post('/employees/register', (req: Request, res: Response) => {
     bcrypt.hash(req.body.password, process.env.HASH_KEY, (err: Error, hash: string) => {
         if (err) {
@@ -98,6 +102,38 @@ router.post('/employees/register', (req: Request, res: Response) => {
 });
 
 router.get('/employees', (req: Request, res: Response) => {
+    try {
+        (async () => {
+            const data: any = await client.getData(Category.Employee, {})
+            console.log(`[${Date()}] : Got all employees from the database;`);
+            res.status(res.statusCode).send(data);
+        })()
+    } catch (error: any) {
+        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+        console.log(error)
+        res.status(404).send(error);
+    }
+});
+
+router.get('/employees/:id', (req: Request, res: Response) => {
+    try {
+        (async () => {
+            const data: any = await client.getData(Category.Employee, {id: parseInt(req.params.id)});
+            console.log(`[${Date()}] : Got employee n°${req.params.id} from Database;`);
+            res.status(200).send(data[0]);
+        })();
+    } catch(error) {
+        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+        console.log(error)
+        res.status(404).send(error);
+    }
+});
+
+
+//--------------------------------------------------------------------------//
+//-----------------------  FETCH FROM EXTERNAL API  ------------------------//
+//--------------------------------------------------------------------------//
+router.get('/api/employees', (req: Request, res: Response) => {
     axios.request({
         method: 'GET',
         url: 'https://soul-connection.fr/api/employees',
@@ -140,23 +176,7 @@ router.get('/employees', (req: Request, res: Response) => {
     });
 });
 
-router.get('/employees/:id', (req: Request, res: Response) => {
-    try {
-        console.log(`[${Date()}] : Got employee n°${req.params.id} from Database;`);
-        (async () => {
-            const data: any = await client.getData(
-                Category.Employee,
-                {id: parseInt(req.params.id)})
-                res.status(200).send(data[0]);
-        })();
-    } catch(error) {
-        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
-        console.log(error)
-        res.status(404).send(error);
-    }
-});
-
-router.get('/employees/:id/image', (req: Request, res: Response) => {
+router.get('/api/employees/:id/image', (req: Request, res: Response) => {
     axios.request({
         method: 'GET',
         url: `https://soul-connection.fr/api/employees/${req.params.id}/image`,
@@ -183,7 +203,7 @@ router.get('/employees/:id/image', (req: Request, res: Response) => {
     });
 });
 
-router.get('/employees/me', (req: Request, res: Response) => {
+router.get('/api/employees/me', (req: Request, res: Response) => {
     const options = {
         method: 'GET',
         url: 'https://soul-connection.fr/api/employees/me',
@@ -192,7 +212,6 @@ router.get('/employees/me', (req: Request, res: Response) => {
             'Authorization': `Bearer ${jwToken}`
         }
     };
-    console.log(jwToken)
     axios.request(options)
     .then(response => {
         console.log(`[${Date()}] : Get employee n°${req.params.id};`);
