@@ -14,7 +14,55 @@ import { Category } from "../config/dbClass";
 
 router.use(express.json());
 
+
+//--------------------------------------------------------------------------//
+//-------------------------  FETCH FROM DATABASE  --------------------------//
+//--------------------------------------------------------------------------//
 router.get('/encounters', (req: Request, res: Response) => {
+    try {
+        (async () => {
+            const data: any = await client.getData(Category.Encounters, {})
+            console.log(`[${Date()}] : Got all encounters from the database;`);
+            res.status(res.statusCode).send(data);
+        })()
+    } catch (error: any) {
+        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+        console.log(error)
+        res.status(404).send(error);
+    }
+});
+
+router.get('/encounters/:id', (req: Request, res: Response) => {
+    try {
+        (async () => {
+            const data: any = await client.getData(Category.Encounters, {id: parseInt(req.params.id)});
+            console.log(`[${Date()}] : Got encounter n°${req.params.id} from Database;`);
+            res.status(res.statusCode).send(data[0]);
+        })();
+    } catch(error: any) {
+        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+        console.log(error)
+        res.status(404).send(error);
+    }
+});
+
+router.get('/encounters/customer/:id', (req: Request, res: Response) => {
+    try {
+        (async () => {
+            const data: any = await client.getData(Category.Encounters, {customer_id: parseInt(req.params.id)});
+            console.log(`[${Date()}] : Got customer's n°${req.params.id} encounters from Database;`);
+            res.status(res.statusCode).send(data);
+        })();
+    } catch (error: any) {
+    }
+});
+
+
+//--------------------------------------------------------------------------//
+//-----------------------  FETCH FROM EXTERNAL API  ------------------------//
+//--------------------------------------------------------------------------//
+
+router.get('/api/encounters', (req: Request, res: Response) => {
     axios.request({
         method: 'GET',
         url: 'https://soul-connection.fr/api/encounters',
@@ -57,23 +105,7 @@ router.get('/encounters', (req: Request, res: Response) => {
     });
 });
 
-router.get('/encounters/:id', (req: Request, res: Response) => {
-    try {
-        console.log(`[${Date()}] : Got encounter n°${req.params.id} from Database;`);
-        (async () => {
-            const data: any = await client.getData(
-                Category.Encounters,
-                {id: parseInt(req.params.id)})
-                res.status(200).send(data[0]);
-        })();
-    } catch(error) {
-        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
-        console.log(error)
-        res.status(404).send(error);
-    }
-});
-
-router.get('/encounters/customer/:id', (req: Request, res: Response) => {
+router.get('/api/encounters/customer/:id', (req: Request, res: Response) => {
     const options = {
         method: 'GET',
         url: `https://soul-connection.fr/api/encounters/customer/${req.params.id}`,
