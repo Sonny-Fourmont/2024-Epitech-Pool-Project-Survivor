@@ -74,36 +74,39 @@ const Dashboard: React.FC = () => {
     return values.length > 0 ? (sumValues(obj) / values.length).toFixed(2) : 0;
   };
 
+  const loadCustomersData = async () => {
+    try {
+      const result = await getDataList<CustomerData>(
+        'http://localhost:3001/customers',
+      );
+      setCustomersData(result);
+    } catch (error) {
+      console.error(error, 'Failed to fetch customers data');
+    }
+  };
+
+  const loadEventsData = async () => {
+    try {
+      const result = await getDataList<EventsData>(
+        'http://localhost:3001/events',
+      );
+      setEventsData(result);
+    } catch (error) {
+      console.error('Failed to fetch events data', error);
+    }
+  };
+
   useEffect(() => {
-    const loadCustomersData = async () => {
-      try {
-        const result = await getDataList<CustomerData>(
-          'http://localhost:3001/customers',
-        );
-        setCustomersData(result);
-      } catch (error) {
-        console.error(error, 'Failed to fetch customers data');
-      }
-    };
+    loadCustomersData();
+  }, []);
 
-    const loadEventsData = async () => {
-      try {
-        const result = await getDataList<EventsData>(
-          'http://localhost:3001/events',
-        );
-        setEventsData(result);
-      } catch (error) {
-        console.error('Failed to fetch events data', error);
-      }
-    };
-
+  useEffect(() => {
     if (eventData && eventData.length > 0) {
       setStats(calculateEventStatistics(eventData));
     }
 
-    loadCustomersData();
     loadEventsData();
-  }, [eventData]);
+  }, [customersData]);
 
   const totalMonthlyEvents = averageValues(stats.byMonth);
   const totalWeeklyEvents = averageValues(stats.byWeek);
