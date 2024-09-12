@@ -22,6 +22,7 @@ router.get('/events', (req: Request, res: Response) => {
     try {
         (async () => {
             const data: any = await client.getData(Category.Events, {})
+            console.log(`[${Date()}] : Got all events from the database;`);
             res.status(res.statusCode).send(data);
         })()
     } catch (error: any) {
