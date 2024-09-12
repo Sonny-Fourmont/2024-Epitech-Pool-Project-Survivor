@@ -18,7 +18,7 @@ const Profile: React.FC = () => {
     window.location.pathname.split('/').pop() || '',
   );
   const dataList = useLoading<CustomerData>(
-    'http://localhost:3001/customers' + clientID,
+    'http://localhost:3001/customers/' + clientID,
   );
 
   const handleImageError = (
@@ -143,14 +143,11 @@ const Profile: React.FC = () => {
                   <th>Comment</th>
                 </tr>
                 <tr>
-                  {' '}
-                  {/*for exemple*/}
                   <td>20 Jul 2024</td>
                   <td>Visa</td>
                   <td>-$45.00</td>
                   <td>Monthly Subscription</td>
-                </tr>{' '}
-                {/*for exemple end*/}
+                </tr>
               </tbody>
             </table>
           </table>
