@@ -19,14 +19,15 @@ const CoachesList: React.FC = () => {
   const dataList = useLoadingList<EmployeeData>(
     'http://localhost:3001/employees',
   );
-  const [data, setData] = useState<EmployeeData[]>(dataList.data || []);
+  const [data, setData] = useState<EmployeeData[]>([]);
   const [selectAll, setSelectAll] = useState<boolean>(false);
   const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [action, setAction] = useState<string>('');
 
   useEffect(() => {
-    setData(dataList.data || []);
+    const dataWoker = dataList.data.filter((item) => item.work === 'Coach');
+    setData(dataWoker);
   }, [dataList.data]);
 
   const activeAll = () => {
@@ -110,10 +111,9 @@ const CoachesList: React.FC = () => {
             </p>
           </div>
           <div>
-            <button className="prefabButton">☁ Export</button>
             <button
               className="prefabButton"
-              onClick={() => navigate('/account')}
+              onClick={() => navigate('/coachForm ')}
             >
               +
             </button>
@@ -125,7 +125,6 @@ const CoachesList: React.FC = () => {
               <div className="buttonAlign">
                 <select className="prefabButton" onChange={handleActionChange}>
                   <option>Bulk Action</option>
-                  <option>Edit</option>
                   <option>Move To Trash</option>
                 </select>
                 <button className="prefabButton" onClick={handleDeleteSelected}>
@@ -146,9 +145,9 @@ const CoachesList: React.FC = () => {
                   </label>
                 </th>
                 <th>Email</th>
-                <th>Phone</th>
-                <th>Number of customers</th>
-                <th>Actions</th>
+                <th>Genre</th>
+                <th>Birth day</th>
+                <th>Work</th>
               </tr>
             </thead>
             <tbody>
@@ -171,11 +170,9 @@ const CoachesList: React.FC = () => {
                     </label>
                   </td>
                   <td>{Employees.email}</td>
-                  <td>+342 675-6578</td>
-                  <td>911</td>
-                  <td>
-                    <LinkButton link="/coaches" name="..." />
-                  </td>
+                  <td>{Employees.gender}</td>
+                  <td>{Employees.birth_date}</td>
+                  <td>{Employees.work}</td>
                 </tr>
               ))}
               ;

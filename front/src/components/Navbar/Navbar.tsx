@@ -37,16 +37,16 @@ const NavBar: React.FC = () => {
             <LinkButton link="/clothes" name="Clothes" nav={true}></LinkButton>
           </div>
           <div className="nav-right">
-            <img
+            {/* <img
               src="../../../assets/message.png"
               alt=""
               className="nav-icon"
-            />
-            <img
+            /> */}
+            {/* <img
               src="../../../assets/united-states-of-america.png"
               alt=""
               className="nav-icon"
-            />
+            /> */}
             <NavLink to="/login">
               <img src="../../../assets/user.png" alt="" className="nav-icon" />
             </NavLink>

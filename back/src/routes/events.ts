@@ -14,7 +14,43 @@ import { Category } from "../config/dbClass";
 
 router.use(express.json());
 
+
+//--------------------------------------------------------------------------//
+//-------------------------  FETCH FROM DATABASE  --------------------------//
+//--------------------------------------------------------------------------//
 router.get('/events', (req: Request, res: Response) => {
+    try {
+        (async () => {
+            const data: any = await client.getData(Category.Events, {})
+            console.log(`[${Date()}] : Got all events from the database;`);
+            res.status(res.statusCode).send(data);
+        })()
+    } catch (error: any) {
+        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+        console.log(error)
+        res.sendStatus(404).send(error);
+    }
+});
+
+router.get('/events/:id', (req: Request, res: Response) => {
+    try {
+        console.log(`[${Date()}] : Got events n°${req.params.id} from Database;`);
+        (async () => {
+            const data: any = await client.getData(Category.Events, {id: parseInt(req.params.id)});
+            res.status(200).send(data[0]);
+        })();
+    } catch(error) {
+        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
+        console.log(error)
+        res.status(404).send(error);
+    }
+});
+
+
+//--------------------------------------------------------------------------//
+//-----------------------  FETCH FROM EXTERNAL API  ------------------------//
+//--------------------------------------------------------------------------//
+router.get('/api/events', (req: Request, res: Response) => {
     axios.request({
         method: 'GET',
         url: 'https://soul-connection.fr/api/events',
@@ -39,7 +75,7 @@ router.get('/events', (req: Request, res: Response) => {
                 client.addDocumentInCollection(Category.Events, response.data);
             })
             .catch(error => {
-                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on employee ${element.id};`);
+                console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred on events ${element.id};`);
                 // console.log(error.response.data)
             });
         });
@@ -55,22 +91,6 @@ router.get('/events', (req: Request, res: Response) => {
         // console.log(error.response.data)
         res.send(error.response);
     });
-});
-
-router.get('/events/:id', (req: Request, res: Response) => {
-    try {
-        console.log(`[${Date()}] : Got events n°${req.params.id} from Database;`);
-        (async () => {
-            const data: any = await client.getData(
-                Category.Events,
-                {id: parseInt(req.params.id)})
-                res.status(200).send(data[0]);
-        })();
-    } catch(error) {
-        console.log('\x1b[31m%s\x1b[0m', `[${Date()}] : An error occurred;`);
-        console.log(error)
-        res.status(404).send(error);
-    }
 });
 
 export default router;

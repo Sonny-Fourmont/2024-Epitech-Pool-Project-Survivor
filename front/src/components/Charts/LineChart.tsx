@@ -5,7 +5,7 @@
  ** LineChart
  */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
 
 const fakeJoiningData = [

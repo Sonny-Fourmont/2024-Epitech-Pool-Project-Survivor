@@ -2,52 +2,47 @@
  ** EPITECH PROJECT, 2024
  ** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
  ** File description:
- ** accountPage
+ ** CustomerForm
  */
 
 import React, { useState } from 'react';
 import NavBar from '../Navbar/Navbar';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { CustomerData } from '../GetBackendData/interfaces/CustomersInterface';
 
-interface AccountCreationFormState {
-  id: number;
-  email: string;
-  password: string;
-  name: string;
-  surname: string;
-  birth_date: string;
-  gender: string;
-  work: string;
-}
-
-const workList = [
-  'CEO',
-  'CTO',
-  'COO',
-  'VP of Marketing',
-  'Marketing Manager',
-  'Marketing Specialist',
-  'Finance Manager',
-  'Financial Analyst',
-  'Coach',
-  'Sales Manager',
-  'Sales Representative',
+const astroList = [
+  'Aries',
+  'Taurus',
+  'Gemini',
+  'Cancer',
+  'Leo',
+  'Virgo',
+  'Libra',
+  'Scorpio',
+  'Sagittarius',
+  'Capricorn',
+  'Aquarius',
+  'Pisces',
 ];
 
-const AccountPage: React.FC = () => {
+const CustomerForm: React.FC = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<AccountCreationFormState>({
+  const [formData, setFormData] = useState<CustomerData>({
+    _id: 0,
     id: 0,
     email: '',
-    password: '',
     name: '',
     surname: '',
     birth_date: '',
     gender: '',
-    work: '',
+    description: '',
+    astrological_sign: '',
+    phone_number: '',
+    address: '',
   });
-  const [formWork, setFormWork] = useState<string>('CEO');
+  const [description, setDescription] = useState<string>('');
+  const [astro, setAstro] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -59,24 +54,28 @@ const AccountPage: React.FC = () => {
   ): Promise<void> => {
     e.preventDefault();
     try {
-      const body: AccountCreationFormState = {
+      const body: CustomerData = {
+        _id: formData._id,
         id: formData.id,
         email: formData.email,
-        password: formData.password,
         name: formData.name,
         surname: formData.surname,
         birth_date: formData.birth_date,
         gender: formData.gender,
-        work: formWork,
+        description: description,
+        astrological_sign: astro,
+        phone_number: formData.phone_number,
+        address: formData.address,
       };
+      console.log('Sending body:', body);
       const res: AxiosResponse = await axios.post(
-        'http://localhost:3001/employees/register',
+        'http://localhost:3001/customers/register',
         body,
       );
       if (res) {
-        console.log('Employee sucessfully created');
+        console.log('Customer sucessfully created');
       } else {
-        console.error('Cannot send the newly created employee');
+        console.error('Cannot send the newly created customer');
       }
       navigate('/dashboard');
     } catch (error) {
@@ -90,7 +89,7 @@ const AccountPage: React.FC = () => {
     <>
       <NavBar />
       <div className="account">
-        <p className="account-header">New employee</p>
+        <p className="account-header">New customer</p>
         <form onSubmit={handleSubmit} className="account-form">
           <label htmlFor="email" className="account-title">
             Email:{' '}
@@ -103,21 +102,6 @@ const AccountPage: React.FC = () => {
             placeholder="your-email@mail.com"
             onChange={handleChange}
             value={formData.email}
-            required
-            maxLength={40}
-          />
-
-          <label htmlFor="password" className="account-title">
-            Password:{' '}
-          </label>
-          <input
-            className="account-text-field"
-            type="password"
-            name="password"
-            id="password"
-            placeholder="********"
-            onChange={handleChange}
-            value={formData.password}
             required
             maxLength={40}
           />
@@ -167,23 +151,6 @@ const AccountPage: React.FC = () => {
             maxLength={40}
           />
 
-          <label htmlFor="work" className="account-title">
-            Work:{' '}
-          </label>
-          <select
-            className="account-dropdown"
-            required
-            onChange={(e) => {
-              setFormWork(e.target.value);
-            }}
-          >
-            {workList.map((work) => (
-              <option key={work} value={work}>
-                {work}
-              </option>
-            ))}
-          </select>
-
           <label htmlFor="gender" className="account-title">
             Gender:{' '}
           </label>
@@ -212,6 +179,67 @@ const AccountPage: React.FC = () => {
             </div>
           </div>
 
+          <label htmlFor="description" className="account-title">
+            Description:
+          </label>
+          <textarea
+            className="account-text-field"
+            name="description"
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            required
+            rows={4}
+            cols={20}
+          />
+
+          <label htmlFor="astro" className="account-title">
+            Astrological Sign:{' '}
+          </label>
+          <select
+            className="account-dropdown"
+            required
+            onChange={(e) => {
+              setAstro(e.target.value);
+            }}
+          >
+            {astroList.map((astro) => (
+              <option key={astro} value={astro}>
+                {astro}
+              </option>
+            ))}
+          </select>
+
+          <label htmlFor="phone_number" className="account-title">
+            Phone Number:{' '}
+          </label>
+          <input
+            className="account-text-field"
+            type="tel"
+            name="phone_number"
+            id="phone_number"
+            placeholder="Phone Number"
+            onChange={handleChange}
+            value={formData.phone_number}
+            required
+            maxLength={30}
+          />
+
+          <label htmlFor="address" className="account-title">
+            Adress:{' '}
+          </label>
+          <input
+            className="account-text-field"
+            type="text"
+            name="address"
+            id="address"
+            placeholder="Adress"
+            onChange={handleChange}
+            value={formData.address}
+            required
+            maxLength={10}
+          />
+
           <button type="submit">Create</button>
         </form>
       </div>
@@ -219,16 +247,4 @@ const AccountPage: React.FC = () => {
   );
 };
 
-{
-  /* <label htmlFor='assign-client' className='account-title'>Assign Client: </label>
-  <select className='account-dropdown' required>
-    <option value={formData.work}>Option 1</option>
-    <option value={formData.work}>Option 2</option>
-    <option value={formData.work}>Option 3</option>
-  </select> */
-}
-{
-  /* <MultiSelectDropdown/> */
-}
-
-export default AccountPage;
+export default CustomerForm;

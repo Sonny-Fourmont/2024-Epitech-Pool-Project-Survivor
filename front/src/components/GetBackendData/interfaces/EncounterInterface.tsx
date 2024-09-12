@@ -6,10 +6,17 @@
  */
 
 export interface EncounterData {
-  id: number;
+  idC: number;
   customer_id: number;
   date: string;
   rating: number;
   comment: string;
   source: string;
+}
+
+export interface EncounterIDData {
+  ID: number;
+  customer_id: number;
+  date: string;
+  rating: number;
 }
