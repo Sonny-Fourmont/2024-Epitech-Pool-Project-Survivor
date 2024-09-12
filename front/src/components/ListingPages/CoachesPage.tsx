@@ -113,7 +113,7 @@ const CoachesList: React.FC = () => {
             {/* <button className="prefabButton">☁ Export</button> */}
             <button
               className="prefabButton"
-              onClick={() => navigate('/account')}
+              onClick={() => navigate('/coachForm ')}
             >
               +
             </button>

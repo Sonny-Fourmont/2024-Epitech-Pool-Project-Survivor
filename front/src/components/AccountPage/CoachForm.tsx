@@ -21,21 +21,7 @@ interface AccountCreationFormState {
   work: string;
 }
 
-const workList = [
-  'CEO',
-  'CTO',
-  'COO',
-  'VP of Marketing',
-  'Marketing Manager',
-  'Marketing Specialist',
-  'Finance Manager',
-  'Financial Analyst',
-  'Coach',
-  'Sales Manager',
-  'Sales Representative',
-];
-
-const AccountPage: React.FC = () => {
+const CoachForm: React.FC = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<AccountCreationFormState>({
     id: 0,
@@ -45,9 +31,8 @@ const AccountPage: React.FC = () => {
     surname: '',
     birth_date: '',
     gender: '',
-    work: '',
+    work: 'Coach',
   });
-  const [formWork, setFormWork] = useState<string>('CEO');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -59,19 +44,10 @@ const AccountPage: React.FC = () => {
   ): Promise<void> => {
     e.preventDefault();
     try {
-      const body: AccountCreationFormState = {
-        id: formData.id,
-        email: formData.email,
-        password: formData.password,
-        name: formData.name,
-        surname: formData.surname,
-        birth_date: formData.birth_date,
-        gender: formData.gender,
-        work: formWork,
-      };
+      console.log('Sending formdata:', formData);
       const res: AxiosResponse = await axios.post(
         'http://localhost:3001/employees/register',
-        body,
+        formData,
       );
       if (res) {
         console.log('Employee sucessfully created');
@@ -90,7 +66,7 @@ const AccountPage: React.FC = () => {
     <>
       <NavBar />
       <div className="account">
-        <p className="account-header">New employee</p>
+        <p className="account-header">New coach</p>
         <form onSubmit={handleSubmit} className="account-form">
           <label htmlFor="email" className="account-title">
             Email:{' '}
@@ -170,19 +146,16 @@ const AccountPage: React.FC = () => {
           <label htmlFor="work" className="account-title">
             Work:{' '}
           </label>
-          <select
-            className="account-dropdown"
+          <input
+            className="account-text-field"
+            type="text"
+            name="work"
+            id="work"
+            placeholder="Coach"
+            value={formData.work}
+            defaultValue={'Coach'}
             required
-            onChange={(e) => {
-              setFormWork(e.target.value);
-            }}
-          >
-            {workList.map((work) => (
-              <option key={work} value={work}>
-                {work}
-              </option>
-            ))}
-          </select>
+          />
 
           <label htmlFor="gender" className="account-title">
             Gender:{' '}
@@ -227,8 +200,9 @@ const AccountPage: React.FC = () => {
     <option value={formData.work}>Option 3</option>
   </select> */
 }
+
 {
   /* <MultiSelectDropdown/> */
 }
 
-export default AccountPage;
+export default CoachForm;
