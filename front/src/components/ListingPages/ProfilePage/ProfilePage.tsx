@@ -18,7 +18,7 @@ const Profile: React.FC = () => {
     window.location.pathname.split('/').pop() || '',
   );
   const dataList = useLoading<CustomerData>(
-    'http://localhost:3001/customers' + clientID,
+    'http://localhost:3001/customers/' + clientID,
   );
 
   const handleImageError = (

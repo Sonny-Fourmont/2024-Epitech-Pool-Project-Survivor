@@ -7,20 +7,18 @@
 
 import React, { useEffect, useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
-import { getDataList } from '../GetBackendData/GetBackendData';
 import { EventsData } from '../GetBackendData/interfaces/EventsInterface';
+import { getDaysOfMonth, StatDate } from '../Tools/getDaysOfMont';
 
-type StatDate = {
-  month: string;
-  year: number;
+type StackedBarChartProps = {
+  sourceEventData: EventsData[] | undefined;
 };
 
-export default function StackedBarChart() {
+export default function StackedBarChart({
+  sourceEventData,
+}: StackedBarChartProps) {
   const [eventData, setEventData] = useState<number[]>([]);
   const [daysList, setDayList] = useState<string[]>([]);
-  const [sourceEventData, setSourceEventData] = useState<
-    EventsData[] | undefined
-  >([]);
 
   const calculateEventStat = (date: StatDate) => {
     const updatedEventsData = Array(daysList.length).fill(0);
@@ -41,60 +39,7 @@ export default function StackedBarChart() {
   };
 
   useEffect(() => {
-    const loadEventsData = async () => {
-      try {
-        const result = await getDataList<EventsData>(
-          'http://localhost:3001/events',
-        );
-        setSourceEventData(result);
-      } catch (error) {
-        console.error('Failed to fetch events data', error);
-      }
-    };
-
-    function getDaysOfMonth(statDate: StatDate) {
-      const { month, year } = statDate;
-
-      const objectDayList: string[] = [];
-
-      let daysInMonth = 0;
-      if (month === '02') {
-        if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
-          daysInMonth = 29;
-        } else {
-          daysInMonth = 28;
-        }
-      } else {
-        if (
-          month === '01' ||
-          month === '03' ||
-          month === '05' ||
-          month === '07' ||
-          month === '08' ||
-          month === '10' ||
-          month === '12'
-        ) {
-          daysInMonth = 31;
-        } else {
-          daysInMonth = 30;
-        }
-      }
-
-      for (let day = 1; day <= daysInMonth; day++) {
-        let numDay: string = day.toString();
-        if (day < 10) {
-          numDay = '0' + day;
-        }
-        const dayString = numDay + '/' + month + '/' + year;
-        objectDayList.push(dayString);
-      }
-
-      setDayList(objectDayList);
-    }
-
-    loadEventsData();
-
-    getDaysOfMonth({ month: '03', year: 2024 });
+    setDayList(getDaysOfMonth({ month: '03', year: 2024 }));
   }, []);
 
   useEffect(() => {
