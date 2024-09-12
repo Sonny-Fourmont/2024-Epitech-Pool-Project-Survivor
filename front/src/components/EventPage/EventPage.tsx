@@ -78,9 +78,9 @@ const EventPage: React.FC = () => {
           <div className="interSpace">
             <h2 className="titleTopPage">Events</h2>
           </div>
-          <div>
+          {/* <div>
             <button className="prefabButton">+ Add Event</button>
-          </div>
+          </div> */}
         </div>
 
         <div className="container">

@@ -118,10 +118,10 @@ const Dashboard: React.FC = () => {
             <h1>Dashboard</h1>
             <h3>Welcome!</h3>
           </div>
-          <div className="dashboard-right">
+          {/* <div className="dashboard-right">
             <button className="dashboard-dropdown">Last 30 Days</button>
             <button className="dashboard-popup">Reports</button>
-          </div>
+          </div> */}
         </div>
 
         <div className="dashboard-cards-duo">
@@ -132,7 +132,7 @@ const Dashboard: React.FC = () => {
                   <h2>Customers Overview</h2>
                   <h4>When customers have join in the time</h4>
                 </th>
-                <th className="duration-button">
+                {/* <th className="duration-button">
                   <button className="trigger-button trigger-button-left">
                     7 D
                   </button>
@@ -140,18 +140,18 @@ const Dashboard: React.FC = () => {
                   <button className="trigger-button trigger-button-right">
                     3 M
                   </button>
-                </th>
+                </th> */}
               </tr>
               <tr className="card-values">
                 <td className="card-values-first-group">
                   <p className="card-values-title">Customers</p>
                   <p className="card-values-number">{customersData?.length}</p>
-                  <p className="green">+ XX.X%</p>
+                  {/* <p className="green">+ XX.X%</p> */}
                 </td>
                 <td className="card-values-second-group">
                   <p className="card-values-title">Doing meetings</p>
-                  <p className="card-values-number">XX%</p>
-                  <p className="red">- XX.X%</p>
+                  <p className="card-values-number">XX</p>
+                  {/* <p className="red">- XX.X%</p> */}
                 </td>
                 <td className="card-values-second-group">
                   <p className="card-values-title">Customers by coach</p>
@@ -171,25 +171,25 @@ const Dashboard: React.FC = () => {
                   <h2>Events</h2>
                   <h4>Our events and their status</h4>
                 </th>
-                <th className="duration-button">
+                {/* <th className="duration-button">
                   <button className="trigger-button">?</button>
-                </th>
+                </th> */}
               </tr>
               <tr className="card-values">
                 <td className="card-values-first-group">
                   <p className="card-values-title">Monthly</p>
                   <p className="card-values-number">{totalMonthlyEvents}</p>
-                  <p className="green">+ XX.X%</p>
+                  {/* <p className="green">+ XX.X%</p> */}
                 </td>
                 <td className="card-values-second-group">
                   <p className="card-values-title">Weekly</p>
                   <p className="card-values-number">{totalWeeklyEvents}</p>
-                  <p className="red">- XX.X%</p>
+                  {/* <p className="red">- XX.X%</p> */}
                 </td>
                 <td className="card-values-second-group">
                   <p className="card-values-title">Daily (Avg)</p>
                   <p className="card-values-number">{averageDailyEvents}</p>
-                  <p className="green">+XX.X%</p>
+                  {/* <p className="green">+XX.X%</p> */}
                 </td>
               </tr>
               <tr className="card-chart">
@@ -207,11 +207,11 @@ const Dashboard: React.FC = () => {
                   <h2>Customers by Country</h2>
                 </th>
                 <th className="duration-button">
-                  <select className="trigger-button">
+                  {/* <select className="trigger-button">
                     <option>This Month</option>
                     <option>This Week</option>
                     <option>Today</option>
-                  </select>
+                  </select> */}
                 </th>
               </tr>
               <tr className="card-chart">
@@ -227,11 +227,11 @@ const Dashboard: React.FC = () => {
                   <h2>Meetings top sources</h2>
                 </th>
                 <th className="duration-button">
-                  <select className="trigger-button">
+                  {/* <select className="trigger-button">
                     <option>This Month</option>
                     <option>This Week</option>
                     <option>Today</option>
-                  </select>
+                  </select> */}
                 </th>
               </tr>
               <tr>
