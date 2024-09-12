@@ -110,7 +110,7 @@ const CoachesList: React.FC = () => {
             </p>
           </div>
           <div>
-            <button className="prefabButton">☁ Export</button>
+            {/* <button className="prefabButton">☁ Export</button> */}
             <button
               className="prefabButton"
               onClick={() => navigate('/account')}
@@ -125,7 +125,7 @@ const CoachesList: React.FC = () => {
               <div className="buttonAlign">
                 <select className="prefabButton" onChange={handleActionChange}>
                   <option>Bulk Action</option>
-                  <option>Edit</option>
+                  {/* <option>Edit</option> */}
                   <option>Move To Trash</option>
                 </select>
                 <button className="prefabButton" onClick={handleDeleteSelected}>
