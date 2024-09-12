@@ -1,15 +1,9 @@
-/*
- ** EPITECH PROJECT, 2024
- ** B-SVR-500-LYN-5-1-survivor-killian.cottrelle
- ** File description:
- ** CustomersListPage
- */
-
 import React, { useState, useEffect } from 'react';
 import NavBar from '../Navbar/Navbar';
 import LinkButton from '../LinkButton';
 import { useLoadingList } from '../GetBackendData/GetBackendData';
 import { CustomerData } from '../GetBackendData/interfaces/CustomersInterface';
+import axios from 'axios';
 import './ListingPage.css';
 
 const CustomersList: React.FC = () => {
@@ -20,14 +14,17 @@ const CustomersList: React.FC = () => {
   const [selectAll, setSelectAll] = useState<boolean>(false);
   const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [action, setAction] = useState<string>('');
 
   useEffect(() => {
     setData(dataList.data || []);
+    setCheckedItems(new Array(dataList.data.length).fill(false));
   }, [dataList.data]);
 
   const activeAll = () => {
-    setSelectAll(!selectAll);
-    setCheckedItems(new Array(data.length).fill(!selectAll));
+    const allChecked = !selectAll;
+    setSelectAll(allChecked);
+    setCheckedItems(new Array(data.length).fill(allChecked));
   };
 
   const handleCheckboxChange = (index: number) => {
@@ -52,6 +49,37 @@ const CustomersList: React.FC = () => {
       return 0;
     });
     setData(sortedData);
+  };
+
+  const handleDeleteSelected = async () => {
+    if (action === 'Move To Trash') {
+      const idsToDelete = data
+        .filter((_, index) => checkedItems[index])
+        .map((customer) => customer.id);
+
+      try {
+        await Promise.all(
+          idsToDelete.map((id) =>
+            axios.delete(`http://localhost:3001/customers/delete/${id}`),
+          ),
+        );
+
+        const remainingData = data.filter(
+          (customer) => !idsToDelete.includes(customer.id),
+        );
+        setData(remainingData);
+        setCheckedItems(new Array(remainingData.length).fill(false));
+        setSelectAll(false);
+      } catch (error) {
+        console.error('Failed to delete selected customers:', error);
+      }
+    } else {
+      console.log('No valid action selected or action is not Move To Trash');
+    }
+  };
+
+  const handleActionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setAction(e.target.value);
   };
 
   if (dataList.loading) {
@@ -84,12 +112,14 @@ const CustomersList: React.FC = () => {
           <table className="clientList space">
             <thead>
               <div className="buttonAlign">
-                <select className="prefabButton">
-                  <option>Bulk Action</option>
-                  <option>Edit</option>
-                  <option>Move To Trash</option>
+                <select className="prefabButton" onChange={handleActionChange}>
+                  <option value="">Bulk Action</option>
+                  <option value="Edit">Edit</option>
+                  <option value="Move To Trash">Move To Trash</option>
                 </select>
-                <button className="prefabButton">Apply</button>
+                <button className="prefabButton" onClick={handleDeleteSelected}>
+                  Apply
+                </button>
                 <img
                   src="../../assets/sort.png"
                   alt="sort"
@@ -100,7 +130,11 @@ const CustomersList: React.FC = () => {
               <tr className="leftAlign">
                 <th>
                   <label>
-                    <input type="checkbox" onClick={activeAll} />
+                    <input
+                      type="checkbox"
+                      checked={selectAll}
+                      onClick={activeAll}
+                    />
                     Customers
                   </label>
                 </th>
