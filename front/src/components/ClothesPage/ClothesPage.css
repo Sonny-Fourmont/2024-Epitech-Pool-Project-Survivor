@@ -89,3 +89,15 @@
 .arrowCloth:active {
   color: #c2185b;
 }
+
+.selectCustomers {
+  margin-right: 1vw;
+  font-size: 15px;
+  font-weight: bold;
+  border: 1px solid #f48fb1;
+  background-color: #fce4ec;
+  color: #c2185b;
+  border-radius: 0.3vw;
+  width: 10vw;
+  height: 2vw;
+}

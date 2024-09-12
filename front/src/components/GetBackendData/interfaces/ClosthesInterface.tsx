@@ -6,6 +6,9 @@
  */
 
 export interface ClothesData {
-  id: number;
-  type: string;
+  body: {
+    id: number;
+    type: string;
+  };
+  customerId: number;
 }
