@@ -6,9 +6,11 @@
  */
 
 export interface PaymentCustomerData {
+  body: {
+    date: string;
+    payment_method: string;
+    amount: number;
+    comment: string;
+  };
   id: number;
-  date: string;
-  payment_method: string;
-  amount: number;
-  comment: string;
 }
